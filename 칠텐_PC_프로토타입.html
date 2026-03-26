@@ -597,7 +597,7 @@ select.mw-input{cursor:pointer;-webkit-appearance:none;appearance:none;backgroun
 
 /* ===== CLUB CARDS ===== */
 /* ===== CLUB PROMO BOARD ===== */
-.cp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+.cp-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;}
 .cp-card{background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden;cursor:pointer;transition:all .2s;}
 .cp-card:hover{box-shadow:0 6px 24px rgba(0,71,187,.1);transform:translateY(-2px);}
 .cp-thumb{position:relative;aspect-ratio:16/9;overflow:hidden;background:linear-gradient(135deg,var(--sub-blue),var(--sub-green));}
@@ -1485,6 +1485,9 @@ select.mw-input{cursor:pointer;-webkit-appearance:none;appearance:none;backgroun
     -->
     <!-- [비로그인 상태] -->
     <div class="h-auth-btns">
+      <div class="h-chat-list-btn" onclick="openAuthModal('login')" title="채팅 (로그인 필요)">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      </div>
       <button class="h-login-btn" onclick="openAuthModal('login')">로그인</button>
       <button class="h-signup-btn" onclick="openAuthModal('signup')">회원가입</button>
     </div>
@@ -1568,7 +1571,7 @@ select.mw-input{cursor:pointer;-webkit-appearance:none;appearance:none;backgroun
   <!-- 중고장터 + 자유게시판 -->
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px;">
     <div class="card">
-      <div class="sec-title" style="cursor:pointer;color:var(--blue)" onclick="go('market')">🛒 최근 중고장터 →</div>
+      <div class="sec-title" style="cursor:pointer;color:var(--blue)" onclick="go('market')">🛒 최근 중고장터</div>
       <div style="display:flex;flex-direction:column;gap:0;">
         <div style="display:flex;align-items:center;padding:9px 0;border-bottom:1px solid var(--line);gap:10px;cursor:pointer;" onclick="openProductDetail(1)" onmouseover="this.style.color='var(--blue)'" onmouseout="this.style.color=''">
           <img src="bowling_image/ball/ball.jpg" style="width:36px;height:36px;border-radius:6px;object-fit:cover;flex-shrink:0;"><span style="font-size:13px;flex:1;">블랙위도우 블루 우레탄 15p</span><span style="font-weight:800;color:var(--blue);font-size:12px;">150,000원</span><span style="font-size:11px;color:var(--text2);flex-shrink:0;">14:10</span>
@@ -1588,7 +1591,7 @@ select.mw-input{cursor:pointer;-webkit-appearance:none;appearance:none;backgroun
       </div>
     </div>
     <div class="card">
-      <div class="sec-title" style="cursor:pointer;color:var(--blue)" onclick="go('free')">📝 자유게시판 →</div>
+      <div class="sec-title" style="cursor:pointer;color:var(--blue)" onclick="go('free')">📝 자유게시판</div>
       <div style="display:flex;flex-direction:column;gap:0;">
         <div style="padding:9px 0;border-bottom:1px solid var(--line);font-size:13px;cursor:pointer;display:flex;align-items:center;gap:8px;" onclick="openFreeDetail(8)" onmouseover="this.style.color='var(--blue)'" onmouseout="this.style.color=''"><span style="flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">프로샵에서 샌딩볼에 폴리싱 해버림</span><span style="font-size:11px;color:var(--text2);flex-shrink:0;">03.19</span></div>
         <div style="padding:9px 0;border-bottom:1px solid var(--line);font-size:13px;cursor:pointer;display:flex;align-items:center;gap:8px;" onclick="openFreeDetail(9)" onmouseover="this.style.color='var(--blue)'" onmouseout="this.style.color=''"><span style="flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">레인컨디션이 요즘 왜이렇게 힘드나요</span><span style="font-size:11px;color:var(--text2);flex-shrink:0;">03.23</span></div>
@@ -1603,7 +1606,7 @@ select.mw-input{cursor:pointer;-webkit-appearance:none;appearance:none;backgroun
 
   <!-- 이벤트 소식 -->
   <div class="card" style="margin-bottom:24px;">
-    <div class="sec-title" style="cursor:pointer;color:var(--blue)" onclick="go('events')">🎉 이벤트 소식 →</div>
+    <div class="sec-title" style="cursor:pointer;color:var(--blue)" onclick="go('events')">🎉 이벤트 소식</div>
     <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;">
       <div style="padding:10px;border-radius:8px;background:var(--sub-blue);font-size:12px;cursor:pointer;" onclick="openEventDetail(2)"><strong style="color:var(--blue);">더케이볼링장</strong><br>캡슐 이벤트 95탄<div style="font-size:10px;color:var(--text2);margin-top:4px;">03.21</div></div>
       <div style="padding:10px;border-radius:8px;background:var(--sub-green);font-size:12px;cursor:pointer;" onclick="openEventDetail(3)"><strong style="color:#009b7a;">포커스볼링센터</strong><br>아메리카노 천원 이벤트<div style="font-size:10px;color:var(--text2);margin-top:4px;">03.17</div></div>
@@ -1618,7 +1621,7 @@ select.mw-input{cursor:pointer;-webkit-appearance:none;appearance:none;backgroun
   <!-- 클럽홍보 + 대회 -->
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px;">
     <div class="card">
-      <div class="sec-title" style="cursor:pointer;color:var(--blue)" onclick="go('clubs')">🏆 클럽홍보게시판 →</div>
+      <div class="sec-title" style="cursor:pointer;color:var(--blue)" onclick="go('clubs')">🏆 클럽홍보게시판</div>
       <div style="display:flex;flex-direction:column;gap:0;">
         <div style="padding:9px 0;border-bottom:1px solid var(--line);font-size:13px;cursor:pointer;display:flex;align-items:center;gap:8px;" onclick="openClubDetail(2)" onmouseover="this.style.color='var(--blue)'" onmouseout="this.style.color=''"><span class="badge b-blue" style="font-size:10px;flex-shrink:0;">서울도봉</span><span style="flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">팀플레이 볼링클럽에서 회원을 모집합니다</span><span style="font-size:11px;color:var(--text2);flex-shrink:0;">03.23</span></div>
         <div style="padding:9px 0;border-bottom:1px solid var(--line);font-size:13px;cursor:pointer;display:flex;align-items:center;gap:8px;" onclick="openClubDetail(3)" onmouseover="this.style.color='var(--blue)'" onmouseout="this.style.color=''"><span class="badge b-blue" style="font-size:10px;flex-shrink:0;">서울중구</span><span style="flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">[모집]황학동 볼링볼링 상주클럽 '볼라썸'</span><span style="font-size:11px;color:var(--text2);flex-shrink:0;">03.20</span></div>
@@ -1628,7 +1631,7 @@ select.mw-input{cursor:pointer;-webkit-appearance:none;appearance:none;backgroun
       </div>
     </div>
     <div class="card">
-      <div class="sec-title" style="cursor:pointer;color:var(--blue)" onclick="go('tour')">🎯 대회게시판 →</div>
+      <div class="sec-title" style="cursor:pointer;color:var(--blue)" onclick="go('tour')">🎯 대회게시판</div>
       <div style="display:flex;flex-direction:column;gap:0;">
         <div style="padding:9px 0;border-bottom:1px solid var(--line);font-size:13px;cursor:pointer;display:flex;align-items:center;gap:8px;" onclick="openTourDetail(1)" onmouseover="this.style.color='var(--blue)'" onmouseout="this.style.color=''"><span class="badge b-green" style="font-size:10px;">포커스볼링센터</span><span style="flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">포커스 올핀대회</span><span style="font-size:11px;color:var(--text2);flex-shrink:0;">03.25</span></div>
         <div style="padding:9px 0;border-bottom:1px solid var(--line);font-size:13px;cursor:pointer;display:flex;align-items:center;gap:8px;" onclick="openTourDetail(2)" onmouseover="this.style.color='var(--blue)'" onmouseout="this.style.color=''"><span class="badge b-green" style="font-size:10px;">퍼펙트볼&amp;펀</span><span style="flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">9핀대회</span><span style="font-size:11px;color:var(--text2);flex-shrink:0;">03.24</span></div>
@@ -1639,8 +1642,8 @@ select.mw-input{cursor:pointer;-webkit-appearance:none;appearance:none;backgroun
     </div>
   </div>
 
-  <!-- 제휴 볼링장 (랜덤 노출) -->
-  <div class="sec-title">🎳 제휴 볼링장</div>
+  <!-- 칠텐제휴볼링장 (랜덤 노출) -->
+  <div class="sec-title" style="border-bottom:none;padding-bottom:0;">🎳 칠텐제휴볼링장</div>
   <div class="grid4" id="comm-partner-alleys" style="margin-bottom:24px;"></div>
 
   <!-- 앱 설치 (주목도 낮춤) -->
@@ -2383,7 +2386,66 @@ select.mw-input{cursor:pointer;-webkit-appearance:none;appearance:none;backgroun
   </div>
   <div class="dl-subtitle">칠텐 플랫폼의 핵심 지표와 볼러 분석 데이터를 한눈에 확인하세요.</div>
 
-  <!-- ── 핵심 지표 카드 4개 ── -->
+  <!-- 1. 점수별 회원 분포 -->
+  <div class="dl-section">
+    <div class="dl-section-title"><i data-lucide="bar-chart-3" class="sec-ic"></i> 점수별 회원 분포</div>
+    <div style="display:flex;gap:8px;margin-bottom:16px;">
+      <button class="fchip on" onclick="setDlAvgTab(this,'all')">전체</button>
+      <button class="fchip" onclick="setDlAvgTab(this,'male')">남자</button>
+      <button class="fchip" onclick="setDlAvgTab(this,'female')">여자</button>
+    </div>
+    <div class="dl-chart-wrap" style="max-height:380px;"><canvas id="dlBellCurveChart"></canvas></div>
+    <div class="dl-legend" id="dl-bell-legend">
+      <div class="dl-legend-item"><span class="ldot" style="background:rgba(0,71,187,.15);"></span> 인원수 분포</div>
+      <div class="dl-legend-item"><span class="ldot" style="background:var(--red);border-radius:50%;"></span> 평균선</div>
+    </div>
+  </div>
+
+  <!-- 2. 기록 유형별 비율 / 연령대별 평균 에버 -->
+  <div class="dl-chart-row">
+    <div class="dl-section" style="margin-bottom:0;">
+      <div class="dl-section-title"><i data-lucide="pie-chart" class="sec-ic"></i> 기록 유형별 비율</div>
+      <div style="display:flex;align-items:center;gap:24px;">
+        <div class="dl-chart-wrap" style="max-width:220px;max-height:220px;"><canvas id="dlRecordTypeChart"></canvas></div>
+        <div style="flex:1;">
+          <div class="dl-stat-mini"><span class="dot" style="background:var(--blue);"></span><span class="lbl">정모 기록</span><span class="val">64.9%</span></div>
+          <div class="dl-stat-mini"><span class="dot" style="background:var(--green);"></span><span class="lbl">연습 기록</span><span class="val">35.1%</span></div>
+          <div style="border-top:1px solid #f0f2f5;margin-top:10px;padding-top:10px;">
+            <div class="dl-stat-mini"><span class="dot" style="background:var(--text1);"></span><span class="lbl">금주 총 기록</span><span class="val" style="color:var(--blue);font-size:18px;">43,520</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="dl-section" style="margin-bottom:0;">
+      <div class="dl-section-title"><i data-lucide="users" class="sec-ic"></i> 연령대별 평균 에버</div>
+      <div class="dl-chart-wrap" style="max-height:360px;"><canvas id="dlAgeAvgChart"></canvas></div>
+      <div class="dl-legend">
+        <div class="dl-legend-item"><span class="ldot" style="background:var(--blue);"></span> 남성</div>
+        <div class="dl-legend-item"><span class="ldot" style="background:#E30250;"></span> 여성</div>
+        <div class="dl-legend-item"><span class="ldot" style="background:var(--green);"></span> 전체 평균</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. 에버 레벨별 분포 / 레벨별 평균 에버 비교 -->
+  <div class="dl-chart-row">
+    <div class="dl-section" style="margin-bottom:0;">
+      <div class="dl-section-title"><i data-lucide="target" class="sec-ic"></i> 에버 레벨별 분포</div>
+      <div class="dl-chart-wrap"><canvas id="dlLevelBarChart"></canvas></div>
+    </div>
+    <div class="dl-section" style="margin-bottom:0;">
+      <div class="dl-section-title"><i data-lucide="bar-chart-3" class="sec-ic"></i> 레벨별 평균 에버 비교</div>
+      <div class="dl-chart-wrap"><canvas id="dlLevelAvgChart"></canvas></div>
+    </div>
+  </div>
+
+  <!-- 4. 레벨별 상세 통계 -->
+  <div class="dl-section">
+    <div class="dl-section-title"><i data-lucide="clipboard-list" class="sec-ic"></i> 레벨별 상세 통계</div>
+    <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:14px;" id="dl-level-summary"></div>
+  </div>
+
+  <!-- 5. 핵심 지표 카드 4개 (하단) -->
   <div class="dl-grid">
     <div class="dl-card c-blue">
       <div class="dl-icon ic-glass"><i data-lucide="users"></i></div>
@@ -2409,66 +2471,6 @@ select.mw-input{cursor:pointer;-webkit-appearance:none;appearance:none;backgroun
       <div class="dl-label">전국 볼링장 수</div>
       <div class="dl-trend up">▲ 3 이번달</div>
     </div>
-  </div>
-
-  <!-- ── 주차별 기록수 추이 + 기록 유형 비율 ── -->
-  <div class="dl-chart-row">
-    <div class="dl-section" style="margin-bottom:0;">
-      <div class="dl-section-title"><i data-lucide="trending-up" class="sec-ic"></i> 주차별 기록수 추이</div>
-      <div class="dl-chart-wrap"><canvas id="dlWeeklyTrendChart"></canvas></div>
-      <div class="dl-legend" id="dl-trend-legend">
-        <div class="dl-legend-item"><span class="ldot" style="background:var(--blue);"></span> 정모 기록</div>
-        <div class="dl-legend-item"><span class="ldot" style="background:var(--green);"></span> 연습 기록</div>
-        <div class="dl-legend-item"><span class="ldot" style="background:#f59e0b;"></span> 대회 기록</div>
-      </div>
-    </div>
-    <div class="dl-section" style="margin-bottom:0;">
-      <div class="dl-section-title"><i data-lucide="pie-chart" class="sec-ic"></i> 기록 유형별 비율</div>
-      <div style="display:flex;align-items:center;gap:24px;">
-        <div class="dl-chart-wrap" style="max-width:220px;max-height:220px;"><canvas id="dlRecordTypeChart"></canvas></div>
-        <div style="flex:1;">
-          <div class="dl-stat-mini"><span class="dot" style="background:var(--blue);"></span><span class="lbl">정모 기록</span><span class="val">58.2%</span></div>
-          <div class="dl-stat-mini"><span class="dot" style="background:var(--green);"></span><span class="lbl">연습 기록</span><span class="val">31.5%</span></div>
-          <div class="dl-stat-mini"><span class="dot" style="background:#f59e0b;"></span><span class="lbl">대회 기록</span><span class="val">10.3%</span></div>
-          <div style="border-top:1px solid #f0f2f5;margin-top:10px;padding-top:10px;">
-            <div class="dl-stat-mini"><span class="dot" style="background:var(--text1);"></span><span class="lbl">금주 총 기록</span><span class="val" style="color:var(--blue);font-size:18px;">43,520</span></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ── 에버 분포 정규곡선 그래프 ── -->
-  <div class="dl-section">
-    <div class="dl-section-title"><i data-lucide="bell" class="sec-ic"></i> 에버 분포 정규곡선 (점수별 인원수)</div>
-    <div style="display:flex;gap:8px;margin-bottom:16px;">
-      <button class="fchip on" onclick="setDlAvgTab(this,'all')">전체</button>
-      <button class="fchip" onclick="setDlAvgTab(this,'male')">남자</button>
-      <button class="fchip" onclick="setDlAvgTab(this,'female')">여자</button>
-    </div>
-    <div class="dl-chart-wrap" style="max-height:380px;"><canvas id="dlBellCurveChart"></canvas></div>
-    <div class="dl-legend" id="dl-bell-legend">
-      <div class="dl-legend-item"><span class="ldot" style="background:rgba(0,71,187,.15);"></span> 인원수 분포</div>
-      <div class="dl-legend-item"><span class="ldot" style="background:var(--red);border-radius:50%;"></span> 평균선</div>
-    </div>
-  </div>
-
-  <!-- ── 볼러 에버 레벨별 분포 (수평 바 차트) ── -->
-  <div class="dl-chart-row">
-    <div class="dl-section" style="margin-bottom:0;">
-      <div class="dl-section-title"><i data-lucide="target" class="sec-ic"></i> 에버 레벨별 분포</div>
-      <div class="dl-chart-wrap"><canvas id="dlLevelBarChart"></canvas></div>
-    </div>
-    <div class="dl-section" style="margin-bottom:0;">
-      <div class="dl-section-title"><i data-lucide="bar-chart-3" class="sec-ic"></i> 레벨별 평균 에버 비교</div>
-      <div class="dl-chart-wrap"><canvas id="dlLevelAvgChart"></canvas></div>
-    </div>
-  </div>
-
-  <!-- ── 에버 분포 요약 카드 ── -->
-  <div class="dl-section">
-    <div class="dl-section-title"><i data-lucide="clipboard-list" class="sec-ic"></i> 레벨별 상세 통계</div>
-    <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:14px;" id="dl-level-summary"></div>
   </div>
 
 </div>
@@ -3269,9 +3271,9 @@ function renderDataLab() {
   animateCount(document.getElementById('dl-records'), 1523600, 1500);
   animateCount(document.getElementById('dl-alleys'), 892, 800);
 
-  renderWeeklyTrendChart();
   renderRecordTypeChart();
   renderBellCurveChart('all');
+  renderAgeAvgChart();
   renderDlLevels('all');
 }
 
@@ -3312,8 +3314,8 @@ function renderRecordTypeChart() {
   dlCharts.recordType = new Chart(ctx, {
     type: 'doughnut',
     data: {
-      labels: ['정모 기록','연습 기록','대회 기록'],
-      datasets: [{ data:[58.2,31.5,10.3], backgroundColor:['#0047BB','#00B993','#f59e0b'], borderWidth:0, hoverOffset:8 }]
+      labels: ['정모 기록','연습 기록'],
+      datasets: [{ data:[64.9,35.1], backgroundColor:['#0047BB','#00B993'], borderWidth:0, hoverOffset:8 }]
     },
     options: {
       responsive:true, maintainAspectRatio:true,
@@ -3405,14 +3407,60 @@ function renderBellCurveChart(tab) {
         ctx2.lineTo(xPos, yAxis.bottom);
         ctx2.stroke();
         ctx2.setLineDash([]);
-        // label
-        ctx2.fillStyle='#E30250';
-        ctx2.font='bold 12px -apple-system,sans-serif';
-        ctx2.textAlign='center';
-        ctx2.fillText('평균 '+mean+'점', xPos, yAxis.top-8);
+        // label — 차트 영역 안쪽 상단에 배경과 함께 표시
+        var labelText = '평균 ' + mean + '점';
+        ctx2.font = 'bold 12px -apple-system,sans-serif';
+        ctx2.textAlign = 'center';
+        var tw = ctx2.measureText(labelText).width;
+        var lx = xPos, ly = yAxis.top + 18;
+        ctx2.fillStyle = '#E30250';
+        ctx2.globalAlpha = 0.9;
+        ctx2.beginPath();
+        ctx2.roundRect(lx - tw/2 - 8, ly - 12, tw + 16, 22, 4);
+        ctx2.fill();
+        ctx2.globalAlpha = 1;
+        ctx2.fillStyle = '#fff';
+        ctx2.fillText(labelText, lx, ly + 3);
         ctx2.restore();
       }
     }]
+  });
+}
+
+// ── 연령대별 평균 에버 (Grouped Bar) ──
+function renderAgeAvgChart() {
+  var ctx = document.getElementById('dlAgeAvgChart');
+  if (!ctx) return;
+  if (dlCharts.ageAvg) dlCharts.ageAvg.destroy();
+  var ageLabels = ['10대','20대','30대','40대','50대','60대+'];
+  var maleData   = [128, 158, 172, 178, 168, 152];
+  var femaleData  = [112, 138, 148, 155, 145, 132];
+  var totalData   = [120, 148, 162, 168, 158, 144];
+  dlCharts.ageAvg = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ageLabels,
+      datasets: [
+        { label:'남성', data:maleData, backgroundColor:'rgba(0,71,187,.75)', borderColor:'#0047BB', borderWidth:1, borderRadius:4, barPercentage:0.7, categoryPercentage:0.7 },
+        { label:'여성', data:femaleData, backgroundColor:'rgba(227,2,80,.65)', borderColor:'#E30250', borderWidth:1, borderRadius:4, barPercentage:0.7, categoryPercentage:0.7 },
+        { label:'전체 평균', data:totalData, type:'line', borderColor:'#00B993', backgroundColor:'rgba(0,185,147,.1)', borderWidth:2.5, pointRadius:5, pointBackgroundColor:'#00B993', tension:0.3, fill:false }
+      ]
+    },
+    options: {
+      responsive:true, maintainAspectRatio:false,
+      plugins:{
+        legend:{display:false},
+        tooltip:{ backgroundColor:'#19274C', padding:12, cornerRadius:8, titleFont:{size:13,weight:'bold'}, bodyFont:{size:12},
+          callbacks:{ label:function(c){return c.dataset.label+': '+c.parsed.y+'점';} }
+        }
+      },
+      scales:{
+        x:{grid:{display:false}, ticks:{font:{size:12,weight:'600'},color:'#333'}},
+        y:{grid:{color:'#f0f2f5'}, ticks:{font:{size:11},color:'#999'}, beginAtZero:false, min:80, max:200,
+          title:{display:true, text:'평균 에버 (점)', font:{size:11,weight:'600'}, color:'#999'}
+        }
+      }
+    }
   });
 }
 
@@ -4029,19 +4077,19 @@ function renderProducts() {
 let mapInstance = null;
 
 const alleys = [
-  {name:'강남볼링센터', lat:37.5012, lng:127.0369, addr:'서울 강남구 역삼동', lanes:32, partner:true, fee:'3,500원', ps:'AMF', isAuto:true, premium:true, rating:4.3, reviewCnt:126, homepage:'https://gangnam-bowling.example.com'},
-  {name:'잠실볼링장', lat:37.5133, lng:127.1026, addr:'서울 송파구 잠실동', lanes:24, partner:false, fee:'3,000원', ps:'Brunswick', isAuto:false, premium:false, rating:3.9, reviewCnt:84, homepage:'https://jamsil-bowling.example.com'},
-  {name:'마포볼링클럽', lat:37.5663, lng:126.9024, addr:'서울 마포구 상암동', lanes:16, partner:true, fee:'3,200원', ps:'QubicaAMF', isAuto:false, premium:false, rating:4.1, reviewCnt:55, homepage:'https://mapo-bowling.example.com'},
-  {name:'수원볼링파크', lat:37.2636, lng:127.0286, addr:'경기 수원시 팔달구', lanes:40, partner:true, fee:'2,800원', ps:'AMF', isAuto:true, premium:true, rating:4.5, reviewCnt:210, homepage:'https://suwon-bowling.example.com'},
-  {name:'인천볼링센터', lat:37.4563, lng:126.7052, addr:'인천 남동구 구월동', lanes:20, partner:false, fee:'3,000원', ps:'Brunswick', isAuto:false, premium:false, rating:3.7, reviewCnt:42, homepage:'https://incheon-bowling.example.com'},
-  {name:'부산스포츠볼링', lat:35.1585, lng:129.1600, addr:'부산 해운대구 우동', lanes:28, partner:true, fee:'3,500원', ps:'QubicaAMF', isAuto:false, premium:true, rating:4.4, reviewCnt:178, homepage:'https://busan-bowling.example.com'},
-  {name:'대구중앙볼링', lat:35.8714, lng:128.6014, addr:'대구 중구 동성로', lanes:18, partner:false, fee:'2,500원', ps:'AMF', isAuto:false, premium:false, rating:3.6, reviewCnt:31, homepage:'https://daegu-bowling.example.com'},
-  {name:'대전볼링월드', lat:36.3741, lng:127.3569, addr:'대전 유성구 봉명동', lanes:36, partner:true, fee:'3,000원', ps:'Brunswick', isAuto:true, premium:true, rating:4.2, reviewCnt:99, homepage:'https://daejeon-bowling.example.com'},
-  {name:'광주볼링센터', lat:35.1595, lng:126.8526, addr:'광주 북구 운암동', lanes:22, partner:false, fee:'2,800원', ps:'AMF', isAuto:false, premium:false, rating:3.8, reviewCnt:47, homepage:'https://gwangju-bowling.example.com'},
-  {name:'춘천볼링파크', lat:37.8813, lng:127.7298, addr:'강원 춘천시 소양로', lanes:16, partner:false, fee:'2,500원', ps:'Brunswick', isAuto:false, premium:false, rating:3.5, reviewCnt:23, homepage:'https://chuncheon-bowling.example.com'},
-  {name:'울산볼링클럽', lat:35.5384, lng:129.3114, addr:'울산 남구 삼산동', lanes:20, partner:true, fee:'3,000원', ps:'QubicaAMF', isAuto:false, premium:false, rating:4.0, reviewCnt:67, homepage:'https://ulsan-bowling.example.com'},
-  {name:'창원볼링센터', lat:35.2342, lng:128.6811, addr:'경남 창원시 의창구', lanes:24, partner:false, fee:'2,800원', ps:'AMF', isAuto:false, premium:false, rating:3.8, reviewCnt:38, homepage:'https://changwon-bowling.example.com'},
-  {name:'전주볼링월드', lat:35.8242, lng:127.1479, addr:'전북 전주시 완산구', lanes:20, partner:true, fee:'2,500원', ps:'Brunswick', isAuto:false, premium:false, rating:4.1, reviewCnt:72, homepage:'https://jeonju-bowling.example.com'},
+  {name:'강남볼링센터', lat:37.5012, lng:127.0369, addr:'서울 강남구 역삼동', lanes:32, partner:true, fee:'3,500원', ps:'AMF', isAuto:true, premium:true, rating:4.3, reviewCnt:126, homepage:'https://gangnam-bowling.example.com', hours:'10:00~24:00', clubs:5},
+  {name:'잠실볼링장', lat:37.5133, lng:127.1026, addr:'서울 송파구 잠실동', lanes:24, partner:false, fee:'3,000원', ps:'Brunswick', isAuto:false, premium:false, rating:3.9, reviewCnt:84, homepage:'https://jamsil-bowling.example.com', hours:'09:00~23:00', clubs:3},
+  {name:'마포볼링클럽', lat:37.5663, lng:126.9024, addr:'서울 마포구 상암동', lanes:16, partner:true, fee:'3,200원', ps:'QubicaAMF', isAuto:false, premium:false, rating:4.1, reviewCnt:55, homepage:'https://mapo-bowling.example.com', hours:'10:00~23:00', clubs:2},
+  {name:'수원볼링파크', lat:37.2636, lng:127.0286, addr:'경기 수원시 팔달구', lanes:40, partner:true, fee:'2,800원', ps:'AMF', isAuto:true, premium:true, rating:4.5, reviewCnt:210, homepage:'https://suwon-bowling.example.com', hours:'09:00~01:00', clubs:7},
+  {name:'인천볼링센터', lat:37.4563, lng:126.7052, addr:'인천 남동구 구월동', lanes:20, partner:false, fee:'3,000원', ps:'Brunswick', isAuto:false, premium:false, rating:3.7, reviewCnt:42, homepage:'https://incheon-bowling.example.com', hours:'10:00~22:00', clubs:1},
+  {name:'부산스포츠볼링', lat:35.1585, lng:129.1600, addr:'부산 해운대구 우동', lanes:28, partner:true, fee:'3,500원', ps:'QubicaAMF', isAuto:false, premium:true, rating:4.4, reviewCnt:178, homepage:'https://busan-bowling.example.com', hours:'09:00~24:00', clubs:6},
+  {name:'대구중앙볼링', lat:35.8714, lng:128.6014, addr:'대구 중구 동성로', lanes:18, partner:false, fee:'2,500원', ps:'AMF', isAuto:false, premium:false, rating:3.6, reviewCnt:31, homepage:'https://daegu-bowling.example.com', hours:'10:00~22:00', clubs:1},
+  {name:'대전볼링월드', lat:36.3741, lng:127.3569, addr:'대전 유성구 봉명동', lanes:36, partner:true, fee:'3,000원', ps:'Brunswick', isAuto:true, premium:true, rating:4.2, reviewCnt:99, homepage:'https://daejeon-bowling.example.com', hours:'09:00~23:00', clubs:4},
+  {name:'광주볼링센터', lat:35.1595, lng:126.8526, addr:'광주 북구 운암동', lanes:22, partner:false, fee:'2,800원', ps:'AMF', isAuto:false, premium:false, rating:3.8, reviewCnt:47, homepage:'https://gwangju-bowling.example.com', hours:'10:00~22:00', clubs:2},
+  {name:'춘천볼링파크', lat:37.8813, lng:127.7298, addr:'강원 춘천시 소양로', lanes:16, partner:false, fee:'2,500원', ps:'Brunswick', isAuto:false, premium:false, rating:3.5, reviewCnt:23, homepage:'https://chuncheon-bowling.example.com', hours:'10:00~21:00', clubs:0},
+  {name:'울산볼링클럽', lat:35.5384, lng:129.3114, addr:'울산 남구 삼산동', lanes:20, partner:true, fee:'3,000원', ps:'QubicaAMF', isAuto:false, premium:false, rating:4.0, reviewCnt:67, homepage:'https://ulsan-bowling.example.com', hours:'10:00~23:00', clubs:3},
+  {name:'창원볼링센터', lat:35.2342, lng:128.6811, addr:'경남 창원시 의창구', lanes:24, partner:false, fee:'2,800원', ps:'AMF', isAuto:false, premium:false, rating:3.8, reviewCnt:38, homepage:'https://changwon-bowling.example.com', hours:'10:00~22:00', clubs:1},
+  {name:'전주볼링월드', lat:35.8242, lng:127.1479, addr:'전북 전주시 완산구', lanes:20, partner:true, fee:'2,500원', ps:'Brunswick', isAuto:false, premium:false, rating:4.1, reviewCnt:72, homepage:'https://jeonju-bowling.example.com', hours:'09:00~23:00', clubs:3},
 ];
 
 
@@ -4062,8 +4110,11 @@ function renderPartnerAlleys() {
     return '<div class="card" style="cursor:pointer;padding:14px;" onclick="showAlley('+origIdx+')">'
       + '<div style="height:90px;border-radius:8px;overflow:hidden;margin-bottom:10px;"><img src="'+img+'" alt="'+a.name+'" style="width:100%;height:100%;object-fit:cover;"></div>'
       + '<div style="font-weight:700;margin-bottom:3px;">'+a.name+'</div>'
-      + '<div style="font-size:12px;color:var(--text2);margin-bottom:6px;">'+a.addr.split(' ').slice(0,2).join(' ')+' · '+a.lanes+'레인</div>'
-      + '<span class="badge b-green">칠텐제휴</span>'
+      + '<div style="font-size:12px;color:var(--text2);margin-bottom:4px;">'+a.addr.split(' ').slice(0,2).join(' ')+' · '+a.lanes+'레인</div>'
+      + '<div style="font-size:11px;color:var(--text2);display:flex;gap:8px;">'
+      + '<span>🕐 '+(a.hours||'-')+'</span>'
+      + '<span>🏠 상주클럽 '+(a.clubs||0)+'개</span>'
+      + '</div>'
       + '</div>';
   }).join('');
 }
@@ -6013,8 +6064,7 @@ function updateDetailBtns(containerId, listPage, postType, postId, author) {
       <!-- 로그인 메인 -->
       <div id="authLoginMain">
         <div class="auth-logo">
-          <div class="auth-logo-text">7<span style="position:relative;top:-2px;">🎳</span>O</div>
-          <div class="auth-logo-sub">chilten</div>
+          <img src="chilten_logo_blue.svg" alt="칠텐">
         </div>
         <div class="auth-field">
           <input type="email" id="auth-login-email" placeholder="이메일을 입력하세요.">
@@ -6092,8 +6142,7 @@ function updateDetailBtns(containerId, listPage, postType, postId, author) {
     <button class="auth-modal-close" onclick="closeAuthModal('signup')">&times;</button>
     <div class="auth-modal-body">
       <div class="auth-logo">
-        <div class="auth-logo-text">7<span style="position:relative;top:-2px;">🎳</span>O</div>
-        <div class="auth-logo-sub">chilten</div>
+          <img src="chilten_logo_blue.svg" alt="칠텐">
       </div>
       <div class="auth-modal-title" style="font-size:18px;margin-bottom:4px;">회원가입</div>
       <div class="auth-modal-desc">칠텐에 오신 것을 환영합니다!</div>
