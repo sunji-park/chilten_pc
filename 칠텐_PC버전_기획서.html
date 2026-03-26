@@ -1,0 +1,2280 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>칠텐 웹 서비스 기획서 | 볼링칠텐, 칠텐</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            background-color: #ffffff;
+            color: #333333;
+            line-height: 1.8;
+        }
+
+        /* Navigation Sidebar */
+        nav.sticky-nav {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 250px;
+            height: 100vh;
+            background-color: #f8f9fa;
+            border-right: 1px solid #e0e0e0;
+            padding: 30px 0;
+            overflow-y: auto;
+            z-index: 100;
+            box-shadow: 2px 0 8px rgba(0,0,0,0.05);
+        }
+
+        nav.sticky-nav ul {
+            list-style: none;
+        }
+
+        nav.sticky-nav > ul > li {
+            margin: 0;
+        }
+
+        nav.sticky-nav > ul > li > a {
+            display: block;
+            padding: 12px 20px;
+            color: #333333;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            border-left: 4px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        nav.sticky-nav > ul > li > a:hover {
+            background-color: #e8f0fe;
+            color: #2563eb;
+            border-left-color: #2563eb;
+        }
+
+        nav.sticky-nav > ul > li > a.active {
+            background-color: #e8f0fe;
+            color: #2563eb;
+            border-left-color: #2563eb;
+        }
+
+        nav.sticky-nav ul ul {
+            list-style: none;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        nav.sticky-nav > ul > li.open > ul {
+            max-height: 500px;
+        }
+
+        nav.sticky-nav ul ul li a {
+            display: block;
+            padding: 8px 20px 8px 40px;
+            color: #666666;
+            text-decoration: none;
+            font-size: 13px;
+            transition: all 0.3s ease;
+        }
+
+        nav.sticky-nav ul ul li a:hover {
+            color: #2563eb;
+            background-color: #e8f0fe;
+        }
+
+        /* Main Content */
+        main {
+            margin-left: 250px;
+            padding: 60px 80px;
+            max-width: 1400px;
+        }
+
+        /* Cover Section */
+        section.cover {
+            text-align: center;
+            padding: 100px 0;
+            border-bottom: 2px solid #e8f0fe;
+            margin-bottom: 80px;
+        }
+
+        .cover-title {
+            font-size: 64px;
+            font-weight: 800;
+            color: #1f2937;
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+        }
+
+        .cover-subtitle {
+            font-size: 28px;
+            color: #2563eb;
+            margin-bottom: 40px;
+            font-weight: 600;
+        }
+
+        .cover-meta {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            font-size: 16px;
+            color: #666666;
+        }
+
+        .cover-meta div {
+            display: flex;
+            gap: 10px;
+        }
+
+        .cover-meta strong {
+            color: #333333;
+        }
+
+        /* Sections */
+        section {
+            margin-bottom: 80px;
+            scroll-margin-top: 100px;
+        }
+
+        h1 {
+            font-size: 42px;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #2563eb;
+            display: inline-block;
+        }
+
+        h2 {
+            font-size: 32px;
+            font-weight: 700;
+            color: #1f2937;
+            margin-top: 40px;
+            margin-bottom: 25px;
+            padding-left: 15px;
+            border-left: 4px solid #2563eb;
+        }
+
+        h3 {
+            font-size: 22px;
+            font-weight: 700;
+            color: #374151;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            padding-left: 12px;
+            border-left: 3px solid #60a5fa;
+        }
+
+        h4 {
+            font-size: 18px;
+            font-weight: 700;
+            color: #4b5563;
+            margin-top: 20px;
+            margin-bottom: 12px;
+        }
+
+        p {
+            margin-bottom: 15px;
+            color: #555555;
+            font-size: 15px;
+        }
+
+        /* Highlight boxes */
+        .highlight-box {
+            background-color: #e8f0fe;
+            border-left: 4px solid #2563eb;
+            padding: 20px 25px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .highlight-box strong {
+            color: #1f2937;
+        }
+
+        /* Lists */
+        ul, ol {
+            margin: 15px 0 15px 30px;
+            color: #555555;
+        }
+
+        li {
+            margin-bottom: 10px;
+            line-height: 1.7;
+        }
+
+        ul.feature-list {
+            list-style: none;
+            margin-left: 0;
+        }
+
+        ul.feature-list li {
+            padding-left: 25px;
+            position: relative;
+            margin-bottom: 12px;
+        }
+
+        ul.feature-list li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #2563eb;
+            font-weight: bold;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            background-color: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        thead {
+            background-color: #1f2937;
+            color: #ffffff;
+        }
+
+        th {
+            padding: 16px;
+            text-align: left;
+            font-weight: 700;
+            font-size: 14px;
+            letter-spacing: 0.5px;
+        }
+
+        td {
+            padding: 14px 16px;
+            border-bottom: 1px solid #e5e7eb;
+            font-size: 14px;
+        }
+
+        tbody tr:hover {
+            background-color: #f9fafb;
+        }
+
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Feature Cards */
+        .feature-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .feature-card {
+            background-color: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 25px;
+            transition: all 0.3s ease;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .feature-card:hover {
+            border-color: #2563eb;
+            box-shadow: 0 4px 12px rgba(37,99,235,0.15);
+            transform: translateY(-2px);
+        }
+
+        .feature-card h4 {
+            color: #2563eb;
+            margin-bottom: 12px;
+        }
+
+        .feature-card p {
+            color: #666666;
+            font-size: 14px;
+        }
+
+        /* Badges */
+        .badge {
+            display: inline-block;
+            background-color: #2563eb;
+            color: #ffffff;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            margin-right: 8px;
+            margin-bottom: 8px;
+        }
+
+        .badge.secondary {
+            background-color: #60a5fa;
+        }
+
+        .badge.success {
+            background-color: #10b981;
+        }
+
+        .badge.warning {
+            background-color: #f59e0b;
+        }
+
+        /* Tree/Hierarchy */
+        .tree {
+            margin: 30px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.8;
+            background-color: #f9fafb;
+            padding: 25px;
+            border-radius: 6px;
+            border: 1px solid #e5e7eb;
+            overflow-x: auto;
+        }
+
+        /* Two-column layout */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin: 30px 0;
+        }
+
+        .grid-2 > div {
+            padding: 20px;
+            background-color: #f9fafb;
+            border-radius: 6px;
+            border: 1px solid #e5e7eb;
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 100px;
+            padding-top: 40px;
+            border-top: 2px solid #e5e7eb;
+            text-align: center;
+            color: #999999;
+            font-size: 13px;
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            main {
+                margin-left: 0;
+                padding: 40px 50px;
+            }
+
+            nav.sticky-nav {
+                transform: translateX(-100%);
+            }
+
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .section-number {
+            display: inline-block;
+            background-color: #2563eb;
+            color: #ffffff;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 35px;
+            font-weight: 700;
+            margin-right: 12px;
+            font-size: 18px;
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        /* Timeline */
+        .timeline {
+            margin: 30px 0;
+            position: relative;
+            padding-left: 40px;
+        }
+
+        .timeline-item {
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .timeline-item:before {
+            content: "";
+            position: absolute;
+            left: -40px;
+            top: 5px;
+            width: 12px;
+            height: 12px;
+            background-color: #2563eb;
+            border-radius: 50%;
+            border: 3px solid #ffffff;
+            box-shadow: 0 0 0 3px #2563eb;
+        }
+
+        .timeline-item-title {
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 8px;
+        }
+
+        .timeline-item-desc {
+            color: #666666;
+            font-size: 14px;
+        }
+
+        /* Code blocks */
+        code {
+            background-color: #f3f4f6;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            color: #d97706;
+        }
+
+        pre {
+            background-color: #1f2937;
+            color: #e5e7eb;
+            padding: 20px;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-size: 13px;
+            line-height: 1.6;
+            margin: 20px 0;
+        }
+
+        .divider {
+            height: 2px;
+            background: linear-gradient(to right, transparent, #e5e7eb, transparent);
+            margin: 60px 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Sidebar -->
+    <nav class="sticky-nav">
+        <ul>
+            <li><a href="#cover" onclick="setActive(this)">표지</a></li>
+            <li><a href="#section1" onclick="setActive(this)">1. 서비스 개요</a>
+                <ul>
+                    <li><a href="#section1-1">칠텐 소개</a></li>
+                    <li><a href="#section1-3">앱 다운로드 &amp; 슬로건</a></li>
+                    <li><a href="#section1-2">웹 버전 런칭 목적</a></li>
+                </ul>
+            </li>
+            <li><a href="#section2" onclick="setActive(this)">2. 1차 개발 범위</a></li>
+            <li><a href="#section3" onclick="setActive(this)">3. 정보구조(IA)</a></li>
+            <li><a href="#section4" onclick="setActive(this)">4. 커뮤니티 기능</a>
+                <ul>
+                    <li><a href="#section4-1">중고장터</a></li>
+                    <li><a href="#section4-2">자유게시판</a></li>
+                    <li><a href="#section4-3">이벤트게시판</a></li>
+                    <li><a href="#section4-4">클럽홍보게시판</a></li>
+                    <li><a href="#section4-5">대회소식게시판</a></li>
+                </ul>
+            </li>
+            <li><a href="#section5" onclick="setActive(this)">5. 볼링장 기능</a>
+                <ul>
+                    <li><a href="#section5-1">지도 뷰</a></li>
+                    <li><a href="#section5-2">리스트 뷰</a></li>
+                    <li><a href="#section5-3">상세 페이지</a></li>
+                    <li><a href="#section5-4">어드민 기능</a></li>
+                </ul>
+            </li>
+            <li><a href="#section6" onclick="setActive(this)">6. 비즈니스 모델</a></li>
+            <li><a href="#section7" onclick="setActive(this)">7. 주요 화면 목록</a></li>
+            <li><a href="#section8" onclick="setActive(this)">8. 개발 로드맵</a></li>
+            <li><a href="#section9" onclick="setActive(this)">9. 기술 스택</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Cover Section -->
+        <section id="cover" class="cover">
+            <div class="cover-title">칠텐</div>
+            <div class="cover-subtitle">PC 웹 서비스 기획서</div>
+            <div class="cover-meta">
+                <div><strong>버전:</strong> v1.0</div>
+                <div><strong>작성일:</strong> 2026.03</div>
+                <div><strong>카테고리:</strong> 보링 커뮤니티 플랫폼</div>
+            </div>
+        </section>
+
+        <div class="divider"></div>
+
+        <!-- Section 1: Service Overview -->
+        <section id="section1">
+            <div class="section-title">
+                <span class="section-number">1</span>
+                <h1>서비스 개요</h1>
+            </div>
+
+            <h2 id="section1-1">칠텐 소개</h2>
+            <p>칠텐은 대한민국 최대 규모의 보링 커뮤니티 플랫폼으로, 활발한 사용자 기반과 풍부한 정보를 갖추고 있습니다.</p>
+
+            <div class="highlight-box">
+                <strong>칠텐 플랫폼 현황</strong>
+                <ul style="margin-top: 10px;">
+                    <li>누적 회원 수: <strong>12만명</strong></li>
+                    <li>등록 클럽 수: <strong>6천개</strong></li>
+                    <li>보유 볼링장 정보: <strong>전국 1,000여개</strong></li>
+                    <li>월간 활성 사용자: 5만명 이상</li>
+                    <li>현재 서비스: 모바일 앱 중심</li>
+                </ul>
+            </div>
+
+            <h3>현재 서비스 특징</h3>
+            <ul class="feature-list">
+                <li>커뮤니티: 자유로운 정보 공유와 상호작용</li>
+                <li>데이터베이스: 전국 볼링장 정보 검색 및 조회</li>
+                <li>클럽 네트워크: 보링 애호가들의 클럽 커뮤니티</li>
+                <li>기록 관리: 개인 볼링 기록 통계 및 추적</li>
+                <li>중고 거래: 보링 용품 B2C 마켓플레이스</li>
+            </ul>
+
+            
+            <div class="divider"></div>
+
+            <h2 id="section1-3" style="color:#0047BB;">앱 다운로드 유도 &amp; 슬로건</h2>
+            <div style="background:linear-gradient(135deg,#19274C 0%,#0047BB 60%,#0066dd 100%);border-radius:16px;padding:32px 40px;color:#fff;margin:24px 0;display:flex;align-items:center;justify-content:space-between;gap:32px;flex-wrap:wrap;">
+              <div>
+                <div style="font-size:11px;font-weight:800;letter-spacing:2px;opacity:.75;margin-bottom:8px;">볼링칠텐, 칠텐</div>
+                <div style="font-size:22px;font-weight:800;margin-bottom:8px;line-height:1.3;">칠텐 앱을 설치하면<br>더 많은 기능을 즐길 수 있어요!</div>
+                <div style="font-size:13px;opacity:.8;margin-bottom:20px;">실시간 점수 기록 · 볼링장 예약 · 클럽 관리 · 대회 참가</div>
+                <div style="display:flex;gap:12px;flex-wrap:wrap;">
+                  <div style="background:#fff;color:#19274C;border-radius:10px;padding:10px 18px;font-weight:700;font-size:13px;display:flex;align-items:center;gap:8px;">
+                    <span style="font-size:20px;">🤖</span>
+                    <span><span style="font-size:10px;display:block;opacity:.7;">Google Play</span>Android 앱</span>
+                  </div>
+                  <div style="background:rgba(255,255,255,.15);color:#fff;border:1.5px solid rgba(255,255,255,.4);border-radius:10px;padding:10px 18px;font-weight:700;font-size:13px;display:flex;align-items:center;gap:8px;">
+                    <span style="font-size:20px;"></span>
+                    <span><span style="font-size:10px;display:block;opacity:.7;">App Store</span>iOS 앱</span>
+                  </div>
+                </div>
+              </div>
+              <div style="display:flex;gap:20px;">
+                <div style="text-align:center;">
+                  <img src="https://api.qrserver.com/v1/create-qr-code/?size=90x90&data=https://play.google.com/store/apps/details?id=com.chilten.bowling" style="width:90px;height:90px;border-radius:10px;background:#fff;padding:4px;" alt="Android QR">
+                  <div style="font-size:10px;opacity:.7;margin-top:5px;font-weight:600;">🤖 Android</div>
+                </div>
+                <div style="text-align:center;">
+                  <img src="https://api.qrserver.com/v1/create-qr-code/?size=90x90&data=https://apps.apple.com/kr/app/chilten/id123456789" style="width:90px;height:90px;border-radius:10px;background:#fff;padding:4px;" alt="iOS QR">
+                  <div style="font-size:10px;opacity:.7;margin-top:5px;font-weight:600;"> iOS</div>
+                </div>
+              </div>
+            </div>
+            <table>
+              <thead><tr><th>구성 요소</th><th>내용</th></tr></thead>
+              <tbody>
+                <tr><td>슬로건</td><td><strong>볼링칠텐, 칠텐</strong></td></tr>
+                <tr><td>노출 위치</td><td>홈 화면 히어로 섹션 바로 아래</td></tr>
+                <tr><td>버튼 구성</td><td>Android (Google Play) / iOS (App Store)</td></tr>
+                <tr><td>QR 코드</td><td>Android / iOS 각 QR 코드 (api.qrserver.com 활용)</td></tr>
+                <tr><td>배경 디자인</td><td>Navy → Blue 그라디언트 배너</td></tr>
+              </tbody>
+            </table>
+
+<h2 id="section1-2">웹 버전 런칭 목적</h2>
+            <div class="grid-2">
+                <div>
+                    <h4>사용자 접근성 확대</h4>
+                    <p>데스크톱 및 랩톱 사용자의 진입장벽 제거로 이용자층 확대</p>
+                </div>
+                <div>
+                    <h4>사업 기회 확대</h4>
+                    <p>볼링장 구독 서비스를 통한 새로운 B2B 수익원 창출</p>
+                </div>
+                <div>
+                    <h4>사용 경험 개선</h4>
+                    <p>데스크톱 큰 화면에서의 최적화된 UI/UX로 검색 및 거래 편의성 증진</p>
+                </div>
+                <div>
+                    <h4>서비스 고도화</h4>
+                    <p>웹 환경에 최적화된 고급 기능(필터링, 예약 등) 추가</p>
+                </div>
+            </div>
+
+            <h3>예상 효과</h3>
+            <ul style="margin-left: 30px;">
+                <li>일반 사용자: 편의성 증대로 월간 활성 사용자 30% 증가</li>
+                <li>볼링장 사업자: 통합 홈페이지 + 마케팅 솔루션으로 신규 고객 유입</li>
+                <li>플랫폼: B2B 수익 모델 확보로 지속 가능한 성장 기반 마련</li>
+            </ul>
+        </section>
+
+        <div class="divider"></div>
+
+        <!-- Section 2: Development Scope -->
+        <section id="section2">
+            <div class="section-title">
+                <span class="section-number">2</span>
+                <h1>1차 개발 범위</h1>
+            </div>
+
+            <p>칠텐 웹 서비스의 1차 개발은 커뮤니티와 볼링장 조회 기능에 집중합니다.</p>
+
+            <h3>1차 개발 대상</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>모듈</th>
+                        <th>주요 기능</th>
+                        <th>우선순위</th>
+                        <th>상세 설명</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>커뮤니티</strong></td>
+                        <td>5개 게시판</td>
+                        <td><span class="badge">필수</span></td>
+                        <td>중고장터, 자유게시판, 이벤트, 클럽홍보, 대회소식</td>
+                    </tr>
+                    <tr>
+                        <td><strong>볼링장</strong></td>
+                        <td>정보 조회</td>
+                        <td><span class="badge">필수</span></td>
+                        <td>지도 뷰, 리스트 뷰, 상세 페이지</td>
+                    </tr>
+                    <tr>
+                        <td><strong>사용자 관리</strong></td>
+                        <td>회원가입/로그인</td>
+                        <td><span class="badge">필수</span></td>
+                        <td>기본 인증, 프로필 관리</td>
+                    </tr>
+                    <tr>
+                        <td><strong>검색 및 필터</strong></td>
+                        <td>전체 검색</td>
+                        <td><span class="badge">필수</span></td>
+                        <td>지역, 카테고리, 키워드 필터링</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>향후 개발 계획 (2차 이후)</h3>
+            <div class="feature-cards">
+                <div class="feature-card">
+                    <h4>예약 시스템</h4>
+                    <p>볼링장 레인 예약 기능 및 타이머, 스코어 기록 자동 동기화</p>
+                </div>
+                <div class="feature-card">
+                    <h4>결제 시스템</h4>
+                    <p>중고 거래 결제, 구독료 결제, 포인트 시스템</p>
+                </div>
+                <div class="feature-card">
+                    <h4>분석 도구</h4>
+                    <p>고급 통계 분석, 추세 분석, AI 기반 추천</p>
+                </div>
+                <div class="feature-card">
+                    <h4>모바일 동기화</h4>
+                    <p>웹-앱 간 데이터 동기화 및 통합 계정 관리</p>
+                </div>
+            </div>
+        </section>
+
+        <div class="divider"></div>
+
+        <!-- Section 3: Information Architecture -->
+        <section id="section3">
+            <div class="section-title">
+                <span class="section-number">3</span>
+                <h1>정보구조 (IA)</h1>
+            </div>
+
+            <h2>GNB (Global Navigation Bar) 메뉴 구조</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>메뉴</th>
+                        <th>서브 메뉴</th>
+                        <th>설명</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>홈</strong></td>
+                        <td>-</td>
+                        <td>대시보드 및 인기 콘텐츠 노출</td>
+                    </tr>
+                    <tr>
+                        <td rowspan="5"><strong>커뮤니티</strong></td>
+                        <td>중고장터</td>
+                        <td>보링 용품 매매</td>
+                    </tr>
+                    <tr>
+                        <td>자유게시판</td>
+                        <td>일반 보링 이야기</td>
+                    </tr>
+                    <tr>
+                        <td>이벤트게시판</td>
+                        <td>보링장 이벤트 정보</td>
+                    </tr>
+                    <tr>
+                        <td>클럽홍보게시판</td>
+                        <td>클럽 소개 및 가입 모집</td>
+                    </tr>
+                    <tr>
+                        <td>대회소식게시판</td>
+                        <td>보링 대회 정보</td>
+                    </tr>
+                    <tr>
+                        <td><strong>볼링장</strong></td>
+                        <td>-</td>
+                        <td>지도/리스트 뷰로 볼링장 조회</td>
+                    </tr>
+                    <tr>
+                        <td><strong>마이페이지</strong></td>
+                        <td>-</td>
+                        <td>사용자 정보, 작성 글, 거래 현황 등</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2>전체 페이지 맵</h2>
+            <div class="tree">
+칠텐 웹
+├── 인증 페이지
+│   ├── 로그인
+│   ├── 회원가입
+│   └── 비밀번호 찾기
+├── 홈
+│   ├── 인기 게시글
+│   ├── 신규 게시글
+│   └── 추천 볼링장
+├── 커뮤니티
+│   ├── 중고장터
+│   │   ├── 게시글 리스트 (카테고리 필터: 볼/신발/가방/기타)
+│   │   ├── 게시글 상세
+│   │   ├── 글쓰기
+│   │   └── 채팅
+│   ├── 자유게시판
+│   │   ├── 게시글 리스트
+│   │   ├── 게시글 상세 (댓글, 좋아요)
+│   │   └── 글쓰기
+│   ├── 이벤트게시판
+│   │   ├── 게시글 리스트 (지역 필터, 캘린더 뷰)
+│   │   ├── 게시글 상세
+│   │   └── 글쓰기
+│   ├── 클럽홍보게시판
+│   │   ├── 게시글 리스트 (지역/수준/성별 필터)
+│   │   ├── 게시글 상세
+│   │   └── 가입 문의
+│   └── 대회소식게시판
+│       ├── 게시글 리스트 (대회 종류 필터)
+│       ├── 게시글 상세
+│       └── 참가 신청
+├── 볼링장
+│   ├── 지도 뷰
+│   │   ├── 전국 지도 (마커 클러스터)
+│   │   ├── 마커 클릭 팝업
+│   │   └── 상세 페이지 이동
+│   ├── 리스트 뷰
+│   │   ├── 지역 필터 (시/도 > 시/군/구)
+│   │   ├── 정렬 (거리/이름/레인수)
+│   │   └── 상세 페이지 이동
+│   └── 상세 페이지
+│       ├── 기본 정보 (영업시간, 요금, 연락처 등)
+│       ├── 사진 갤러리
+│       ├── 상주 클럽 목록
+│       ├── 이벤트 정보
+│       ├── 칠텐 통계
+│       └── 지도 (위치 표시)
+├── 마이페이지
+│   ├── 프로필
+│   │   ├── 정보 수정
+│   │   └── 비밀번호 변경
+│   ├── 활동 현황
+│   │   ├── 작성 글
+│   │   ├── 댓글
+│   │   └── 좋아요
+│   ├── 거래 현황
+│   │   ├── 판매 중인 상품
+│   │   ├── 거래 완료
+│   │   └── 거래 평가
+│   ├── 즐겨찾기
+│   │   ├── 보링장 저장
+│   │   ├── 게시글 저장
+│   │   └── 클럽 저장
+│   └── 알림
+│       ├── 댓글 알림
+│       ├── 거래 알림
+│       └── 이벤트 알림
+└── 관리자 (볼링장 사업자용)
+    ├── 볼링장 정보 관리
+    ├── 영업시간/요금 관리
+    ├── 이벤트 관리
+    ├── 사진 관리
+    └── 통계 대시보드
+            </div>
+        </section>
+
+        <div class="divider"></div>
+
+        <!-- Section 4: Community Features -->
+        <section id="section4">
+            <div class="section-title">
+                <span class="section-number">4</span>
+                <h1>커뮤니티 기능 정의</h1>
+            </div>
+
+            <p>칠텐의 커뮤니티는 5개의 특성화된 게시판으로 구성되어 있습니다. 각 게시판은 독립적인 기능을 제공하면서도 통합된 사용자 경험을 제공합니다.</p>
+
+            <!-- 4-1: Used Goods Market -->
+            <h2 id="section4-1">4-1. 중고장터</h2>
+            <p>보링 용품을 사고팔 수 있는 B2C 마켓플레이스입니다. 안전한 거래를 위해 체계적인 상태 관리와 채팅 기능을 제공합니다.</p>
+
+            <h3>주요 기능</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>기능</th>
+                        <th>상세 설명</th>
+                        <th>화면 요소</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>카테고리</strong></td>
+                        <td>볼, 신발, 가방, 기타 용품으로 분류</td>
+                        <td>탭/드롭다운 필터</td>
+                    </tr>
+                    <tr>
+                        <td><strong>글쓰기</strong></td>
+                        <td>상품명, 가격, 설명, 사진 최대 5장 첨부</td>
+                        <td>폼 기반 입력 화면</td>
+                    </tr>
+                    <tr>
+                        <td><strong>검색</strong></td>
+                        <td>상품명, 설명으로 검색</td>
+                        <td>검색바, 자동완성</td>
+                    </tr>
+                    <tr>
+                        <td><strong>거래 상태</strong></td>
+                        <td>판매중 / 예약중 / 판매완료</td>
+                        <td>상태 배지, 상태 전환 버튼</td>
+                    </tr>
+                    <tr>
+                        <td><strong>가격 표시</strong></td>
+                        <td>정가 대비 할인율 표시, 가격 범위 필터</td>
+                        <td>가격 태그, 슬라이더 필터</td>
+                    </tr>
+                    <tr>
+                        <td><strong>채팅 문의</strong></td>
+                        <td>판매자와 실시간 채팅</td>
+                        <td>채팅 아이콘, 채팅창</td>
+                    </tr>
+                    <tr>
+                        <td><strong>거래 평가</strong></td>
+                        <td>거래 완료 후 평가 (5성)</td>
+                        <td>별점, 후기 작성</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>데이터 모델</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>항목</th>
+                        <th>데이터</th>
+                        <th>필수 여부</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>상품명</td>
+                        <td>텍스트</td>
+                        <td>필수</td>
+                    </tr>
+                    <tr>
+                        <td>카테고리</td>
+                        <td>선택 (볼/신발/가방/기타)</td>
+                        <td>필수</td>
+                    </tr>
+                    <tr>
+                        <td>가격</td>
+                        <td>숫자 (원)</td>
+                        <td>필수</td>
+                    </tr>
+                    <tr>
+                        <td>상품 설명</td>
+                        <td>장문 텍스트</td>
+                        <td>필수</td>
+                    </tr>
+                    <tr>
+                        <td>사진</td>
+                        <td>이미지 (최대 5장)</td>
+                        <td>필수</td>
+                    </tr>
+                    <tr>
+                        <td>거래 상태</td>
+                        <td>판매중/예약중/판매완료</td>
+                        <td>자동 설정</td>
+                    </tr>
+                    <tr>
+                        <td>작성자</td>
+                        <td>사용자 정보</td>
+                        <td>자동 설정</td>
+                    </tr>
+                    <tr>
+                        <td>작성일시</td>
+                        <td>타임스탬프</td>
+                        <td>자동 설정</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- 4-2: Free Board -->
+            <h2 id="section4-2">4-2. 자유게시판</h2>
+            <p>보링 일상을 공유하고 사람들과 소통하는 공간입니다. 자유로운 주제의 글을 작성하고 댓글로 상호작용합니다.</p>
+
+            <h3>주요 기능</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>기능</th>
+                        <th>상세 설명</th>
+                        <th>화면 요소</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>글쓰기</strong></td>
+                        <td>제목, 본문, 태그 입력</td>
+                        <td>에디터 (텍스트 기반)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>댓글</strong></td>
+                        <td>글 작성자와 댓글 작성자 간의 상호작용</td>
+                        <td>댓글 입력칸, 댓글 목록</td>
+                    </tr>
+                    <tr>
+                        <td><strong>좋아요</strong></td>
+                        <td>글과 댓글에 좋아요 기능</td>
+                        <td>하트 아이콘, 좋아요 수</td>
+                    </tr>
+                    <tr>
+                        <td><strong>검색</strong></td>
+                        <td>제목, 본문, 작성자, 태그로 검색</td>
+                        <td>검색바, 검색 결과</td>
+                    </tr>
+                    <tr>
+                        <td><strong>정렬</strong></td>
+                        <td>최신순, 인기순, 댓글순</td>
+                        <td>정렬 드롭다운</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>게시글 표시 형식</h3>
+            <ul class="feature-list">
+                <li>리스트 뷰: 제목, 작성자, 작성일, 댓글수, 좋아요수</li>
+                <li>상세 뷰: 전체 본문, 댓글, 추천 게시글</li>
+            </ul>
+
+            <!-- 4-3: Event Board -->
+            <h2 id="section4-3">4-3. 이벤트게시판</h2>
+            <p>전국 보링장에서 진행하는 다양한 이벤트 정보를 한 곳에서 확인할 수 있습니다. 캘린더 뷰로 일정을 관리할 수 있습니다.</p>
+
+            <h3>주요 기능</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>기능</th>
+                        <th>상세 설명</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>이벤트 정보</strong></td>
+                        <td>보링장명, 이벤트 기간, 이벤트 내용/설명</td>
+                    </tr>
+                    <tr>
+                        <td><strong>지역 필터</strong></td>
+                        <td>시/도별로 이벤트 필터링</td>
+                    </tr>
+                    <tr>
+                        <td><strong>캘린더 뷰</strong></td>
+                        <td>월간/주간 캘린더에 이벤트 표시</td>
+                    </tr>
+                    <tr>
+                        <td><strong>글쓰기</strong></td>
+                        <td>보링장 사업자가 이벤트 등록</td>
+                    </tr>
+                    <tr>
+                        <td><strong>좋아요/스크랩</strong></td>
+                        <td>관심 이벤트 저장</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- 4-4: Club Promotion Board -->
+            <h2 id="section4-4">4-4. 클럽홍보게시판</h2>
+            <p>보링 클럽들이 자신의 클럽을 소개하고 회원을 모집하는 공간입니다. 클럽 검색 및 가입 문의 기능을 제공합니다.</p>
+
+            <h3>주요 기능</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>기능</th>
+                        <th>상세 설명</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>클럽 정보</strong></td>
+                        <td>클럽명, 회원수, 에버/수준(초급/중급/상급), 활동지역, 소개</td>
+                    </tr>
+                    <tr>
+                        <td><strong>필터</strong></td>
+                        <td>지역, 수준, 성별(남성/여성/혼성), 활동빈도</td>
+                    </tr>
+                    <tr>
+                        <td><strong>글쓰기</strong></td>
+                        <td>클럽 소개글 작성, 이미지 첨부</td>
+                    </tr>
+                    <tr>
+                        <td><strong>가입 문의</strong></td>
+                        <td>클럽 관리자에게 가입 문의 메시지 전송</td>
+                    </tr>
+                    <tr>
+                        <td><strong>클럽 정보 조회</strong></td>
+                        <td>회원수, 에버, 활동지역 등 상세 정보</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- 4-5: Tournament Board -->
+            <h2 id="section4-5">4-5. 대회소식게시판</h2>
+            <p>아마추어 보링 대회 정보를 공유하는 게시판입니다. 대회 참가를 위한 모든 정보를 제공합니다.</p>
+
+            <h3>주요 기능</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>기능</th>
+                        <th>상세 설명</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>대회 정보</strong></td>
+                        <td>주최사, 대회명, 개최 날짜/기간, 개최 장소(보링장), 참가비, 참가 방법</td>
+                    </tr>
+                    <tr>
+                        <td><strong>대회 종류</strong></td>
+                        <td>오픈 대회 / 클럽 대회 / 협회 대회</td>
+                    </tr>
+                    <tr>
+                        <td><strong>지역 필터</strong></td>
+                        <td>시/도별로 대회 필터링</td>
+                    </tr>
+                    <tr>
+                        <td><strong>글쓰기</strong></td>
+                        <td>대회 주최자가 대회 정보 등록</td>
+                    </tr>
+                    <tr>
+                        <td><strong>참가 신청</strong></td>
+                        <td>대회 참가 신청 (별도의 연락 방법 표시)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <div class="divider"></div>
+
+        <!-- Section 5: Bowling Center Features -->
+        <section id="section5">
+            <div class="section-title">
+                <span class="section-number">5</span>
+                <h1>볼링장 기능 정의</h1>
+            </div>
+
+            <p>칠텐의 핵심 기능인 볼링장 정보 조회 시스템입니다. 사용자 친화적인 인터페이스로 원하는 볼링장을 빠르게 찾을 수 있습니다.</p>
+
+            <!-- 5-1: Map View -->
+            <h2 id="section5-1">5-1. 지도 뷰</h2>
+            <p>전국의 모든 볼링장을 지도상에 시각화하여 위치 기반의 직관적인 검색을 제공합니다.</p>
+
+            <h3>주요 기능</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>기능</th>
+                        <th>상세 설명</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>기본 맵</strong></td>
+                        <td>대한민국 전국 지도, 줌/팬 가능</td>
+                    </tr>
+                    <tr>
+                        <td><strong>마커 클러스터</strong></td>
+                        <td>확대 수준에 따라 마커 그룹핑</td>
+                    </tr>
+                    <tr>
+                        <td><strong>현재 위치</strong></td>
+                        <td>사용자의 GPS 위치 표시 및 주변 볼링장 자동 표시</td>
+                    </tr>
+                    <tr>
+                        <td><strong>마커 팝업</strong></td>
+                        <td>마커 클릭 시 팝업: 보링장명, 주소, 레인수, 영업 여부</td>
+                    </tr>
+                    <tr>
+                        <td><strong>상세 페이지 이동</strong></td>
+                        <td>팝업 또는 목록에서 상세 페이지로 이동</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>UI/UX 설계</h3>
+            <ul class="feature-list">
+                <li>지도는 화면의 70% 이상 차지</li>
+                <li>우측 사이드 패널: 검색 필터 및 결과 리스트</li>
+                <li>마커 아이콘: 영업중/폐업 상태에 따른 시각적 구분</li>
+                <li>현재 위치: 파란색 원으로 표시</li>
+            </ul>
+
+            <!-- 5-2: List View -->
+            <h2 id="section5-2">5-2. 리스트 뷰</h2>
+            <p>필터링과 정렬을 통해 원하는 조건의 볼링장을 체계적으로 검색할 수 있습니다.</p>
+
+            <h3>주요 기능</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>기능</th>
+                        <th>상세 설명</th>
+                        <th>기술</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>지역 필터</strong></td>
+                        <td>시/도 선택 > 시/군/구 선택 (계단식 필터)</td>
+                        <td>드롭다운</td>
+                    </tr>
+                    <tr>
+                        <td><strong>정렬</strong></td>
+                        <td>거리순 / 이름순 / 레인수순</td>
+                        <td>라디오 버튼</td>
+                    </tr>
+                    <tr>
+                        <td><strong>검색</strong></td>
+                        <td>보링장명으로 검색</td>
+                        <td>검색바, 자동완성</td>
+                    </tr>
+                    <tr>
+                        <td><strong>카드형 리스트</strong></td>
+                        <td>각 보링장 카드: 사진, 이름, 주소, 레인수, 평점</td>
+                        <td>그리드 또는 리스트</td>
+                    </tr>
+                    <tr>
+                        <td><strong>제휴 뱃지</strong></td>
+                        <td>칠텐 제휴 보링장 표시</td>
+                        <td>배지 아이콘</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>카드 요소</h3>
+            <div class="highlight-box">
+                <ul>
+                    <li>대표 이미지</li>
+                    <li>보링장명 + 제휴 뱃지</li>
+                    <li>주소 (지역)</li>
+                    <li>레인수 (예: "30레인")</li>
+                    <li>평점 (사용자 평가)</li>
+                    <li>클릭 시 상세 페이지로 이동</li>
+                </ul>
+            </div>
+
+            <!-- 5-3: Detail Page -->
+            <h2 id="section5-3">5-3. 상세 페이지</h2>
+            <p>선택한 볼링장의 모든 정보를 한 페이지에서 확인할 수 있습니다. 사용자 편의성과 비즈니스 정보 전달을 모두 고려합니다.</p>
+
+            <h3>헤더 배지 시스템</h3>
+            <table>
+                <thead><tr><th>배지</th><th>색상</th><th>노출 조건</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>칠텐제휴</strong></td><td>초록 (#00B993)</td><td>칠텐 제휴 볼링장</td></tr>
+                    <tr><td><strong>영업중 / 영업종료</strong></td><td>초록 / 빨강</td><td>실시간 영업 상태</td></tr>
+                    <tr><td><strong>⚡ 칠텐자동기록</strong></td><td>보라 (#6D28D9)</td><td>칠텐 자동기록 시스템 탑재 볼링장에 추가 표시</td></tr>
+                </tbody>
+            </table>
+
+            <h3>상단 사진 스와이퍼</h3>
+            <div class="highlight-box">
+                <ul>
+                    <li>볼링장 어드민에서 <strong>최대 5장</strong> 등록 가능</li>
+                    <li>좌/우 화살표 버튼 + 하단 dot indicator + 우상단 N/5 카운터</li>
+                    <li>CSS transform 기반 가로 슬라이드 전환 (.35s cubic-bezier)</li>
+                    <li>모바일: 높이 58vw (최소 180px, 최대 260px)</li>
+                </ul>
+            </div>
+
+            <h3>표시 항목</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>항목</th>
+                        <th>데이터</th>
+                        <th>용도</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>보링장명</strong></td>
+                        <td>텍스트</td>
+                        <td>식별</td>
+                    </tr>
+                    <tr>
+                        <td><strong>주소</strong></td>
+                        <td>전체 주소</td>
+                        <td>위치 확인</td>
+                    </tr>
+                    <tr>
+                        <td><strong>전화번호</strong></td>
+                        <td>연락처</td>
+                        <td>문의</td>
+                    </tr>
+                    <tr>
+                        <td><strong>영업시간</strong></td>
+                        <td>요일별 시간 (월-일)</td>
+                        <td>방문 계획</td>
+                    </tr>
+                    <tr>
+                        <td><strong>이용요금</strong></td>
+                        <td>텍스트 표기 + 🖼️ <strong>이미지로 보기</strong> 버튼 (클릭 시 모달 이미지 표시, 어드민에서 등록)</td>
+                        <td>비용 예측</td>
+                    </tr>
+                    <tr>
+                        <td><strong>게임료</strong></td>
+                        <td>게임별 요금</td>
+                        <td>예산 계획</td>
+                    </tr>
+                    <tr>
+                        <td><strong>대화료</strong></td>
+                        <td>신발 대여료 (예: 500원)</td>
+                        <td>준비물 확인</td>
+                    </tr>
+                    <tr>
+                        <td><strong>레인수</strong></td>
+                        <td>숫자 (예: 30)</td>
+                        <td>시설 규모</td>
+                    </tr>
+                    <tr>
+                        <td><strong>레인 타입</strong></td>
+                        <td>우레탄 / 합성</td>
+                        <td>플레이 선호도</td>
+                    </tr>
+                    <tr>
+                        <td><strong>핀세터</strong></td>
+                        <td>AMF / Brunswick / QubicaAMF</td>
+                        <td>기술 선호도</td>
+                    </tr>
+                    <tr>
+                        <td><strong>시설 타입</strong></td>
+                        <td>일반 보링장 / 복합 시설 (카라오케, 당구 등)</td>
+                        <td>시설 확인</td>
+                    </tr>
+                    <tr>
+                        <td><strong>칠텐 제휴</strong></td>
+                        <td>제휴 여부 (예/아니오)</td>
+                        <td>특별 혜택 확인</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>추가 섹션</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>섹션</th>
+                        <th>내용</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>상주 클럽 목록</strong></td>
+                        <td>해당 보링장을 주 활동지로 하는 클럽 리스트</td>
+                    </tr>
+                    <tr>
+                        <td><strong>이벤트 정보</strong></td>
+                        <td>진행 중인 이벤트 및 예정된 이벤트</td>
+                    </tr>
+                    <tr>
+                        <td><strong>사진 갤러리</strong></td>
+                        <td>상단 스와이퍼 (최대 5장, 어드민 등록)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>🌐 홈페이지 바로가기</strong></td>
+                        <td>볼링장 전용 홍보 홈페이지를 새 탭으로 오픈 (우측 사이드바, 기존 전화하기 버튼 대체)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>⚡ 칠텐자동기록 배지</strong></td>
+                        <td>칠텐 자동기록 시스템 탑재 볼링장에 보라색 배지 추가 노출</td>
+                    </tr>
+                    <tr>
+                        <td><strong>칠텐 통계</strong></td>
+                        <td>해당 보링장의 칠텐 기록 요약 (방문자, 기록 수)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>위치 지도</strong></td>
+                        <td>구글맵 또는 카카오맵 임베드</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- 5-4: Admin Features -->
+            <h2 id="section5-4">5-4. 어드민 기능 (볼링장 사업자용)</h2>
+            <p>보링장 사업자가 자신의 보링장 정보를 관리하고 마케팅할 수 있는 기능입니다. 이는 구독 서비스의 핵심 가치입니다.</p>
+
+            <h3>어드민 기능 목록</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>기능</th>
+                        <th>설명</th>
+                        <th>권한</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>정보 편집</strong></td>
+                        <td>보링장명, 주소, 전화, 주소 등 기본 정보 수정</td>
+                        <td>보링장 관리자</td>
+                    </tr>
+                    <tr>
+                        <td><strong>영업시간 관리</strong></td>
+                        <td>요일별 영업시간 설정 및 수정</td>
+                        <td>보링장 관리자</td>
+                    </tr>
+                    <tr>
+                        <td><strong>요금 관리</strong></td>
+                        <td>게임료, 대화료, 이벤트 할인 설정</td>
+                        <td>보링장 관리자</td>
+                    </tr>
+                    <tr>
+                        <td><strong>이벤트 관리</strong></td>
+                        <td>이벤트 등록, 수정, 삭제 (이벤트게시판 자동 등록)</td>
+                        <td>보링장 관리자</td>
+                    </tr>
+                    <tr>
+                        <td><strong>사진 관리</strong></td>
+                        <td>사진 업로드/삭제/정렬, <strong>최대 5장</strong> (상세페이지 스와이퍼 노출, 첫 장 = 대표 사진)</td>
+                        <td>볼링장 관리자</td>
+                    </tr>
+                    <tr>
+                        <td><strong>이용요금 이미지 등록</strong></td>
+                        <td>이용요금 안내 이미지 등록 (상세페이지 "이미지로 보기" 클릭 시 모달 표시)</td>
+                        <td>볼링장 관리자</td>
+                    </tr>
+                    <tr>
+                        <td><strong>통계 대시보드</strong></td>
+                        <td>월간 방문자수, 기록수, 칠텐 앱 연동 통계</td>
+                        <td>보링장 관리자</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>통계 대시보드 항목</h3>
+            <div class="highlight-box">
+                <ul>
+                    <li>월간 방문자 수 (차트)</li>
+                    <li>등록된 기록 수</li>
+                    <li>칠텐 앱 연동: 앱에서 등록된 기록 수</li>
+                    <li>평점 추이</li>
+                    <li>이벤트 성과 (참가자, 조회수)</li>
+                </ul>
+            </div>
+        </section>
+
+        <div class="divider"></div>
+
+        <!-- Section 6: Business Model -->
+        <section id="section6">
+            <div class="section-title">
+                <span class="section-number">6</span>
+                <h1>비즈니스 모델</h1>
+            </div>
+
+            <p>칠텐 웹 서비스의 지속 가능한 성장을 위한 B2B 비즈니스 모델입니다. 볼링장을 대상으로 한 SaaS 구독 서비스를 제공합니다.</p>
+
+            <h2>보링장 구독 서비스 개요</h2>
+            <div class="highlight-box">
+                <strong>타겟 고객:</strong> 전국 보링장 사업자<br>
+                <strong>가치 제안:</strong> 통합 정보 관리 + 온라인 마케팅 솔루션<br>
+                <strong>매출 구조:</strong> 월간 구독료
+            </div>
+
+            <h2>요금 플랜</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>요금 플랜</th>
+                        <th>월간 요금</th>
+                        <th>포함 기능</th>
+                        <th>대상</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>베이직</strong></td>
+                        <td>월 29,900원</td>
+                        <td>
+                            <ul style="margin: 0; padding-left: 20px;">
+                                <li>보링장 기본 정보 관리</li>
+                                <li>기본 홈페이지 템플릿</li>
+                                <li>영업시간 및 요금 관리</li>
+                                <li>기본 통계</li>
+                            </ul>
+                        </td>
+                        <td>소규모 보링장</td>
+                    </tr>
+                    <tr>
+                        <td><strong>스탠다드</strong></td>
+                        <td>월 79,900원</td>
+                        <td>
+                            <ul style="margin: 0; padding-left: 20px;">
+                                <li>베이직 포함</li>
+                                <li>이벤트 관리 및 등록</li>
+                                <li>레인 예약 기능</li>
+                                <li>고급 통계 (방문자 분석)</li>
+                                <li>커뮤니티 팝업 노출</li>
+                            </ul>
+                        </td>
+                        <td>중형 보링장</td>
+                    </tr>
+                    <tr>
+                        <td><strong>프리미엄</strong></td>
+                        <td>월 149,900원</td>
+                        <td>
+                            <ul style="margin: 0; padding-left: 20px;">
+                                <li>스탠다드 포함</li>
+                                <li>대회 관리 및 운영</li>
+                                <li>회원 관리 시스템</li>
+                                <li>매출 분석 (결제 데이터)</li>
+                                <li>칠텐 앱 특별 노출 (상위 지역)</li>
+                                <li>고급 홈페이지 커스터마이징</li>
+                            </ul>
+                        </td>
+                        <td>대형 보링장</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2>홈페이지 템플릿 종류</h2>
+            <p>각 플랜에서 제공하는 홈페이지 템플릿은 보링장의 이미지를 효과적으로 전달합니다.</p>
+
+            <div class="feature-cards">
+                <div class="feature-card">
+                    <h4>심플형</h4>
+                    <p>깔끔한 디자인의 기본 템플릿. 정보 전달에 중점. 베이직 플랜 제공.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>스포티형</h4>
+                    <p>역동적이고 활기찬 디자인. 젊은 고객층 타겟. 스탠다드 플랜 제공.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>프리미엄형</h4>
+                    <p>고급스러운 디자인 + 커스터마이징. 프리미엄 플랜 제공.</p>
+                </div>
+            </div>
+
+            <h2>매출 전망</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>연도</th>
+                        <th>구독 보링장 (추정)</th>
+                        <th>평균 구독료</th>
+                        <th>예상 월간 매출</th>
+                        <th>예상 연간 매출</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1차년도</td>
+                        <td>100개</td>
+                        <td>73,267원</td>
+                        <td>약 7,327만원</td>
+                        <td>약 8.8억원</td>
+                    </tr>
+                    <tr>
+                        <td>2차년도</td>
+                        <td>250개</td>
+                        <td>79,900원</td>
+                        <td>약 1.99억원</td>
+                        <td>약 23.9억원</td>
+                    </tr>
+                    <tr>
+                        <td>3차년도</td>
+                        <td>400개</td>
+                        <td>85,267원</td>
+                        <td>약 3.41억원</td>
+                        <td>약 40.9억원</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p style="margin-top: 20px; font-size: 13px; color: #999999;">
+                <em>※ 추정치입니다. 실제 성과는 마케팅 및 영업 활동에 따라 달라질 수 있습니다.</em>
+            </p>
+        </section>
+
+        <div class="divider"></div>
+
+        <!-- Section 7: Screen Specification -->
+        <section id="section7">
+            <div class="section-title">
+                <span class="section-number">7</span>
+                <h1>주요 화면 목록</h1>
+            </div>
+
+            <p>칠텐 웹 서비스 1차 개발의 전체 화면 목록입니다. 각 화면은 독립적이면서도 통합된 사용자 경험을 제공합니다.</p>
+
+            <h2>인증 및 기본 화면</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>화면명</th>
+                        <th>설명</th>
+                        <th>주요 기능</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>로그인</strong></td>
+                        <td>사용자 인증 페이지</td>
+                        <td>이메일/비밀번호 입력, SNS 로그인, 회원가입 이동, 비밀번호 찾기</td>
+                    </tr>
+                    <tr>
+                        <td><strong>회원가입</strong></td>
+                        <td>신규 사용자 가입 페이지</td>
+                        <td>이메일 인증, 기본정보 입력, 약관동의</td>
+                    </tr>
+                    <tr>
+                        <td><strong>비밀번호 찾기</strong></td>
+                        <td>비밀번호 리셋 페이지</td>
+                        <td>이메일 입력, 인증코드 확인, 새 비밀번호 설정</td>
+                    </tr>
+                    <tr>
+                        <td><strong>홈</strong></td>
+                        <td>메인 페이지</td>
+                        <td>인기글, 신규글, 추천 보링장, 배너, 공지사항</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2>커뮤니티 화면</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>게시판</th>
+                        <th>화면명</th>
+                        <th>설명</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td rowspan="3"><strong>중고장터</strong></td>
+                        <td>리스트</td>
+                        <td>상품 목록, 카테고리/가격 필터, 검색</td>
+                    </tr>
+                    <tr>
+                        <td>상세</td>
+                        <td>상품 상세정보, 사진, 판매자 정보, 채팅 버튼</td>
+                    </tr>
+                    <tr>
+                        <td>글쓰기</td>
+                        <td>상품 정보 입력, 사진 업로드, 가격 설정</td>
+                    </tr>
+                    <tr>
+                        <td rowspan="3"><strong>자유게시판</strong></td>
+                        <td>리스트</td>
+                        <td>글 목록, 검색, 정렬 (최신/인기/댓글순)</td>
+                    </tr>
+                    <tr>
+                        <td>상세</td>
+                        <td>글 본문, 댓글, 좋아요, 추천글</td>
+                    </tr>
+                    <tr>
+                        <td>글쓰기</td>
+                        <td>제목/본문 입력, 태그 추가</td>
+                    </tr>
+                    <tr>
+                        <td rowspan="3"><strong>이벤트</strong></td>
+                        <td>리스트</td>
+                        <td>이벤트 목록, 지역 필터, 캘린더 뷰</td>
+                    </tr>
+                    <tr>
+                        <td>상세</td>
+                        <td>이벤트 상세정보, 보링장 정보, 좋아요/스크랩</td>
+                    </tr>
+                    <tr>
+                        <td>글쓰기</td>
+                        <td>이벤트 정보 입력 (보링장 사업자)</td>
+                    </tr>
+                    <tr>
+                        <td rowspan="2"><strong>클럽홍보</strong></td>
+                        <td>리스트</td>
+                        <td>클럽 목록, 지역/수준/성별 필터</td>
+                    </tr>
+                    <tr>
+                        <td>상세</td>
+                        <td>클럽 상세정보, 가입 문의 버튼</td>
+                    </tr>
+                    <tr>
+                        <td rowspan="2"><strong>대회소식</strong></td>
+                        <td>리스트</td>
+                        <td>대회 목록, 지역 필터, 종류 필터</td>
+                    </tr>
+                    <tr>
+                        <td>상세</td>
+                        <td>대회 상세정보, 참가 신청 방법</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2>볼링장 화면</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>화면명</th>
+                        <th>설명</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>지도 뷰</strong></td>
+                        <td>전국 지도, 마커 클러스터, 마커 팝업</td>
+                    </tr>
+                    <tr>
+                        <td><strong>리스트 뷰</strong></td>
+                        <td>보링장 목록, 지역/정렬 필터, 카드형 디스플레이</td>
+                    </tr>
+                    <tr>
+                        <td><strong>상세 페이지</strong></td>
+                        <td>보링장 기본정보, 요금, 시설, 갤러리, 통계, 지도</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2>사용자 페이지</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>화면명</th>
+                        <th>설명</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>마이페이지</strong></td>
+                        <td>프로필 정보 표시, 탭으로 섹션 분리</td>
+                    </tr>
+                    <tr>
+                        <td><strong>프로필 수정</strong></td>
+                        <td>개인정보 수정, 프로필 사진 변경</td>
+                    </tr>
+                    <tr>
+                        <td><strong>활동 현황</strong></td>
+                        <td>작성글, 댓글, 좋아요 목록</td>
+                    </tr>
+                    <tr>
+                        <td><strong>거래 현황</strong></td>
+                        <td>판매 중인 상품, 거래 완료, 거래 평가</td>
+                    </tr>
+                    <tr>
+                        <td><strong>즐겨찾기</strong></td>
+                        <td>저장한 보링장, 게시글, 클럽 목록</td>
+                    </tr>
+                    <tr>
+                        <td><strong>알림</strong></td>
+                        <td>댓글, 거래, 이벤트 알림 목록</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2>관리자 페이지 (보링장 사업자용)</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>화면명</th>
+                        <th>설명</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>대시보드</strong></td>
+                        <td>통계 요약, 빠른 접근 메뉴</td>
+                    </tr>
+                    <tr>
+                        <td><strong>정보 관리</strong></td>
+                        <td>보링장 기본 정보 수정</td>
+                    </tr>
+                    <tr>
+                        <td><strong>영업시간/요금</strong></td>
+                        <td>영업시간 및 요금 설정</td>
+                    </tr>
+                    <tr>
+                        <td><strong>이벤트 관리</strong></td>
+                        <td>이벤트 등록, 수정, 삭제</td>
+                    </tr>
+                    <tr>
+                        <td><strong>사진 관리</strong></td>
+                        <td>갤러리 사진 업로드 및 관리</td>
+                    </tr>
+                    <tr>
+                        <td><strong>통계</strong></td>
+                        <td>방문자수, 기록수, 평점 등 분석</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>전체 화면 수 및 개발 규모</h3>
+            <div class="highlight-box">
+                <ul>
+                    <li>프론트엔드 화면 (사용자 페이지): <strong>약 25개</strong></li>
+                    <li>어드민 페이지 (보링장 관리): <strong>약 10개</strong></li>
+                    <li>API 엔드포인트: <strong>약 40개</strong></li>
+                    <li>예상 개발 기간: <strong>약 4-5개월 (팀 규모 5-6명 기준)</strong></li>
+                </ul>
+            </div>
+        </section>
+
+        <div class="divider"></div>
+
+        <!-- Section 8: Development Roadmap -->
+        <section id="section8">
+            <div class="section-title">
+                <span class="section-number">8</span>
+                <h1>개발 로드맵</h1>
+            </div>
+
+            <p>칠텐 웹 서비스 개발은 3개 단계로 나누어 진행됩니다. 각 단계는 2-3개월 기간으로 예정되어 있습니다.</p>
+
+            <h2>Phase 1: 기본 기능 구현 (2-3개월)</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-item-title">1주-2주: 개발 환경 구축 및 설계</div>
+                    <div class="timeline-item-desc">
+                        - 개발 환경 셋업<br>
+                        - 데이터베이스 설계<br>
+                        - API 스펙 작성<br>
+                        - UI 프로토타입 개발
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-item-title">3주-8주: 커뮤니티 기능 개발</div>
+                    <div class="timeline-item-desc">
+                        - 인증/사용자 관리 (로그인, 회원가입)<br>
+                        - 5개 게시판 (리스트, 상세, 글쓰기)<br>
+                        - 검색 및 필터링<br>
+                        - 댓글, 좋아요, 채팅 기능
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-item-title">9주-10주: 볼링장 기능 개발</div>
+                    <div class="timeline-item-desc">
+                        - 지도 API 연동<br>
+                        - 지도 뷰 및 리스트 뷰<br>
+                        - 상세 페이지<br>
+                        - 검색 및 필터링
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-item-title">11주-12주: QA 및 배포</div>
+                    <div class="timeline-item-desc">
+                        - 통합 테스트<br>
+                        - 성능 최적화<br>
+                        - 보안 검수<br>
+                        - 스테이징 배포
+                    </div>
+                </div>
+            </div>
+
+            <h2>Phase 2: 어드민 기능 및 고도화 (2-3개월)</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-item-title">1주-4주: 어드민 기능 개발</div>
+                    <div class="timeline-item-desc">
+                        - 보링장 사업자 인증<br>
+                        - 정보 관리 (기본정보, 영업시간, 요금)<br>
+                        - 이벤트 관리<br>
+                        - 사진 관리
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-item-title">5주-8주: 통계 및 구독 기능</div>
+                    <div class="timeline-item-desc">
+                        - 통계 대시보드<br>
+                        - 데이터 시각화<br>
+                        - 구독 결제 (결제 API 연동)<br>
+                        - 청구 관리
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-item-title">9주-10주: 마이페이지 고도화</div>
+                    <div class="timeline-item-desc">
+                        - 프로필 관리<br>
+                        - 활동 현황<br>
+                        - 거래 현황<br>
+                        - 즐겨찾기, 알림
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-item-title">11주-12주: 베타 테스트 및 배포</div>
+                    <div class="timeline-item-desc">
+                        - 보링장 파트너 베타 테스트<br>
+                        - 피드백 수집 및 반영<br>
+                        - 최종 QA<br>
+                        - 정식 런칭
+                    </div>
+                </div>
+            </div>
+
+            <h2>Phase 3: 확대 및 최적화 (2-3개월)</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-item-title">1주-4주: 사용자 피드백 반영</div>
+                    <div class="timeline-item-desc">
+                        - 버그 수정<br>
+                        - 성능 최적화<br>
+                        - UX 개선<br>
+                        - A/B 테스트
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-item-title">5주-8주: 신규 기능 개발</div>
+                    <div class="timeline-item-desc">
+                        - 예약 시스템 (향후 개발)<br>
+                        - 모바일 앱 연동<br>
+                        - 소셜 공유<br>
+                        - 추천 알고리즘
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-item-title">9주-12주: 마케팅 및 확산</div>
+                    <div class="timeline-item-desc">
+                        - 사용자 획득 마케팅<br>
+                        - 파트너 모집 (보링장)<br>
+                        - 프로모션 캠페인<br>
+                        - 커뮤니티 활성화
+                    </div>
+                </div>
+            </div>
+
+            <h2>주요 마일스톤</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>마일스톤</th>
+                        <th>목표 시점</th>
+                        <th>주요 성과</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Phase 1 완료</strong></td>
+                        <td>4개월 후</td>
+                        <td>커뮤니티 + 볼링장 기능 베타 배포</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Phase 2 완료</strong></td>
+                        <td>7개월 후</td>
+                        <td>어드민 기능 포함 정식 런칭</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Phase 3 완료</strong></td>
+                        <td>10개월 후</td>
+                        <td>사용자 50만명, 파트너 200개 보링장</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <div class="divider"></div>
+
+        <!-- Section 9: Technology Stack -->
+        <section id="section9">
+            <div class="section-title">
+                <span class="section-number">9</span>
+                <h1>기술 스택</h1>
+            </div>
+
+            <p>칠텐 웹 서비스의 안정적이고 확장 가능한 개발을 위해 최신 기술 스택을 제안합니다.</p>
+
+            <h2>Frontend</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>분류</th>
+                        <th>기술</th>
+                        <th>선택 이유</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>프레임워크</strong></td>
+                        <td>React 18</td>
+                        <td>큰 커뮤니티, 컴포넌트 재사용성, 성능</td>
+                    </tr>
+                    <tr>
+                        <td><strong>상태 관리</strong></td>
+                        <td>Redux Toolkit 또는 Zustand</td>
+                        <td>복잡한 상태 관리, 개발자 경험</td>
+                    </tr>
+                    <tr>
+                        <td><strong>라우팅</strong></td>
+                        <td>React Router v6</td>
+                        <td>표준 라우팅 솔루션, SPA 구현</td>
+                    </tr>
+                    <tr>
+                        <td><strong>UI 라이브러리</strong></td>
+                        <td>Material-UI 또는 shadcn/ui</td>
+                        <td>빠른 개발, 일관된 디자인</td>
+                    </tr>
+                    <tr>
+                        <td><strong>지도 API</strong></td>
+                        <td>Kakao Map API + react-map-gl</td>
+                        <td>국내 시장 적합성, 실시간 업데이트</td>
+                    </tr>
+                    <tr>
+                        <td><strong>HTTP 클라이언트</strong></td>
+                        <td>Axios</td>
+                        <td>간편한 요청 처리, 인터셉터</td>
+                    </tr>
+                    <tr>
+                        <td><strong>번들러</strong></td>
+                        <td>Vite</td>
+                        <td>빠른 빌드 시간, 최적화</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2>Backend</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>분류</th>
+                        <th>기술</th>
+                        <th>선택 이유</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>런타임</strong></td>
+                        <td>Node.js + Express</td>
+                        <td>JavaScript 통일, 빠른 개발</td>
+                    </tr>
+                    <tr>
+                        <td><strong>대안</strong></td>
+                        <td>Python (Django 또는 FastAPI)</td>
+                        <td>데이터 분석, 빠른 프로토타입</td>
+                    </tr>
+                    <tr>
+                        <td><strong>API 아키텍처</strong></td>
+                        <td>RESTful API (향후 GraphQL)</td>
+                        <td>표준 설계, 확장성</td>
+                    </tr>
+                    <tr>
+                        <td><strong>인증</strong></td>
+                        <td>JWT + OAuth 2.0 (SNS 로그인)</td>
+                        <td>보안, 사용자 경험</td>
+                    </tr>
+                    <tr>
+                        <td><strong>메시징</strong></td>
+                        <td>Socket.io (실시간 채팅)</td>
+                        <td>실시간 통신, 안정성</td>
+                    </tr>
+                    <tr>
+                        <td><strong>캐싱</strong></td>
+                        <td>Redis</td>
+                        <td>성능 향상, 세션 관리</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2>Database</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>분류</th>
+                        <th>기술</th>
+                        <th>용도</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>주 데이터베이스</strong></td>
+                        <td>PostgreSQL</td>
+                        <td>관계형 데이터 (사용자, 게시글, 보링장 정보)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>캐시</strong></td>
+                        <td>Redis</td>
+                        <td>세션, 임시 데이터, 캐싱</td>
+                    </tr>
+                    <tr>
+                        <td><strong>검색 엔진</strong></td>
+                        <td>Elasticsearch (향후 도입)</td>
+                        <td>빠른 전문 검색, 로그 분석</td>
+                    </tr>
+                    <tr>
+                        <td><strong>파일 저장소</strong></td>
+                        <td>AWS S3 또는 Google Cloud Storage</td>
+                        <td>사진, 문서 저장</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2>Infrastructure & DevOps</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>분류</th>
+                        <th>기술</th>
+                        <th>설명</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>클라우드 플랫폼</strong></td>
+                        <td>AWS 또는 Google Cloud</td>
+                        <td>확장성, 관리 용이성</td>
+                    </tr>
+                    <tr>
+                        <td><strong>컨테이너</strong></td>
+                        <td>Docker</td>
+                        <td>환경 일관성, 배포 자동화</td>
+                    </tr>
+                    <tr>
+                        <td><strong>오케스트레이션</strong></td>
+                        <td>Kubernetes</td>
+                        <td>자동 스케일링, 고가용성</td>
+                    </tr>
+                    <tr>
+                        <td><strong>CI/CD</strong></td>
+                        <td>GitHub Actions 또는 GitLab CI</td>
+                        <td>자동 테스트, 배포</td>
+                    </tr>
+                    <tr>
+                        <td><strong>모니터링</strong></td>
+                        <td>Datadog, New Relic</td>
+                        <td>성능 모니터링, 에러 추적</td>
+                    </tr>
+                    <tr>
+                        <td><strong>로깅</strong></td>
+                        <td>ELK Stack (Elasticsearch, Logstash, Kibana)</td>
+                        <td>중앙식 로그 관리</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2>개발 도구 및 라이브러리</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>분류</th>
+                        <th>도구</th>
+                        <th>용도</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>버전 관리</strong></td>
+                        <td>Git + GitHub</td>
+                        <td>코드 관리, 협업</td>
+                    </tr>
+                    <tr>
+                        <td><strong>테스트</strong></td>
+                        <td>Jest, React Testing Library</td>
+                        <td>단위 테스트, 통합 테스트</td>
+                    </tr>
+                    <tr>
+                        <td><strong>코드 품질</strong></td>
+                        <td>ESLint, Prettier, SonarQube</td>
+                        <td>코드 표준화, 품질 관리</td>
+                    </tr>
+                    <tr>
+                        <td><strong>문서화</strong></td>
+                        <td>Swagger/OpenAPI, Notion</td>
+                        <td>API 문서, 기술 문서</td>
+                    </tr>
+                    <tr>
+                        <td><strong>API 테스트</strong></td>
+                        <td>Postman, Insomnia</td>
+                        <td>API 개발 및 테스트</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2>추천 아키텍처</h2>
+            <div class="highlight-box">
+                <strong>마이크로서비스 아키텍처 (향후 확장성 고려)</strong>
+                <ul style="margin-top: 10px;">
+                    <li>사용자 서비스 (인증, 프로필)</li>
+                    <li>커뮤니티 서비스 (게시글, 댓글)</li>
+                    <li>볼링장 서비스 (정보, 검색)</li>
+                    <li>결제 서비스 (구독, 거래)</li>
+                    <li>알림 서비스 (이메일, 푸시)</li>
+                    <li>분석 서비스 (통계, 로그)</li>
+                </ul>
+            </div>
+
+            <h2>성능 목표</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>지표</th>
+                        <th>목표값</th>
+                        <th>설명</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>페이지 로딩</strong></td>
+                        <td>&lt; 2초</td>
+                        <td>초기 페이지 로딩 시간</td>
+                    </tr>
+                    <tr>
+                        <td><strong>API 응답</strong></td>
+                        <td>&lt; 200ms</td>
+                        <td>평균 API 응답 시간</td>
+                    </tr>
+                    <tr>
+                        <td><strong>가용성</strong></td>
+                        <td>&gt; 99.9%</td>
+                        <td>월간 가용성</td>
+                    </tr>
+                    <tr>
+                        <td><strong>동시 사용자</strong></td>
+                        <td>10,000+</td>
+                        <td>동시 접속 가능</td>
+                    </tr>
+                    <tr>
+                        <td><strong>데이터 처리</strong></td>
+                        <td>&lt; 100ms</td>
+                        <td>쿼리 응답 시간</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2>보안 고려사항</h2>
+            <ul class="feature-list">
+                <li>HTTPS 필수 적용</li>
+                <li>XSS, CSRF 방지 (헬멧, CORS 설정)</li>
+                <li>SQL 인젝션 방지 (Prepared Statements)</li>
+                <li>인증/인가: JWT + Role-Based Access Control (RBAC)</li>
+                <li>데이터 암호화: 민감 정보 암호화, 전송 암호화</li>
+                <li>정기 보안 감사 및 침투 테스트</li>
+                <li>개인정보 보호: GDPR, 개인정보보호법 준수</li>
+            </ul>
+        </section>
+
+        <footer>
+            <p>칠텐 웹 서비스 기획서 | 슬로건: 볼링칠텐, 칠텐</p>
+            <p>문서 버전: v1.0 | 작성일: 2026.03</p>
+            <p>© 2026 칠텐. All rights reserved.</p>
+        </footer>
+    </main>
+
+    <script>
+        // Navigation scroll spy and active state management
+        const navLinks = document.querySelectorAll('nav.sticky-nav a[href^="#"]');
+        const sections = document.querySelectorAll('section[id]');
+
+        function setActive(element) {
+            navLinks.forEach(link => link.classList.remove('active'));
+            element.classList.add('active');
+            
+            // Handle parent list item for nested items
+            const parent = element.closest('li');
+            if (parent && parent.parentElement.tagName === 'UL') {
+                parent.parentElement.closest('li')?.classList.add('open');
+            }
+        }
+
+        // Update active nav on scroll
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                    const parent = link.closest('li');
+                    if (parent && parent.parentElement.tagName === 'UL') {
+                        parent.parentElement.closest('li')?.classList.add('open');
+                    }
+                }
+            });
+        });
+
+        // Smooth scrolling for navigation
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const href = link.getAttribute('href');
+                if (href === '#') return;
+                
+                const target = document.querySelector(href);
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                    setActive(link);
+                }
+            });
+        });
+
+        // Toggle nested menu items
+        document.querySelectorAll('nav.sticky-nav > ul > li > a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                const parent = this.closest('li');
+                if (parent.querySelector('ul')) {
+                    e.preventDefault();
+                    parent.classList.toggle('open');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
