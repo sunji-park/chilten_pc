@@ -1181,6 +1181,26 @@ select.mw-input{cursor:pointer;-webkit-appearance:none;appearance:none;backgroun
 .coming-modal-btn{display:inline-block;padding:10px 32px;background:var(--blue);color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;transition:all .15s;}
 .coming-modal-btn:hover{background:var(--navy);}
 
+/* 이벤트 글 모달 (티커 클릭) */
+.ev-post-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:2200;display:none;align-items:center;justify-content:center;}
+.ev-post-modal-overlay.open{display:flex;}
+.ev-post-modal{background:#fff;border-radius:16px;max-width:480px;width:92%;max-height:80vh;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.25);display:flex;flex-direction:column;}
+.ev-post-modal-header{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--line);}
+.ev-post-modal-header h3{font-size:15px;font-weight:800;color:var(--navy);margin:0;}
+.ev-post-modal-close{background:none;border:none;font-size:20px;color:var(--text2);cursor:pointer;padding:4px 8px;border-radius:6px;transition:background .15s;}
+.ev-post-modal-close:hover{background:var(--bg);}
+.ev-post-modal-body{overflow-y:auto;flex:1;padding:0;}
+.ev-post-modal-img{width:100%;max-height:260px;object-fit:cover;display:block;}
+.ev-post-modal-content{padding:20px;}
+.ev-post-modal-title{font-size:16px;font-weight:800;color:var(--navy);margin-bottom:8px;line-height:1.4;}
+.ev-post-modal-meta{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text2);margin-bottom:14px;flex-wrap:wrap;}
+.ev-post-modal-meta span{display:inline-flex;align-items:center;gap:3px;}
+.ev-post-modal-alley{display:inline-block;padding:3px 8px;background:var(--sub-blue);color:var(--blue);font-size:11px;font-weight:600;border-radius:6px;}
+.ev-post-modal-text{font-size:13px;color:var(--text1);line-height:1.7;white-space:pre-line;}
+.ev-post-modal-footer{padding:14px 20px;border-top:1px solid var(--line);text-align:center;}
+.ev-post-modal-goto{display:inline-flex;align-items:center;gap:6px;padding:10px 28px;background:var(--blue);color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;transition:all .15s;}
+.ev-post-modal-goto:hover{background:var(--navy);}
+
 /* ===== 헤더 3줄 구조 ===== */
 .mdp-header-info{font-size:11.5px;color:rgba(255,255,255,.75);margin-top:3px;display:flex;align-items:center;gap:4px;}
 .mdp-header-info .hi-icon{opacity:.7;}
@@ -4514,36 +4534,64 @@ function updateGreeting() {
 }
 updateGreeting();
 
-// ===== 광고 티커 생성 =====
+// ===== 광고 티커 생성 (eventPosts 연동) =====
 function initAdTicker() {
-  var ads = [
-    { name:'강남볼링센터', event:'만원의 행복 — 3게임+음료', date:'3/1~31', idx:0 },
-    { name:'수원볼링파크', event:'캡슐 이벤트 — 스트라이크 시 캡슐 무료!', date:'3/1~15', idx:3 },
-    { name:'부산스포츠볼링', event:'가족 패키지 — 4인 20% 할인', date:'~3/15', idx:5 },
-    { name:'대전볼링월드', event:'5주년 기념 — 5게임↑ 음료+기념품', date:'3/1~31', idx:7 },
-    { name:'마포볼링클럽', event:'칠텐 회원 300원 추가 할인', date:'상시', idx:2 },
-    { name:'대구중앙볼링', event:'볼링교실 무료 체험', date:'매주 토요일', idx:6 },
-  ];
-  var html = ads.map(function(ad) {
-    return '<span class="ad-ticker-item" data-alley="'+ad.idx+'">'
-      + '<span class="ati-name">🎳 ' + ad.name + '</span>'
-      + '<span class="ati-event">' + ad.event + '</span>'
-      + '<span class="ati-date">(' + ad.date + ')</span>'
+  // eventPosts에서 공지 제외한 이벤트만 필터
+  var evItems = eventPosts.filter(function(p){ return !p.isNotice && p.title; });
+  if (evItems.length === 0) return;
+  var html = evItems.map(function(p) {
+    var alleyName = p.alley || '칠텐';
+    var shortTitle = p.title.length > 25 ? p.title.substring(0, 25) + '…' : p.title;
+    return '<span class="ad-ticker-item" data-ev-id="'+p.id+'">'
+      + '<span class="ati-name">🎳 ' + alleyName + '</span>'
+      + '<span class="ati-event">' + shortTitle + '</span>'
+      + '<span class="ati-date">(' + p.date.replace('2026.','').replace('2025.','') + ')</span>'
       + '<span class="ati-sep">│</span>'
       + '</span>';
   }).join('');
   var ticker = document.getElementById('adTicker');
   ticker.innerHTML = html + html;
-  // 클릭 시 해당 볼링장 상세 모달 열기
+  // 클릭 시 이벤트 글 모달 열기
   document.getElementById('adTicker').parentElement.addEventListener('click', function(e) {
     var item = e.target.closest('.ad-ticker-item');
     if (item) {
-      var idx = parseInt(item.getAttribute('data-alley'));
-      if (!isNaN(idx)) openMapDetail(idx);
+      var evId = parseInt(item.getAttribute('data-ev-id'));
+      if (!isNaN(evId)) openEvPostModal(evId);
     }
   });
 }
-initAdTicker();
+// initAdTicker는 eventPosts 정의 후 호출
+
+// ===== 이벤트 글 모달 (티커 클릭) =====
+function openEvPostModal(id) {
+  var p = eventPosts.find(function(x){ return x.id === id; });
+  if (!p) return;
+  var bodyEl = document.getElementById('evPostModalBody');
+  var imgHtml = p.img ? '<img class="ev-post-modal-img" src="'+p.img+'" alt="'+p.title+'">' : '';
+  var alleyHtml = p.alley ? '<span class="ev-post-modal-alley">'+p.alley+'</span>' : '';
+  var contentText = p.content || '(내용이 등록되지 않았습니다.)';
+  bodyEl.innerHTML = imgHtml
+    + '<div class="ev-post-modal-content">'
+    +   '<div class="ev-post-modal-title">' + p.title + '</div>'
+    +   '<div class="ev-post-modal-meta">'
+    +     '<span>✏️ ' + p.author + '</span>'
+    +     '<span>📅 ' + p.date + '</span>'
+    +     '<span>👁️ ' + p.views + '</span>'
+    +     (p.region ? '<span>📍 ' + p.region + '</span>' : '')
+    +   '</div>'
+    +   (p.alley ? '<div style="margin-bottom:12px;">' + alleyHtml + '</div>' : '')
+    +   '<div class="ev-post-modal-text">' + contentText + '</div>'
+    + '</div>';
+  // 글 바로가기 버튼 연결
+  document.getElementById('evPostModalGoto').onclick = function() {
+    closeEvPostModal();
+    openEventDetail(id);
+  };
+  document.getElementById('evPostModalOverlay').classList.add('open');
+}
+function closeEvPostModal() {
+  document.getElementById('evPostModalOverlay').classList.remove('open');
+}
 
 // Tab click handler (generic)
 document.querySelectorAll('.tabs .tab').forEach(t => {
@@ -5091,6 +5139,9 @@ var eventPosts = [
   {id:7, title:'봄맞이 특별 할인 이벤트', author:'김볼링', date:'2026.03.22', views:156, comments:2, alley:'강남볼링센터', region:'서울 강남구', img:'bowling_image/event/1.jpg', content:'봄맞이 특별 이벤트!\n게임당 500원 할인! 평일/주말 전부 적용됩니다.\n3월 한달간 진행합니다.', evType:'만원의행복'},
   {id:8, title:'신규회원 가입 이벤트 (상시)', author:'수원볼링', date:'2026.03.20', views:95, comments:1, alley:'수원볼링파크', region:'경기 수원시', img:'bowling_image/event/3.jpg', content:'수원볼링파크 신규회원 가입 이벤트!\n첫 방문 시 무료 게임 2게임 제공!\n칠텐 앱 통해 가입하시면 추가 1게임 더!', evType:'2인조'},
 ];
+
+// eventPosts 정의 후 티커 초기화
+initAdTicker();
 
 var evComments = {
   7: [_c('볼링매니아','이거 좋은 이벤트네요! 언제까지인가요?','2026.03.22 14:20',[
@@ -6021,6 +6072,19 @@ function updateDetailBtns(containerId, listPage, postType, postId, author) {
     <div class="del-modal-btns">
       <button class="del-modal-cancel" onclick="closeDeleteModal()">취소</button>
       <button class="del-modal-confirm" onclick="confirmDelete()">삭제</button>
+    </div>
+  </div>
+</div>
+
+<!-- 이벤트 글 모달 (티커 클릭) -->
+<div class="ev-post-modal-overlay" id="evPostModalOverlay" onclick="if(event.target===this)closeEvPostModal()">
+  <div class="ev-post-modal">
+    <div class="ev-post-modal-header" style="border-bottom:none;padding:8px 12px;justify-content:flex-end;">
+      <button class="ev-post-modal-close" onclick="closeEvPostModal()">✕</button>
+    </div>
+    <div class="ev-post-modal-body" id="evPostModalBody"></div>
+    <div class="ev-post-modal-footer">
+      <button class="ev-post-modal-goto" id="evPostModalGoto" onclick="">글 바로가기 →</button>
     </div>
   </div>
 </div>
