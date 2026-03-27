@@ -165,18 +165,21 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .greeting-bubble::before{content:'';position:absolute;left:-6px;top:50%;transform:translateY(-50%);border:6px solid transparent;border-right-color:var(--sub-green);border-left:0;}
 @keyframes bubbleFadeIn{from{opacity:0;transform:translateX(-8px);}to{opacity:1;transform:translateX(0);}}
 /* ===== 광고 티커 ===== */
-.ad-ticker-wrap{flex:0 1 40%;min-width:0;overflow:hidden;position:relative;height:28px;border-radius:14px;background:linear-gradient(90deg,#FFF1F3,#FFF8E7,#FFF1F3);border:1px solid #FECDD3;cursor:pointer;transition:border-color .15s;}
-.ad-ticker-wrap:hover{border-color:var(--red);}
-.ad-ticker-wrap::before,.ad-ticker-wrap::after{content:'';position:absolute;top:0;bottom:0;width:20px;z-index:1;pointer-events:none;}
-.ad-ticker-wrap::before{left:0;background:linear-gradient(90deg,#FFF1F3,transparent);}
-.ad-ticker-wrap::after{right:0;background:linear-gradient(270deg,#FFF1F3,transparent);}
-.ad-ticker{display:flex;align-items:center;height:100%;white-space:nowrap;animation:tickerScroll 25s linear infinite;}
-.ad-ticker-item{display:inline-flex;align-items:center;gap:6px;padding:0 24px;font-size:12px;font-weight:600;color:var(--red);}
-.ad-ticker-item .ati-name{color:var(--navy);font-weight:700;}
-.ad-ticker-item .ati-event{color:var(--red);}
-.ad-ticker-item .ati-date{color:var(--text2);font-weight:400;font-size:11px;}
-.ad-ticker-item .ati-sep{color:#FECDD3;margin:0 4px;}
+.ad-ticker-wrap{flex:0 1 48%;min-width:0;overflow:hidden;position:relative;height:38px;border-radius:19px;background:linear-gradient(135deg,#FF416C,#FF4B2B,#FF9068);background-size:200% 200%;animation:tickerBgShift 4s ease infinite;border:none;cursor:pointer;transition:box-shadow .2s;box-shadow:0 2px 10px rgba(255,65,108,.2);}
+.ad-ticker-wrap:hover{box-shadow:0 4px 18px rgba(255,65,108,.35);}
+.ad-ticker-wrap::before,.ad-ticker-wrap::after{content:'';position:absolute;top:0;bottom:0;width:28px;z-index:1;pointer-events:none;}
+.ad-ticker-wrap::before{left:0;background:linear-gradient(90deg,#FF416C,transparent);}
+.ad-ticker-wrap::after{right:0;background:linear-gradient(270deg,#FF4B2B,transparent);}
+.ad-ticker{display:flex;align-items:center;height:100%;white-space:nowrap;animation:tickerScroll 15s linear infinite;}
+.ad-ticker-item{display:inline-flex;align-items:center;gap:8px;padding:0 28px;font-size:13px;font-weight:600;color:#fff;}
+.ad-ticker-item .ati-name{color:#fff;font-weight:800;text-shadow:0 1px 2px rgba(0,0,0,.15);}
+.ad-ticker-item .ati-event{color:rgba(255,255,255,.92);font-weight:600;}
+.ad-ticker-item .ati-date{color:rgba(255,255,255,.7);font-weight:400;font-size:11px;}
+.ad-ticker-item .ati-sep{color:rgba(255,255,255,.3);margin:0 6px;}
 @keyframes tickerScroll{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
+@keyframes tickerBgShift{0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}
+.ad-ticker-label{position:absolute;left:0;top:0;bottom:0;z-index:2;display:flex;align-items:center;padding:0 12px 0 14px;font-size:11px;font-weight:800;color:#fff;background:linear-gradient(135deg,#d4145a,#ff416c);border-radius:19px 0 0 19px;letter-spacing:.5px;white-space:nowrap;text-shadow:0 1px 2px rgba(0,0,0,.2);}
+.ad-ticker-wrap .ad-ticker{padding-left:90px;}
 .breadcrumb{font-size:12px;color:var(--text2);margin-bottom:14px;}
 .breadcrumb a{color:var(--blue);cursor:pointer;}
 
@@ -2341,6 +2344,7 @@ select.mw-input{cursor:pointer;-webkit-appearance:none;appearance:none;backgroun
       <div class="greeting-bubble" id="dynamicGreeting"></div>
     </div>
     <div class="ad-ticker-wrap">
+      <span class="ad-ticker-label">🔥 EVENT</span>
       <div class="ad-ticker" id="adTicker"></div>
     </div>
     <div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text2);flex-shrink:0;">
@@ -4536,8 +4540,10 @@ updateGreeting();
 
 // ===== 광고 티커 생성 (eventPosts 연동) =====
 function initAdTicker() {
-  // eventPosts에서 공지 제외한 이벤트만 필터
+  // eventPosts에서 공지 제외, 최신순 정렬 후 5개만
   var evItems = eventPosts.filter(function(p){ return !p.isNotice && p.title; });
+  evItems.sort(function(a,b){ return b.date.localeCompare(a.date); });
+  evItems = evItems.slice(0, 5);
   if (evItems.length === 0) return;
   var html = evItems.map(function(p) {
     var alleyName = p.alley || '칠텐';
@@ -4566,9 +4572,10 @@ function initAdTicker() {
 function openEvPostModal(id) {
   var p = eventPosts.find(function(x){ return x.id === id; });
   if (!p) return;
+  // 헤더에 볼링장명 표시
+  document.getElementById('evPostModalAlleyName').textContent = p.alley || '이벤트';
   var bodyEl = document.getElementById('evPostModalBody');
   var imgHtml = p.img ? '<img class="ev-post-modal-img" src="'+p.img+'" alt="'+p.title+'">' : '';
-  var alleyHtml = p.alley ? '<span class="ev-post-modal-alley">'+p.alley+'</span>' : '';
   var contentText = p.content || '(내용이 등록되지 않았습니다.)';
   bodyEl.innerHTML = imgHtml
     + '<div class="ev-post-modal-content">'
@@ -4579,7 +4586,6 @@ function openEvPostModal(id) {
     +     '<span>👁️ ' + p.views + '</span>'
     +     (p.region ? '<span>📍 ' + p.region + '</span>' : '')
     +   '</div>'
-    +   (p.alley ? '<div style="margin-bottom:12px;">' + alleyHtml + '</div>' : '')
     +   '<div class="ev-post-modal-text">' + contentText + '</div>'
     + '</div>';
   // 글 바로가기 버튼 연결
@@ -6079,12 +6085,13 @@ function updateDetailBtns(containerId, listPage, postType, postId, author) {
 <!-- 이벤트 글 모달 (티커 클릭) -->
 <div class="ev-post-modal-overlay" id="evPostModalOverlay" onclick="if(event.target===this)closeEvPostModal()">
   <div class="ev-post-modal">
-    <div class="ev-post-modal-header" style="border-bottom:none;padding:8px 12px;justify-content:flex-end;">
+    <div class="ev-post-modal-header">
+      <h3 id="evPostModalAlleyName"></h3>
       <button class="ev-post-modal-close" onclick="closeEvPostModal()">✕</button>
     </div>
     <div class="ev-post-modal-body" id="evPostModalBody"></div>
     <div class="ev-post-modal-footer">
-      <button class="ev-post-modal-goto" id="evPostModalGoto" onclick="">글 바로가기 →</button>
+      <button class="ev-post-modal-goto" id="evPostModalGoto" onclick="">이벤트 자세히 보기 →</button>
     </div>
   </div>
 </div>
