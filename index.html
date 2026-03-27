@@ -827,7 +827,6 @@ select.mw-input{cursor:pointer;-webkit-appearance:none;appearance:none;backgroun
 .bnav-item.active .bnav-icon{background:var(--sub-blue);border-radius:12px;}
 .bnav-icon{font-size:18px;width:36px;height:24px;display:flex;align-items:center;justify-content:center;transition:background .15s;}
 
-/* ── 태블릿 (≤ 960px) ── */
 /* ═══════════════════════════════
    태블릿 (≤ 960px)
    ═══════════════════════════════ */
@@ -847,44 +846,68 @@ select.mw-input{cursor:pointer;-webkit-appearance:none;appearance:none;backgroun
 @media (max-width: 768px) {
   :root{--sidebar-w:0px;--header-h:52px;}
 
+  /* ── 기본 레이아웃 ── */
+  *{box-sizing:border-box;}
   body{background:#fff;}
-  .main{background:#fff;margin-left:0;padding:12px 12px 72px;}
+  .main{background:#fff;margin-left:0;padding:12px 12px 72px;max-width:100vw;overflow-x:hidden;}
 
-  /* 사이드바 오프캔버스 */
+  /* ── 사이드바 오프캔버스 ── */
   .sidebar{transform:translateX(-100%);transition:transform .25s ease;width:260px;z-index:300;box-shadow:4px 0 20px rgba(0,0,0,.15);}
   .sidebar.open{transform:translateX(0);}
   .sidebar-overlay{display:block;}
+  .sidebar-auth-btns{display:flex;gap:8px;padding:12px 16px;border-bottom:1px solid var(--line);margin-bottom:4px;}
+  .sb-login-btn{flex:1;padding:9px 0;border-radius:8px;background:var(--bg2);color:var(--text1);font-size:13px;font-weight:600;border:1px solid var(--line);cursor:pointer;text-align:center;}
+  .sb-signup-btn{flex:1;padding:9px 0;border-radius:8px;background:var(--blue);color:#fff;font-size:13px;font-weight:600;border:none;cursor:pointer;text-align:center;}
 
-  /* 헤더 */
+  /* ── 헤더: 로고 → 검색 → 햄버거 ── */
   .header{left:0;padding:0 12px;gap:8px;display:flex;align-items:center;}
-  .header-logo{display:block;order:1;height:28px;}
-  .header-search{flex:1;min-width:0;padding:6px 12px;border-radius:20px;background:var(--bg2);border:1px solid var(--line);order:2;}
-  .header-search input{display:block;flex:1;min-width:0;font-size:13px;color:var(--text1);}
-  .header-search input::placeholder{color:var(--text2);}
-  .header-search span{margin:0;flex-shrink:0;color:var(--text2)!important;}
+  .header-logo{display:block;order:1;height:28px;flex-shrink:0;}
+  .header-search{flex:1;min-width:0;padding:6px 12px;border-radius:20px;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.25);order:2;}
+  .header-search input{display:block;flex:1;min-width:0;font-size:13px;color:#fff;}
+  .header-search input::placeholder{color:rgba(255,255,255,.6);}
+  .header-search span{margin:0;flex-shrink:0;color:rgba(255,255,255,.7)!important;}
   .header-search .h-search-btn{display:none;}
   .h-user{display:none;}
   .header-right{display:none!important;}
   .menu-toggle{display:flex;order:3;}
 
-  /* 사이드바 로그인/회원가입 */
-  .sidebar-auth-btns{display:flex;gap:8px;padding:12px 16px;border-bottom:1px solid var(--line);margin-bottom:4px;}
-  .sb-login-btn{flex:1;padding:9px 0;border-radius:8px;background:var(--bg2);color:var(--text1);font-size:13px;font-weight:600;border:1px solid var(--line);cursor:pointer;transition:background .15s;text-align:center;}
-  .sb-login-btn:hover{background:#e8edf3;}
-  .sb-signup-btn{flex:1;padding:9px 0;border-radius:8px;background:var(--blue);color:#fff;font-size:13px;font-weight:600;border:none;cursor:pointer;transition:background .15s;text-align:center;}
-  .sb-signup-btn:hover{background:#004ab5;}
-
-  /* 그리드 */
+  /* ── 그리드 통합 ── */
   .grid2,.grid3{grid-template-columns:1fr;}
-  .grid4{grid-template-columns:repeat(2,1fr);}
+  .grid4{grid-template-columns:repeat(2,1fr);gap:10px;}
   .product-grid{grid-template-columns:repeat(2,1fr);gap:10px;}
 
-  /* board-layout — 사이드배너 숨김 */
+  /* ── board-layout / comm-layout 사이드배너 숨김 ── */
   .board-layout{flex-direction:column;gap:0;}
   .board-main{max-width:100%;width:100%;}
-  .board-ad-side{display:none;}
+  .board-ad-side{display:none!important;}
+  .comm-layout{flex-direction:column;gap:0;}
+  .comm-main{max-width:100%;width:100%;min-width:0;}
+  .comm-ad-side{display:none!important;}
 
-  /* 히어로 배너 */
+  /* ── 홈 배너 슬라이더 ── */
+  .comm-banner-slider{height:140px;border-radius:10px;margin-bottom:16px;}
+  .comm-banner-slide{padding:0 20px;gap:16px;}
+  .comm-banner-title{font-size:16px;margin-bottom:4px;}
+  .comm-banner-sub{font-size:11px;}
+  .comm-banner-tag{font-size:10px;padding:2px 8px;margin-bottom:6px;}
+  .comm-banner-visual{font-size:48px;}
+  .comm-banner-arrow{display:none!important;}
+
+  /* ── 홈 2열 그리드 → 1열 ── */
+  .comm-home-2col{display:grid!important;grid-template-columns:1fr!important;gap:12px!important;}
+
+  /* ── 홈 칠텐제휴볼링장 카드 ── */
+  #comm-partner-alleys{grid-template-columns:repeat(2,1fr)!important;gap:10px!important;}
+  #comm-partner-alleys .card{padding:10px!important;overflow:hidden;}
+  #comm-partner-alleys .card div[style*="height:90px"]{height:70px!important;margin-bottom:6px!important;}
+  #comm-partner-alleys .card div[style*="font-weight:700"]{font-size:13px!important;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  #comm-partner-alleys .card div[style*="display:flex;gap:8px"]{flex-direction:column!important;gap:2px!important;}
+
+  /* ── 홈 이벤트 그리드 ── */
+  #home-event-grid{grid-template-columns:repeat(2,1fr)!important;gap:10px;}
+  #home-event-grid .prod-img{aspect-ratio:4/3;}
+
+  /* ── 히어로 배너 ── */
   .hero{background:var(--navy);padding:20px 16px;border-radius:12px;margin-bottom:16px;}
   .hero-title{font-size:18px;}
   .hero-sub{font-size:12px;margin-bottom:14px;}
@@ -892,7 +915,7 @@ select.mw-input{cursor:pointer;-webkit-appearance:none;appearance:none;backgroun
   .hs-val{font-size:15px;}
   .hs-lbl{font-size:10px;}
 
-  /* 앱 다운로드 */
+  /* ── 앱 다운로드 ── */
   .app-dl-section{flex-direction:column;align-items:flex-start;padding:18px 16px;gap:16px;border-radius:12px;background:var(--navy);margin-bottom:16px;}
   .app-title{font-size:17px;}
   .app-qr-group{display:none;}
@@ -900,7 +923,7 @@ select.mw-input{cursor:pointer;-webkit-appearance:none;appearance:none;backgroun
   .app-btn{padding:9px 14px;}
   .app-btn-name{font-size:13px;}
 
-  /* 볼링장 지도뷰 */
+  /* ── 볼링장 지도뷰 ── */
   .map-wrap{flex-direction:column;height:auto;gap:10px;}
   .map-left{width:100%;height:auto;order:2;}
   #map-area-wrap{order:1;}
@@ -913,7 +936,7 @@ select.mw-input{cursor:pointer;-webkit-appearance:none;appearance:none;backgroun
   .map-detail-panel{width:100%;top:var(--header-h);}
   .mdp-swiper-wrap{height:52vw;min-height:160px;max-height:220px;}
 
-  /* 테이블 → 카드 */
+  /* ── 테이블 → 카드 ── */
   .table-scroll{overflow-x:visible;-webkit-overflow-scrolling:auto;}
   .table-scroll table,.board-table{min-width:0!important;display:block;}
   .board-table thead{display:none;}
@@ -926,7 +949,7 @@ select.mw-input{cursor:pointer;-webkit-appearance:none;appearance:none;backgroun
   .free-table tbody td:nth-child(3)::after{content:" · ";}
   .free-table tbody td:nth-child(4)::before{content:"조회 ";}
   .free-table tbody td:nth-child(4)::after{content:" · ";}
-  .free-table tbody td:nth-child(5)::before{content:"💬 ";}
+  .free-table tbody td:nth-child(5)::before{content:"\U0001F4AC ";}
   .free-table tbody td:nth-child(5){color:var(--blue);font-weight:600;}
   .free-table tbody td:nth-child(5)::after{content:" · ";}
   .tour-table tbody tr{display:block;padding:13px 14px 11px;border-bottom:1px solid var(--line);background:#fff;}
@@ -939,13 +962,13 @@ select.mw-input{cursor:pointer;-webkit-appearance:none;appearance:none;backgroun
   .tour-table tbody td:nth-child(7){display:block;margin-top:8px;}
   .tour-table tbody td:nth-child(7) .btn{width:100%;justify-content:center;}
 
-  /* 볼링장 목록 */
+  /* ── 볼링장 목록 ── */
   .alley-item{flex-wrap:wrap;padding:12px;}
   .alley-thumb{width:52px;height:52px;font-size:18px;}
   .alley-actions{flex-direction:row;min-width:auto;width:100%;gap:8px;}
   .alley-actions .btn{flex:1;justify-content:center;}
 
-  /* 상품 카드 */
+  /* ── 상품/게시글 카드 ── */
   .prod-card{overflow:hidden;}
   .prod-title{white-space:normal;-webkit-line-clamp:2;display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden;}
   .prod-img{aspect-ratio:1/1;}
@@ -955,40 +978,40 @@ select.mw-input{cursor:pointer;-webkit-appearance:none;appearance:none;backgroun
   .prod-stats .st svg{width:13px;height:13px;}
   .prod-author{font-size:10px;}
 
-  /* 대회게시판 리스트 */
+  /* ── 대회게시판 리스트 ── */
   #tr-list .prod-card{padding:10px 12px;gap:10px;}
   #tr-list .prod-img{width:90px;min-width:90px;aspect-ratio:4/3;margin:0;border-radius:8px;}
   #tr-list .prod-body{padding:0;}
   #tr-list .prod-title{font-size:13px;}
   #tr-list .prod-bottom{margin-top:4px;}
 
-  /* 자유게시판 리스트 */
+  /* ── 자유게시판 리스트 ── */
   #fb-list .prod-card{padding:10px 12px!important;gap:10px!important;}
   #fb-list .prod-card .prod-img{width:70px!important;min-width:70px!important;aspect-ratio:1/1!important;margin:0!important;border-radius:8px!important;}
   #fb-list .prod-body{padding:0!important;}
 
-  /* 중고장터 리스트뷰 */
+  /* ── 중고장터 리스트뷰 ── */
   .product-grid.list-view .prod-img{width:80px;min-width:80px;margin:10px;margin-right:0;}
   .product-grid.list-view .prod-body{padding:10px 12px;}
 
-  /* 이벤트 티커 */
+  /* ── 이벤트 티커 ── */
   .ad-ticker-wrap{flex:1 1 100%;min-width:0;height:34px;border-radius:17px;}
   .ad-ticker-item{padding:0 16px;font-size:11px;}
   .ad-ticker-label{font-size:10px;padding:0 8px 0 10px;border-radius:17px 0 0 17px;}
   .ad-ticker-wrap .ad-ticker{padding-left:72px;}
 
-  /* 이벤트 모달 */
+  /* ── 이벤트 모달 ── */
   .ev-post-modal{max-width:95%;width:95%;}
   .ev-post-modal-body{padding:14px 16px;}
 
-  /* 볼링장 정보 카드 */
+  /* ── 볼링장 정보 카드 ── */
   .tr-detail-alley{padding:12px 14px;gap:10px;}
   .tr-detail-alley-name{font-size:13px;flex-wrap:wrap;gap:6px;}
   .tr-detail-alley-addr,.tr-detail-alley-hours{font-size:12px;}
   .tr-detail-alley-bottom{flex-wrap:wrap;gap:8px;}
   .tr-detail-alley-avg{font-size:12px;padding:3px 10px;}
 
-  /* 글쓰기/상세 페이지 */
+  /* ── 글쓰기/상세 페이지 ── */
   .md-header-row{flex-direction:column;gap:8px;}
   .md-title{font-size:16px;}
   .md-header-actions{flex-wrap:wrap;gap:6px;}
@@ -997,7 +1020,7 @@ select.mw-input{cursor:pointer;-webkit-appearance:none;appearance:none;backgroun
   .md-images img{max-width:100%!important;}
   .md-author-row{flex-wrap:wrap;gap:6px;font-size:12px;}
 
-  /* 데이터랩 */
+  /* ── 데이터랩 ── */
   .dl-chart-row{grid-template-columns:1fr;}
   .dl-avg-grid{grid-template-columns:1fr;}
   #dl-level-summary{grid-template-columns:repeat(2,1fr)!important;}
@@ -1009,48 +1032,44 @@ select.mw-input{cursor:pointer;-webkit-appearance:none;appearance:none;backgroun
   .dl-summary-text .dl-val{font-size:20px;}
   .dl-icon{width:36px;height:36px;}
 
-  /* 홈 이벤트 그리드 */
-  #home-event-grid{grid-template-columns:repeat(2,1fr)!important;gap:10px;}
-  #home-event-grid .prod-img{aspect-ratio:4/3;}
-
-  /* 홈 2열 섹션 → 1열 */
+  /* ── 섹션 타이틀 ── */
   .sec-title{font-size:14px;}
 
-  /* 댓글 */
+  /* ── 댓글 ── */
   .md-cmt-edit-area{flex-direction:column;gap:4px;}
   .md-cmt-edit-area input{width:100%;}
   .md-cmt-actions button{font-size:10px;}
 
-  /* 공지사항 */
+  /* ── 공지사항 ── */
   .ub-notice{flex-direction:row;align-items:center;padding:10px 14px;gap:10px;}
   .ub-notice-title-row{flex-wrap:wrap;}
   .ub-notice-title{font-size:13px;}
   .ub-notice-badge{font-size:10px;}
   .ub-notice-stats{font-size:11px;gap:8px;}
 
-  /* 페이지 헤더 */
+  /* ── 페이지 헤더 ── */
   .page-header{flex-wrap:wrap;gap:8px;}
   .page-title{font-size:16px;}
 
-  /* 카드 */
+  /* ── 카드 ── */
   .card{border-radius:10px;padding:14px;}
 
-  /* 필터 행 */
+  /* ── 필터 행 ── */
   .filter-row{flex-wrap:nowrap;overflow-x:auto;padding-bottom:4px;-webkit-overflow-scrolling:touch;}
   .filter-row::-webkit-scrollbar{display:none;}
   .ub-sort{font-size:12px;padding:6px 8px;}
 
-  /* 하단 탭 내비 */
+  /* ── 하단 탭 내비 ── */
   .bottom-nav{display:block;}
   .bottom-nav-inner{display:flex;}
 
-  /* 포토 스와이퍼 */
+  /* ── 포토 스와이퍼 ── */
   .photo-swiper-slide{height:58vw;min-height:180px;max-height:260px;}
 
-  /* 칠텐운영자 배지 */
+  /* ── 칠텐운영자 배지 ── */
   .chilten-admin-badge img{width:14px;height:14px;}
 
-  /* 칠텐제휴 배지 */
+  /* ── 칠텐제휴 배지 ── */
   .tr-detail-alley-name .tio-badge{font-size:9px;padding:2px 7px 2px 5px;}
   .tr-detail-alley-name .tio-badge img{width:14px;height:14px;}
   .tr-detail-alley-name .lane-badge{font-size:10px;padding:2px 6px;}
@@ -1062,11 +1081,17 @@ select.mw-input{cursor:pointer;-webkit-appearance:none;appearance:none;backgroun
 @media (max-width: 420px) {
   .main{padding:10px 10px 72px;}
   .product-grid{grid-template-columns:1fr 1fr;gap:8px;}
-  .grid4{grid-template-columns:1fr 1fr;}
+  .grid4{grid-template-columns:1fr 1fr;gap:8px;}
   .app-btns{flex-direction:column;}
   .app-btn{width:100%;}
   .hero-stats{gap:10px;}
   .hs-val{font-size:14px;}
+
+  /* 홈 배너 */
+  .comm-banner-slider{height:120px;}
+  .comm-banner-title{font-size:14px;}
+  .comm-banner-sub{font-size:10px;}
+  .comm-banner-visual{font-size:36px;}
 
   /* 데이터랩 통합 카드 1열 */
   .dl-summary-item{flex:0 0 100%;padding:8px 0;}
@@ -1076,6 +1101,9 @@ select.mw-input{cursor:pointer;-webkit-appearance:none;appearance:none;backgroun
 
   /* 홈 이벤트 */
   #home-event-grid{grid-template-columns:repeat(2,1fr)!important;gap:8px;}
+
+  /* 칠텐제휴볼링장 */
+  #comm-partner-alleys{grid-template-columns:1fr 1fr!important;gap:8px!important;}
 }
 
 /* ===== 지도 항상-열린 툴팁 카드 ===== */
@@ -1693,7 +1721,7 @@ select.mw-input{cursor:pointer;-webkit-appearance:none;appearance:none;backgroun
   </div>
 
   <!-- 중고장터 + 자유게시판 -->
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px;">
+  <div class="comm-home-2col" style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px;">
     <div class="card">
       <div class="sec-title" style="cursor:pointer;color:var(--blue)" onclick="go('market')">🛒 최근 중고장터</div>
       <div style="display:flex;flex-direction:column;gap:0;">
@@ -1735,7 +1763,7 @@ select.mw-input{cursor:pointer;-webkit-appearance:none;appearance:none;backgroun
   </div>
 
   <!-- 클럽홍보 + 대회 -->
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px;">
+  <div class="comm-home-2col" style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px;">
     <div class="card">
       <div class="sec-title" style="cursor:pointer;color:var(--blue)" onclick="go('clubs')">🏆 클럽홍보게시판</div>
       <div style="display:flex;flex-direction:column;gap:0;">
