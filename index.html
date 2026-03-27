@@ -848,8 +848,8 @@ select.mw-input{cursor:pointer;-webkit-appearance:none;appearance:none;backgroun
 
   /* ── 기본 레이아웃 ── */
   *{box-sizing:border-box;}
-  body{background:#fff;}
-  .main{background:#fff;margin-left:0;padding:12px 12px 72px;max-width:100vw;overflow-x:hidden;}
+  body{background:var(--bg);}
+  .main{background:var(--bg);margin-left:0;padding:12px 12px 72px;max-width:100vw;overflow-x:hidden;}
 
   /* ── 사이드바 오프캔버스 ── */
   .sidebar{transform:translateX(-100%);transition:transform .25s ease;width:260px;z-index:300;box-shadow:4px 0 20px rgba(0,0,0,.15);}
@@ -1543,6 +1543,24 @@ select.mw-input{cursor:pointer;-webkit-appearance:none;appearance:none;backgroun
 .float-top-btn.show{opacity:1;pointer-events:auto;transform:translateY(0);}
 .float-top-btn:hover{background:#003899;box-shadow:0 6px 24px rgba(0,71,187,.45);transform:translateY(-2px);}
 .float-top-btn svg{width:22px;height:22px;stroke-width:2.5;}
+
+/* ===== 앱 유도 모달 (모바일 전용) ===== */
+.app-gate-overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:9999;display:none;align-items:center;justify-content:center;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);}
+.app-gate-overlay.show{display:flex;}
+.app-gate{background:#fff;border-radius:20px;width:320px;max-width:88vw;padding:36px 28px 28px;text-align:center;box-shadow:0 24px 64px rgba(0,0,0,.25);animation:appGateIn .35s ease-out;}
+@keyframes appGateIn{from{opacity:0;transform:scale(.92) translateY(20px);}to{opacity:1;transform:scale(1) translateY(0);}}
+.app-gate-logo{margin-bottom:18px;}
+.app-gate-logo img{height:40px;}
+.app-gate-title{font-size:18px;font-weight:800;color:var(--navy);margin-bottom:6px;line-height:1.4;}
+.app-gate-desc{font-size:13px;color:var(--text2);line-height:1.5;margin-bottom:24px;}
+.app-gate-btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;height:50px;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;transition:all .15s;border:none;font-family:inherit;}
+.app-gate-btn.primary{background:var(--blue);color:#fff;margin-bottom:10px;box-shadow:0 4px 16px rgba(0,71,187,.3);}
+.app-gate-btn.primary:hover{background:#003899;}
+.app-gate-btn.primary svg{width:20px;height:20px;flex-shrink:0;}
+.app-gate-btn.secondary{background:var(--bg);color:var(--text2);border:1px solid var(--line);}
+.app-gate-btn.secondary:hover{background:#e8ecf1;}
+.app-gate-today{margin-top:16px;font-size:12px;color:var(--text2);cursor:pointer;background:none;border:none;padding:4px;font-family:inherit;}
+.app-gate-today:hover{text-decoration:underline;}
 </style>
 </head>
 <body>
@@ -6438,6 +6456,27 @@ function updateDetailBtns(containerId, listPage, postType, postId, author) {
   el.innerHTML = html;
 }
 
+// ===== 앱 유도 모달 =====
+function showAppGate() {
+  var ov = document.getElementById('appGateOverlay');
+  if (ov) ov.classList.add('show');
+}
+function closeAppGate() {
+  var ov = document.getElementById('appGateOverlay');
+  if (ov) ov.classList.remove('show');
+}
+function closeAppGateToday() {
+  closeAppGate();
+  try { sessionStorage.setItem('appGateHidden', '1'); } catch(e){}
+}
+// 모바일 감지 후 자동 표시
+(function(){
+  var isMobile = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent) || window.innerWidth <= 768;
+  if (!isMobile) return;
+  try { if (sessionStorage.getItem('appGateHidden') === '1') return; } catch(e){}
+  setTimeout(showAppGate, 800);
+})();
+
 </script>
 
 <!-- 삭제 확인 모달 -->
@@ -6642,6 +6681,23 @@ function updateDetailBtns(containerId, listPage, postType, postId, author) {
         이미 계정이 있으신가요? <span style="color:var(--blue);font-weight:600;cursor:pointer;" onclick="closeAuthModal('signup');openAuthModal('login')">로그인</span>
       </div>
     </div>
+  </div>
+</div>
+
+<!-- ===== 앱 유도 모달 (모바일 전용) ===== -->
+<div class="app-gate-overlay" id="appGateOverlay">
+  <div class="app-gate">
+    <div class="app-gate-logo">
+      <img src="logo_white.svg" alt="칠텐" style="height:40px;background:var(--blue);padding:6px 16px;border-radius:10px;">
+    </div>
+    <div class="app-gate-title">칠텐 앱에서 더 편하게!</div>
+    <div class="app-gate-desc">볼링 기록 관리, 볼링장 검색, 대회 참가까지<br>칠텐 앱 하나로 볼링의 모든 것</div>
+    <button class="app-gate-btn primary" onclick="window.open('https://chilten.com','_blank');closeAppGate();">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+      앱으로 보기
+    </button>
+    <button class="app-gate-btn secondary" onclick="closeAppGate();">모바일웹으로 계속보기</button>
+    <button class="app-gate-today" onclick="closeAppGateToday();">오늘 하루 보지 않기</button>
   </div>
 </div>
 
