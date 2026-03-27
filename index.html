@@ -271,14 +271,20 @@ tbody tr:hover{background:#fafcff;}
 .ub-extra-label{font-size:13px;font-weight:600;color:var(--text1);white-space:nowrap;}
 
 /* ===== UNIFIED NOTICE ZONE ===== */
-.ub-notice{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px 20px;margin-bottom:16px;cursor:pointer;transition:all .15s;}
-.ub-notice:hover{background:#fafcff;box-shadow:0 2px 8px rgba(0,71,187,.06);}
-.ub-notice-badge{display:inline-flex;align-items:center;gap:4px;background:var(--navy);color:#fff;font-size:10px;font-weight:700;padding:3px 10px;border-radius:8px;margin-bottom:8px;}
-.ub-notice-badge svg{width:12px;height:12px;stroke-width:2.5;}
-.ub-notice-title{font-weight:700;font-size:15px;color:var(--text1);margin-bottom:6px;}
-.ub-notice-meta{font-size:12px;color:var(--text2);display:flex;align-items:center;gap:8px;}
+.ub-notice-zone{display:flex;flex-direction:column;gap:0;margin-bottom:16px;}
+.ub-notice{background:#fff;border:1px solid var(--line);border-bottom:none;padding:12px 18px;cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:14px;}
+.ub-notice-zone .ub-notice:first-child{border-radius:12px 12px 0 0;}
+.ub-notice-zone .ub-notice:last-child{border-radius:0 0 12px 12px;border-bottom:1px solid var(--line);}
+.ub-notice-zone .ub-notice:only-child{border-radius:12px;border-bottom:1px solid var(--line);}
+.ub-notice:hover{background:#fafcff;}
+.ub-notice-left{display:flex;flex-direction:column;gap:2px;flex:1;min-width:0;}
+.ub-notice-title-row{display:flex;align-items:center;gap:8px;min-width:0;}
+.ub-notice-title{font-weight:700;font-size:14px;color:var(--text1);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.ub-notice-badge{display:inline-flex;align-items:center;gap:3px;background:transparent;color:var(--text2);font-size:11px;font-weight:600;padding:0;border-radius:0;flex-shrink:0;}
+.ub-notice-badge svg{width:11px;height:11px;stroke:var(--text2);stroke-width:2;}
+.ub-notice-meta{font-size:11px;color:var(--text2);display:flex;align-items:center;gap:6px;margin-top:2px;}
 .ub-notice-meta .tio{background:var(--navy);color:#fff;font-size:9px;font-weight:700;padding:2px 7px;border-radius:8px;}
-.ub-notice-stats{display:flex;gap:12px;font-size:12px;color:var(--text2);margin-top:6px;}
+.ub-notice-stats{display:flex;gap:10px;font-size:12px;color:var(--text2);flex-shrink:0;white-space:nowrap;}
 .ub-notice-stats .views{color:var(--red);font-weight:600;}
 .ub-notice-stats .comments{color:var(--text2);}
 
@@ -1786,7 +1792,7 @@ select.mw-input{cursor:pointer;-webkit-appearance:none;appearance:none;backgroun
       </button>
     </div>
   </div>
-  <div id="mk-notice-zone"></div>
+  <div id="mk-notice-zone" class="ub-notice-zone"></div>
   <div class="product-grid list-view" id="product-grid"></div>
   <div class="pagination">
     <button class="btn btn-gray btn-sm">◀ 이전</button>
@@ -1970,7 +1976,7 @@ select.mw-input{cursor:pointer;-webkit-appearance:none;appearance:none;backgroun
   <div style="display:flex;align-items:center;margin-bottom:14px;">
     <div style="font-size:13px;color:var(--text2);">총 <strong id="fb-post-count" style="color:var(--text1);">0</strong>개 게시글</div>
   </div>
-  <div id="fb-notice-zone"></div>
+  <div id="fb-notice-zone" class="ub-notice-zone"></div>
   <div id="fb-list"></div>
 </div>
 
@@ -2106,7 +2112,7 @@ select.mw-input{cursor:pointer;-webkit-appearance:none;appearance:none;backgroun
   <div style="display:flex;align-items:center;margin-bottom:14px;">
     <div style="font-size:13px;color:var(--text2);">총 <strong id="ev-post-count" style="color:var(--text1);">0</strong>개 이벤트</div>
   </div>
-  <div id="ev-notice-zone"></div>
+  <div id="ev-notice-zone" class="ub-notice-zone"></div>
   <div id="ev-list"></div>
 </div>
 
@@ -2239,7 +2245,7 @@ select.mw-input{cursor:pointer;-webkit-appearance:none;appearance:none;backgroun
   <div style="display:flex;align-items:center;margin-bottom:14px;">
     <div style="font-size:13px;color:var(--text2);">총 <strong id="cp-post-count" style="color:var(--text1);">0</strong>개 게시글</div>
   </div>
-  <div id="cp-notice-zone"></div>
+  <div id="cp-notice-zone" class="ub-notice-zone"></div>
   <div id="cp-list"></div>
 </div>
 
@@ -2382,7 +2388,7 @@ select.mw-input{cursor:pointer;-webkit-appearance:none;appearance:none;backgroun
   <div style="display:flex;align-items:center;margin-bottom:14px;">
     <div style="font-size:13px;color:var(--text2);">총 <strong id="tr-post-count" style="color:var(--text1);">0</strong>개 게시글</div>
   </div>
-  <div id="tr-notice-zone"></div>
+  <div id="tr-notice-zone" class="ub-notice-zone"></div>
   <div class="card" style="padding:18px 20px;" id="tr-list"></div>
 </div>
 
@@ -2926,11 +2932,15 @@ var _eyeSvg = '<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" vi
 var _msgSvg = '<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:2px;"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>';
 function renderNoticeHtml(n, onclickFn) {
   return '<div class="ub-notice" onclick="'+onclickFn+'('+n.id+')">'
-    + '<div class="ub-notice-badge">'+_pinSvg+' 공지</div>'
-    + '<div class="ub-notice-title">'+n.title+'</div>'
-    + '<div class="ub-notice-meta">'
-    +   '<span class="tio">7iO</span>'
-    +   '<span>'+n.author+'</span><span>'+(n.date||'')+'</span>'
+    + '<div class="ub-notice-left">'
+    +   '<div class="ub-notice-title-row">'
+    +     '<div class="ub-notice-title">'+n.title+'</div>'
+    +     '<div class="ub-notice-badge">'+_pinSvg+' 공지</div>'
+    +   '</div>'
+    +   '<div class="ub-notice-meta">'
+    +     '<span class="tio">7iO</span>'
+    +     '<span>'+n.author+'</span><span>'+(n.date||'')+'</span>'
+    +   '</div>'
     + '</div>'
     + '<div class="ub-notice-stats"><span class="views">'+_eyeSvg+' 조회 '+n.views.toLocaleString()+'</span><span class="comments">'+_msgSvg+' 댓글 '+n.comments+'</span></div>'
     + '</div>';
@@ -4127,6 +4137,7 @@ let currentStat = '전체';
 var ballImgDir = 'bowling_image/ball/';
 const products = [
   {id:100, title:'중고장터 이용규칙 안내', price:0, region:'', status:'', cat:'', likes:0, views:4218, comments:38, alley:'', author:'칠텐운영자', date:'2020.04.15', time:'', isNew:false, isNotice:true, img:null},
+  {id:101, title:'[필독] 안전거래 가이드', price:0, region:'', status:'', cat:'', likes:0, views:2965, comments:15, alley:'', author:'칠텐운영자', date:'2023.08.20', time:'', isNew:false, isNotice:true, img:null},
   {id:1, title:'블랙위도우 블루 우레탄 15p', price:150000, region:'서울 강동구', status:'판매중', cat:'볼', likes:23, views:17, comments:0, alley:'가인볼링장(길동점)', author:'정민O', time:'14:10', isNew:true, img:ballImgDir+'ball.jpg'},
   {id:2, title:'아이온 맥스 펄 15P', price:270000, region:'서울 송파구', status:'예약중', cat:'볼', likes:45, views:41, comments:0, alley:'정석볼링장(거여점)', author:'로비', time:'14:02', isNew:true, img:ballImgDir+'71RXBLcgBuL._AC_SL1500_.jpg'},
   {id:3, title:'해머 이펙트 블랙 우레탄(15p)', price:150000, region:'서울 노원구', status:'판매중', cat:'볼', likes:8, views:67, comments:0, alley:'블랙홀볼링', author:'김볼링', time:'12:03', isNew:true, img:ballImgDir+'images (1).jpg'},
@@ -5074,6 +5085,7 @@ var fbPhotos = [];
 
 var freePosts = [
   {id:1, title:'자유게시판 운영정책 안내', author:'칠텐운영자', date:'2020.02.26', views:5736, comments:31, isNotice:true, img:null, content:''},
+  {id:101, title:'[안내] 광고성 게시물 신고 방법', author:'칠텐운영자', date:'2024.11.05', views:1842, comments:8, isNotice:true, img:null, content:'광고성 게시물 신고 방법을 안내드립니다.\n\n1. 해당 게시물 우측 상단 ··· 메뉴 클릭\n2. 신고하기 선택\n3. 신고 사유 선택 후 제출\n\n신고된 게시물은 운영진 검토 후 조치됩니다.'},
   {id:2, title:'하드볼 추천', author:'헌리스', date:'2026.03.22', views:168, comments:3, isNotice:false, img:null, content:'하드볼 입문 추천해주세요.\n14파운드 기준으로 컨벤셔널로 지공하려고 합니다.\n초보인데 어떤 하드볼이 좋을까요?'},
   {id:3, title:'볼링커뮤니티나 카페 유명한곳', author:'12Boom', date:'2026.03.22', views:212, comments:1, isNotice:false, img:null, content:'볼링 관련 커뮤니티나 카페 중에 유명한 곳이 있나요?\n칠텐 말고 다른 곳도 궁금합니다.'},
   {id:4, title:'와일드레커 질문', author:'볼리TV', date:'2026.03.22', views:150, comments:4, isNotice:false, img:null, content:'와일드레커 써보신 분 계시나요?\n레인 컨디션이 좀 마른 편인데 잘 맞을까요?'},
