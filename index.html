@@ -983,16 +983,23 @@ select.mw-input{cursor:pointer;-webkit-appearance:none;appearance:none;backgroun
   .prod-img{aspect-ratio:1/1;}
   .prod-body{padding:10px;}
   .prod-bottom{font-size:10px;}
-  .prod-stats{font-size:11px;gap:8px;}
+  .prod-stats{font-size:11px;gap:6px;}
+  .prod-stats .st{display:inline-flex;align-items:center;gap:2px;}
   .prod-stats .st svg{width:13px;height:13px;}
+  .prod-stats .st-label{display:none;}
+  .prod-stats .st-num{font-size:11px;}
+  .ub-notice-stats .st-label{display:none;}
   .prod-author{font-size:10px;}
 
-  /* ── 대회게시판 리스트 ── */
-  #tr-list .prod-card{padding:10px 12px;gap:10px;}
-  #tr-list .prod-img{width:90px;min-width:90px;aspect-ratio:4/3;margin:0;border-radius:8px;}
-  #tr-list .prod-body{padding:0;}
-  #tr-list .prod-title{font-size:13px;}
-  #tr-list .prod-bottom{margin-top:4px;}
+
+  /* ── 대회게시판 리스트 (중고장터 list-view와 동일) ── */
+  #tr-list .prod-card{padding:0!important;gap:0!important;border-radius:0!important;border:none!important;border-bottom:1px solid var(--line)!important;}
+  #tr-list .prod-card:first-child{border-top:1px solid var(--line)!important;border-radius:10px 10px 0 0!important;}
+  #tr-list .prod-card:last-child{border-radius:0 0 10px 10px!important;}
+  #tr-list .prod-img{width:80px!important;min-width:80px!important;aspect-ratio:1/1!important;margin:10px!important;margin-right:0!important;border-radius:8px!important;overflow:hidden;}
+  #tr-list .prod-body{flex:1;padding:10px 12px!important;}
+  #tr-list .prod-title{font-size:13px;margin-bottom:2px;}
+  #tr-list .prod-bottom{margin-top:auto;}
 
   /* ── 자유게시판 리스트 ── */
   #fb-list .prod-card{padding:10px 12px!important;gap:10px!important;}
@@ -1002,6 +1009,9 @@ select.mw-input{cursor:pointer;-webkit-appearance:none;appearance:none;backgroun
   /* ── 중고장터 리스트뷰 ── */
   .product-grid.list-view .prod-img{width:80px;min-width:80px;margin:10px;margin-right:0;}
   .product-grid.list-view .prod-body{padding:10px 12px;}
+
+  /* ── 이벤트/클럽홍보 2열 유지 ── */
+  #ev-list,#cp-list{grid-template-columns:repeat(2,1fr)!important;gap:10px!important;}
 
   /* ── 이벤트 티커 ── */
   .ad-ticker-wrap{flex:1 1 100%;min-width:0;height:34px;border-radius:17px;}
@@ -1041,8 +1051,11 @@ select.mw-input{cursor:pointer;-webkit-appearance:none;appearance:none;backgroun
   .dl-summary-text .dl-val{font-size:20px;}
   .dl-icon{width:36px;height:36px;}
 
-  /* ── 섹션 타이틀 ── */
-  .sec-title{font-size:14px;}
+  /* ── 타이틀 통일 ── */
+  .page-title{font-size:18px;font-weight:800;}
+  .sec-title{font-size:16px;font-weight:700;}
+  #s-datalab .page-title{font-size:18px;}
+  #s-datalab .dl-subtitle{font-size:12px;}
 
   /* ── 댓글 ── */
   .md-cmt-edit-area{flex-direction:column;gap:4px;}
@@ -1057,8 +1070,7 @@ select.mw-input{cursor:pointer;-webkit-appearance:none;appearance:none;backgroun
   .ub-notice-stats{font-size:11px;gap:8px;}
 
   /* ── 페이지 헤더 ── */
-  .page-header{flex-wrap:wrap;gap:8px;}
-  .page-title{font-size:16px;}
+  .page-header{flex-wrap:wrap;gap:8px;padding:0 2px;margin-bottom:14px;}
 
   /* ── 카드 ── */
   .card{border-radius:10px;padding:14px;}
@@ -1111,7 +1123,7 @@ select.mw-input{cursor:pointer;-webkit-appearance:none;appearance:none;backgroun
   .dl-summary-item{flex:0 0 100%;padding:8px 0;}
 
   /* 대회게시판 */
-  #tr-list .prod-img{width:72px;min-width:72px;}
+  #tr-list .prod-img{width:70px!important;min-width:70px!important;}
 
   /* 홈 이벤트 */
   #home-event-grid{grid-template-columns:repeat(2,1fr)!important;gap:8px;}
@@ -3034,8 +3046,8 @@ var _pinSvg = '<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" vi
 var _eyeIco = '<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>';
 var _msgIco = '<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>';
 function statHtml(views, comments) {
-  return '<span class="st">'+_eyeIco+' 조회 '+(typeof views==='number'?views.toLocaleString():views)+'</span>'
-       + '<span class="st">'+_msgIco+' 댓글 '+comments+'</span>';
+  return '<span class="st">'+_eyeIco+'<span class="st-label"> 조회 </span><span class="st-num">'+(typeof views==='number'?views.toLocaleString():views)+'</span></span>'
+       + '<span class="st">'+_msgIco+'<span class="st-label"> 댓글 </span><span class="st-num">'+comments+'</span></span>';
 }
 // smaller versions for notice
 var _eyeSvg = '<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:2px;"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>';
@@ -3053,7 +3065,7 @@ function renderNoticeHtml(n, onclickFn) {
     +     '<span>'+(n.date||'')+'</span>'
     +   '</div>'
     + '</div>'
-    + '<div class="ub-notice-stats"><span class="views">'+_eyeSvg+' 조회 '+n.views.toLocaleString()+'</span><span class="comments">'+_msgSvg+' 댓글 '+n.comments+'</span></div>'
+    + '<div class="ub-notice-stats"><span class="views">'+_eyeSvg+'<span class="st-label"> 조회 </span>'+n.views.toLocaleString()+'</span><span class="comments">'+_msgSvg+'<span class="st-label"> 댓글 </span>'+n.comments+'</span></div>'
     + '</div>';
 }
 
