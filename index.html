@@ -40,6 +40,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .sidebar{position:fixed;left:0;top:0;bottom:0;width:var(--sidebar-w);background:#fff;border-right:none;display:flex;flex-direction:column;z-index:200;overflow-y:auto;box-shadow:2px 0 8px rgba(0,0,0,.06);}
 .sidebar-logo{height:var(--header-h);box-sizing:border-box;background:var(--blue);border-bottom:none;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 .sidebar-logo img{height:36px;}
+.sidebar-auth-btns{display:none;}
 /* app download section */
 .app-dl-section{background:linear-gradient(135deg,var(--navy) 0%,var(--blue) 60%,#0066dd 100%);border-radius:16px;padding:36px 40px;margin-bottom:24px;display:flex;align-items:center;justify-content:space-between;gap:32px;}
 .app-dl-left{flex:1;}
@@ -827,228 +828,254 @@ select.mw-input{cursor:pointer;-webkit-appearance:none;appearance:none;backgroun
 .bnav-icon{font-size:18px;width:36px;height:24px;display:flex;align-items:center;justify-content:center;transition:background .15s;}
 
 /* ── 태블릿 (≤ 960px) ── */
+/* ═══════════════════════════════
+   태블릿 (≤ 960px)
+   ═══════════════════════════════ */
 @media (max-width: 960px) {
   .grid4{grid-template-columns:repeat(2,1fr);}
   .product-grid{grid-template-columns:repeat(2,1fr);}
   .detail-grid{grid-template-columns:1fr;}
   .app-qr-group{display:none;}
   .app-dl-section{padding:28px 28px;}
+  .board-ad-side{display:none;}
+  .board-main{max-width:100%;}
 }
 
 /* ═══════════════════════════════
-   모바일 (≤ 768px)
+   모바일 (≤ 768px) — 통합
    ═══════════════════════════════ */
 @media (max-width: 768px) {
   :root{--sidebar-w:0px;--header-h:52px;}
 
-  /* ── body / main 배경 단순화 (좌우 그라데이션 없앰) ── */
-  body { background: #fff; }
-  .main { background: #fff; margin-left:0; padding:12px 12px 72px; }
+  body{background:#fff;}
+  .main{background:#fff;margin-left:0;padding:12px 12px 72px;}
 
-  /* ── 사이드바 오프캔버스 ── */
-  .sidebar{
-    transform:translateX(-100%);
-    transition:transform .25s ease;
-    width:260px;
-    z-index:300;
-    box-shadow:4px 0 20px rgba(0,0,0,.15);
-  }
+  /* 사이드바 오프캔버스 */
+  .sidebar{transform:translateX(-100%);transition:transform .25s ease;width:260px;z-index:300;box-shadow:4px 0 20px rgba(0,0,0,.15);}
   .sidebar.open{transform:translateX(0);}
   .sidebar-overlay{display:block;}
 
-  /* ── 헤더 ── */
-  .header{left:0;padding:0 12px;gap:8px;}
-  .header-logo{display:block;}
-  .header-search{flex:1;min-width:0;max-width:none;flex:0 0 auto;width:36px;padding:8px;border-radius:50%;justify-content:center;}
-  .header-search input{display:none;}
-  .header-search span{margin:0;}
+  /* 헤더 */
+  .header{left:0;padding:0 12px;gap:8px;display:flex;align-items:center;}
+  .header-logo{display:block;order:1;height:28px;}
+  .header-search{flex:1;min-width:0;padding:6px 12px;border-radius:20px;background:var(--bg2);border:1px solid var(--line);order:2;}
+  .header-search input{display:block;flex:1;min-width:0;font-size:13px;color:var(--text1);}
+  .header-search input::placeholder{color:var(--text2);}
+  .header-search span{margin:0;flex-shrink:0;color:var(--text2)!important;}
+  .header-search .h-search-btn{display:none;}
   .h-user{display:none;}
-  .menu-toggle{display:flex;}
+  .header-right{display:none!important;}
+  .menu-toggle{display:flex;order:3;}
 
-  /* ── 그리드 ── */
+  /* 사이드바 로그인/회원가입 */
+  .sidebar-auth-btns{display:flex;gap:8px;padding:12px 16px;border-bottom:1px solid var(--line);margin-bottom:4px;}
+  .sb-login-btn{flex:1;padding:9px 0;border-radius:8px;background:var(--bg2);color:var(--text1);font-size:13px;font-weight:600;border:1px solid var(--line);cursor:pointer;transition:background .15s;text-align:center;}
+  .sb-login-btn:hover{background:#e8edf3;}
+  .sb-signup-btn{flex:1;padding:9px 0;border-radius:8px;background:var(--blue);color:#fff;font-size:13px;font-weight:600;border:none;cursor:pointer;transition:background .15s;text-align:center;}
+  .sb-signup-btn:hover{background:#004ab5;}
+
+  /* 그리드 */
   .grid2,.grid3{grid-template-columns:1fr;}
   .grid4{grid-template-columns:repeat(2,1fr);}
   .product-grid{grid-template-columns:repeat(2,1fr);gap:10px;}
 
-  /* ── 히어로 배너 — 그라데이션 단순화 ── */
-  .hero{
-    background: var(--navy);   /* 대각선 그라데이션 → 단색 네이비 */
-    padding:20px 16px;
-    border-radius:12px;
-    margin-bottom:16px;
-  }
+  /* board-layout — 사이드배너 숨김 */
+  .board-layout{flex-direction:column;gap:0;}
+  .board-main{max-width:100%;width:100%;}
+  .board-ad-side{display:none;}
+
+  /* 히어로 배너 */
+  .hero{background:var(--navy);padding:20px 16px;border-radius:12px;margin-bottom:16px;}
   .hero-title{font-size:18px;}
   .hero-sub{font-size:12px;margin-bottom:14px;}
   .hero-stats{gap:14px;flex-wrap:wrap;}
   .hs-val{font-size:15px;}
   .hs-lbl{font-size:10px;}
 
-  /* ── 앱 다운로드 배너 ── */
-  .app-dl-section{
-    flex-direction:column;align-items:flex-start;
-    padding:18px 16px;gap:16px;border-radius:12px;
-    background:var(--navy);   /* 대각선 그라데이션 제거 */
-    margin-bottom:16px;
-  }
+  /* 앱 다운로드 */
+  .app-dl-section{flex-direction:column;align-items:flex-start;padding:18px 16px;gap:16px;border-radius:12px;background:var(--navy);margin-bottom:16px;}
   .app-title{font-size:17px;}
   .app-qr-group{display:none;}
   .app-btns{flex-wrap:nowrap;gap:8px;}
   .app-btn{padding:9px 14px;}
   .app-btn-name{font-size:13px;}
 
-  /* ── 볼링장 지도뷰 ──
-     모바일: 지도 먼저(위), 좌측 패널(아래) */
+  /* 볼링장 지도뷰 */
   .map-wrap{flex-direction:column;height:auto;gap:10px;}
-  .map-left{width:100%;height:auto;order:2;}   /* 패널을 아래로 */
-  #map-area-wrap{order:1;}                      /* 지도를 위로 */
-  .map-area,#map-area-wrap{
-    height:62vw;min-height:260px;max-height:400px;
-    border-radius:10px;
-  }
+  .map-left{width:100%;height:auto;order:2;}
+  #map-area-wrap{order:1;}
+  .map-area,#map-area-wrap{height:62vw;min-height:260px;max-height:400px;border-radius:10px;}
   #map-container{width:100%;height:100%;}
   .map-alley-list{max-height:200px;overflow-y:auto;}
+  #s-home.screen.active{padding:0;}
+  #s-home .page-header{padding:12px 12px 0;margin-bottom:10px;}
+  #s-home .map-wrap{padding:0 12px 12px;}
+  .map-detail-panel{width:100%;top:var(--header-h);}
+  .mdp-swiper-wrap{height:52vw;min-height:160px;max-height:220px;}
 
-  /* 지도 기본 패딩 제거 */
-  #s-home.screen.active { padding:0; }
-  #s-home .page-header { padding:12px 12px 0; margin-bottom:10px; }
-  #s-home .map-wrap { padding:0 12px 12px; }
+  /* 테이블 → 카드 */
+  .table-scroll{overflow-x:visible;-webkit-overflow-scrolling:auto;}
+  .table-scroll table,.board-table{min-width:0!important;display:block;}
+  .board-table thead{display:none;}
+  .board-table tbody{display:block;}
+  .free-table tbody tr{display:block;padding:13px 14px 11px;border-bottom:1px solid var(--line);cursor:pointer;background:#fff;}
+  .free-table tbody tr:hover{background:#fafcff;}
+  .free-table tbody td{display:none;border:none;padding:0;}
+  .free-table tbody td:nth-child(2){display:block;font-size:14px;font-weight:500;color:var(--text1);line-height:1.5;white-space:normal;margin-bottom:6px;}
+  .free-table tbody td:nth-child(3),.free-table tbody td:nth-child(4),.free-table tbody td:nth-child(5),.free-table tbody td:nth-child(6){display:inline;font-size:11px;color:var(--text2);}
+  .free-table tbody td:nth-child(3)::after{content:" · ";}
+  .free-table tbody td:nth-child(4)::before{content:"조회 ";}
+  .free-table tbody td:nth-child(4)::after{content:" · ";}
+  .free-table tbody td:nth-child(5)::before{content:"💬 ";}
+  .free-table tbody td:nth-child(5){color:var(--blue);font-weight:600;}
+  .free-table tbody td:nth-child(5)::after{content:" · ";}
+  .tour-table tbody tr{display:block;padding:13px 14px 11px;border-bottom:1px solid var(--line);background:#fff;}
+  .tour-table tbody td{display:none;border:none;padding:0;}
+  .tour-table tbody td:nth-child(1){display:block;font-size:14px;font-weight:700;color:var(--text1);line-height:1.4;margin-bottom:5px;white-space:normal;}
+  .tour-table tbody td:nth-child(3),.tour-table tbody td:nth-child(4),.tour-table tbody td:nth-child(5){display:inline;font-size:11px;color:var(--text2);}
+  .tour-table tbody td:nth-child(3)::after{content:" · ";}
+  .tour-table tbody td:nth-child(4)::after{content:" · ";}
+  .tour-table tbody td:nth-child(6){display:inline-block;margin-left:4px;vertical-align:middle;}
+  .tour-table tbody td:nth-child(7){display:block;margin-top:8px;}
+  .tour-table tbody td:nth-child(7) .btn{width:100%;justify-content:center;}
 
-  /* ── 자유게시판 / 대회소식 — 테이블 → 카드 목록 ── */
-  .table-scroll { overflow-x:visible; -webkit-overflow-scrolling:auto; }
-  .table-scroll table,.board-table { min-width:0 !important; display:block; }
-  .board-table thead { display:none; }
-  .board-table tbody { display:block; }
-
-  /* 자유게시판 (free-table): 번호|제목|작성자|조회수|댓글수|날짜 */
-  .free-table tbody tr {
-    display:block;
-    padding:13px 14px 11px;
-    border-bottom:1px solid var(--line);
-    cursor:pointer;
-    background:#fff;
-  }
-  .free-table tbody tr:hover { background:#fafcff; }
-  .free-table tbody td { display:none; border:none; padding:0; }
-  /* 제목 (2번 열) — 다줄 허용 */
-  .free-table tbody td:nth-child(2) {
-    display:block;
-    font-size:14px;
-    font-weight:500;
-    color:var(--text1);
-    line-height:1.5;
-    white-space:normal;
-    margin-bottom:6px;
-  }
-  .free-table tbody td:nth-child(2):hover { color:var(--blue); }
-  /* 메타 행: 작성자·조회수·댓글수·날짜 한 줄에 */
-  .free-table tbody td:nth-child(3),
-  .free-table tbody td:nth-child(4),
-  .free-table tbody td:nth-child(5),
-  .free-table tbody td:nth-child(6) {
-    display:inline;
-    font-size:11px;
-    color:var(--text2);
-  }
-  .free-table tbody td:nth-child(3)::after { content:" · "; }
-  .free-table tbody td:nth-child(4)::before { content:"조회 "; }
-  .free-table tbody td:nth-child(4) { color:var(--text2); }
-  .free-table tbody td:nth-child(4)::after { content:" · "; }
-  .free-table tbody td:nth-child(5)::before { content:"💬 "; }
-  .free-table tbody td:nth-child(5) { color:var(--blue); font-weight:600; }
-  .free-table tbody td:nth-child(5)::after { content:" · "; }
-  .free-table tbody td:nth-child(6) { color:var(--text2); }
-
-  /* 대회소식 (tour-table): 대회명|주최|날짜|장소|참가비|D-day|버튼 */
-  .tour-table tbody tr {
-    display:block;
-    padding:13px 14px 11px;
-    border-bottom:1px solid var(--line);
-    background:#fff;
-  }
-  .tour-table tbody td { display:none; border:none; padding:0; }
-  /* 대회명 (1번) */
-  .tour-table tbody td:nth-child(1) {
-    display:block;
-    font-size:14px;
-    font-weight:700;
-    color:var(--text1);
-    line-height:1.4;
-    margin-bottom:5px;
-    white-space:normal;
-  }
-  /* 날짜(3번)·장소(4번)·참가비(5번) 한 줄 */
-  .tour-table tbody td:nth-child(3),
-  .tour-table tbody td:nth-child(4),
-  .tour-table tbody td:nth-child(5) {
-    display:inline;
-    font-size:11px;
-    color:var(--text2);
-  }
-  .tour-table tbody td:nth-child(3)::after { content:" · "; }
-  .tour-table tbody td:nth-child(4)::after { content:" · "; }
-  /* D-day 뱃지(6번) + 신청 버튼(7번) */
-  .tour-table tbody td:nth-child(6) {
-    display:inline-block;
-    margin-left:4px;
-    vertical-align:middle;
-  }
-  .tour-table tbody td:nth-child(7) {
-    display:block;
-    margin-top:8px;
-  }
-  .tour-table tbody td:nth-child(7) .btn { width:100%;justify-content:center; }
-
-  /* ── 볼링장 목록 아이템 ── */
+  /* 볼링장 목록 */
   .alley-item{flex-wrap:wrap;padding:12px;}
   .alley-thumb{width:52px;height:52px;font-size:18px;}
   .alley-actions{flex-direction:row;min-width:auto;width:100%;gap:8px;}
   .alley-actions .btn{flex:1;justify-content:center;}
 
-  /* ── 상품 카드 ── */
+  /* 상품 카드 */
+  .prod-card{overflow:hidden;}
   .prod-title{white-space:normal;-webkit-line-clamp:2;display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden;}
   .prod-img{aspect-ratio:1/1;}
+  .prod-body{padding:10px;}
+  .prod-bottom{font-size:10px;}
+  .prod-stats{font-size:11px;gap:8px;}
+  .prod-stats .st svg{width:13px;height:13px;}
+  .prod-author{font-size:10px;}
 
-  /* ── 데이터랩 ── */
-  .dl-grid{grid-template-columns:repeat(2,1fr);gap:10px;}
+  /* 대회게시판 리스트 */
+  #tr-list .prod-card{padding:10px 12px;gap:10px;}
+  #tr-list .prod-img{width:90px;min-width:90px;aspect-ratio:4/3;margin:0;border-radius:8px;}
+  #tr-list .prod-body{padding:0;}
+  #tr-list .prod-title{font-size:13px;}
+  #tr-list .prod-bottom{margin-top:4px;}
+
+  /* 자유게시판 리스트 */
+  #fb-list .prod-card{padding:10px 12px!important;gap:10px!important;}
+  #fb-list .prod-card .prod-img{width:70px!important;min-width:70px!important;aspect-ratio:1/1!important;margin:0!important;border-radius:8px!important;}
+  #fb-list .prod-body{padding:0!important;}
+
+  /* 중고장터 리스트뷰 */
+  .product-grid.list-view .prod-img{width:80px;min-width:80px;margin:10px;margin-right:0;}
+  .product-grid.list-view .prod-body{padding:10px 12px;}
+
+  /* 이벤트 티커 */
+  .ad-ticker-wrap{flex:1 1 100%;min-width:0;height:34px;border-radius:17px;}
+  .ad-ticker-item{padding:0 16px;font-size:11px;}
+  .ad-ticker-label{font-size:10px;padding:0 8px 0 10px;border-radius:17px 0 0 17px;}
+  .ad-ticker-wrap .ad-ticker{padding-left:72px;}
+
+  /* 이벤트 모달 */
+  .ev-post-modal{max-width:95%;width:95%;}
+  .ev-post-modal-body{padding:14px 16px;}
+
+  /* 볼링장 정보 카드 */
+  .tr-detail-alley{padding:12px 14px;gap:10px;}
+  .tr-detail-alley-name{font-size:13px;flex-wrap:wrap;gap:6px;}
+  .tr-detail-alley-addr,.tr-detail-alley-hours{font-size:12px;}
+  .tr-detail-alley-bottom{flex-wrap:wrap;gap:8px;}
+  .tr-detail-alley-avg{font-size:12px;padding:3px 10px;}
+
+  /* 글쓰기/상세 페이지 */
+  .md-header-row{flex-direction:column;gap:8px;}
+  .md-title{font-size:16px;}
+  .md-header-actions{flex-wrap:wrap;gap:6px;}
+  .md-react-btn{font-size:12px;padding:6px 10px;}
+  .md-images{flex-direction:column;}
+  .md-images img{max-width:100%!important;}
+  .md-author-row{flex-wrap:wrap;gap:6px;font-size:12px;}
+
+  /* 데이터랩 */
   .dl-chart-row{grid-template-columns:1fr;}
   .dl-avg-grid{grid-template-columns:1fr;}
   #dl-level-summary{grid-template-columns:repeat(2,1fr)!important;}
   .cp-grid{grid-template-columns:1fr!important;}
+  .dl-summary-card{padding:16px 14px;}
+  .dl-summary-row{flex-wrap:wrap;gap:0;}
+  .dl-summary-item{flex:0 0 50%;justify-content:flex-start;gap:10px;padding:10px 0;}
+  .dl-summary-divider{display:none;}
+  .dl-summary-text .dl-val{font-size:20px;}
+  .dl-icon{width:36px;height:36px;}
 
-  /* ── 상세 페이지 ── */
-  .detail-grid{grid-template-columns:1fr;}
-  .gallery-placeholder{height:180px;}
+  /* 홈 이벤트 그리드 */
+  #home-event-grid{grid-template-columns:repeat(2,1fr)!important;gap:10px;}
+  #home-event-grid .prod-img{aspect-ratio:4/3;}
 
-  /* ── 페이지 헤더 ── */
+  /* 홈 2열 섹션 → 1열 */
+  .sec-title{font-size:14px;}
+
+  /* 댓글 */
+  .md-cmt-edit-area{flex-direction:column;gap:4px;}
+  .md-cmt-edit-area input{width:100%;}
+  .md-cmt-actions button{font-size:10px;}
+
+  /* 공지사항 */
+  .ub-notice{flex-direction:row;align-items:center;padding:10px 14px;gap:10px;}
+  .ub-notice-title-row{flex-wrap:wrap;}
+  .ub-notice-title{font-size:13px;}
+  .ub-notice-badge{font-size:10px;}
+  .ub-notice-stats{font-size:11px;gap:8px;}
+
+  /* 페이지 헤더 */
   .page-header{flex-wrap:wrap;gap:8px;}
   .page-title{font-size:16px;}
 
-  /* ── 카드 ── */
+  /* 카드 */
   .card{border-radius:10px;padding:14px;}
 
-  /* ── 필터 행 스크롤 ── */
+  /* 필터 행 */
   .filter-row{flex-wrap:nowrap;overflow-x:auto;padding-bottom:4px;-webkit-overflow-scrolling:touch;}
   .filter-row::-webkit-scrollbar{display:none;}
+  .ub-sort{font-size:12px;padding:6px 8px;}
 
-  /* ── 하단 탭 내비 표시 ── */
+  /* 하단 탭 내비 */
   .bottom-nav{display:block;}
   .bottom-nav-inner{display:flex;}
 
-  /* ── 슬라이드 상세 패널 ── */
-  .map-detail-panel{width:100%;top:var(--header-h);}
+  /* 포토 스와이퍼 */
+  .photo-swiper-slide{height:58vw;min-height:180px;max-height:260px;}
+
+  /* 칠텐운영자 배지 */
+  .chilten-admin-badge img{width:14px;height:14px;}
+
+  /* 칠텐제휴 배지 */
+  .tr-detail-alley-name .tio-badge{font-size:9px;padding:2px 7px 2px 5px;}
+  .tr-detail-alley-name .tio-badge img{width:14px;height:14px;}
+  .tr-detail-alley-name .lane-badge{font-size:10px;padding:2px 6px;}
 }
 
-/* ── 소형 폰 (≤ 420px) ── */
+/* ═══════════════════════════════
+   소형 폰 (≤ 420px)
+   ═══════════════════════════════ */
 @media (max-width: 420px) {
   .main{padding:10px 10px 72px;}
   .product-grid{grid-template-columns:1fr 1fr;gap:8px;}
-  .prod-img{aspect-ratio:1/1;}
+  .grid4{grid-template-columns:1fr 1fr;}
   .app-btns{flex-direction:column;}
   .app-btn{width:100%;}
-  .grid4{grid-template-columns:1fr 1fr;}
   .hero-stats{gap:10px;}
   .hs-val{font-size:14px;}
-  .free-table tbody tr,.tour-table tbody tr{padding:11px 12px 9px;}
+
+  /* 데이터랩 통합 카드 1열 */
+  .dl-summary-item{flex:0 0 100%;padding:8px 0;}
+
+  /* 대회게시판 */
+  #tr-list .prod-img{width:72px;min-width:72px;}
+
+  /* 홈 이벤트 */
+  #home-event-grid{grid-template-columns:repeat(2,1fr)!important;gap:8px;}
 }
 
 /* ===== 지도 항상-열린 툴팁 카드 ===== */
@@ -1178,9 +1205,7 @@ select.mw-input{cursor:pointer;-webkit-appearance:none;appearance:none;backgroun
 }
 .mdp-footer .btn { flex: 1; justify-content: center; }
 
-@media (max-width: 768px) {
-  .map-detail-panel { width: 100%; top: var(--header-h); }
-}
+
 
 
 /* ===== 칠텐자동기록 배지 ===== */
@@ -1351,7 +1376,7 @@ select.mw-input{cursor:pointer;-webkit-appearance:none;appearance:none;backgroun
 .swiper-dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.55);cursor:pointer;transition:background .2s;}
 .swiper-dot.on{background:#fff;}
 .swiper-count{position:absolute;top:10px;right:10px;background:rgba(0,0,0,.45);color:#fff;font-size:11px;padding:3px 9px;border-radius:20px;}
-@media(max-width:768px){.photo-swiper-slide{height:58vw;min-height:180px;max-height:260px;}}
+/* photo-swiper mobile → 통합 미디어쿼리로 이동됨 */
 
 
 /* ===== 이용요금 이미지 모달 ===== */
@@ -1391,10 +1416,7 @@ select.mw-input{cursor:pointer;-webkit-appearance:none;appearance:none;backgroun
   color:#fff;border:none;border-radius:8px;cursor:pointer;display:flex;align-items:center;
   justify-content:center;gap:8px;transition:background .15s;}
 .mdp-home-btn:hover{background:#003a9e;}
-@media(max-width:768px){
-  .map-detail-panel{width:100%;}
-  .mdp-swiper-wrap{height:52vw;min-height:160px;max-height:220px;}
-}
+/* mdp mobile → 통합 미디어쿼리로 이동됨 */
 
 /* ===== INFINITE SCROLL ===== */
 .inf-loader{display:flex;align-items:center;justify-content:center;padding:24px 0;gap:8px;color:var(--text2);font-size:13px;}
@@ -1501,6 +1523,12 @@ select.mw-input{cursor:pointer;-webkit-appearance:none;appearance:none;backgroun
 <aside class="sidebar">
   <div class="sidebar-logo" onclick="go('comm')" style="cursor:pointer;">
     <img src="logo_white.svg" alt="칠텐">
+  </div>
+
+  <!-- 모바일 전용 로그인/회원가입 -->
+  <div class="sidebar-auth-btns">
+    <button class="sb-login-btn" onclick="openAuthModal('login');closeSidebar();">로그인</button>
+    <button class="sb-signup-btn" onclick="openAuthModal('signup');closeSidebar();">회원가입</button>
   </div>
 
   <div class="nav-section-label">커뮤니티</div>
@@ -2837,20 +2865,14 @@ select.mw-input{cursor:pointer;-webkit-appearance:none;appearance:none;backgroun
 <!-- ===== BOTTOM NAV (모바일) ===== -->
 <nav class="bottom-nav">
   <div class="bottom-nav-inner">
-    <button class="bnav-item active" id="bn-home" onclick="go('home');setBottomNav('home')">
-      <div class="bnav-icon">🗺️</div><span>홈</span>
+    <button class="bnav-item active" id="bn-comm" onclick="go('comm')">
+      <div class="bnav-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div><span>홈</span>
     </button>
-    <button class="bnav-item" id="bn-market" onclick="go('market');setBottomNav('market')">
-      <div class="bnav-icon">🛒</div><span>중고장터</span>
+    <button class="bnav-item" id="bn-home" onclick="go('home')">
+      <div class="bnav-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></div><span>볼링장</span>
     </button>
-    <button class="bnav-item" id="bn-free" onclick="go('free');setBottomNav('free')">
-      <div class="bnav-icon">📝</div><span>게시판</span>
-    </button>
-    <button class="bnav-item" id="bn-map" onclick="go('home');setBottomNav('map')">
-      <div class="bnav-icon">🗺️</div><span>볼링장</span>
-    </button>
-    <button class="bnav-item" id="bn-more" onclick="toggleSidebar()">
-      <div class="bnav-icon">☰</div><span>더보기</span>
+    <button class="bnav-item" id="bn-datalab" onclick="go('datalab')">
+      <div class="bnav-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div><span>데이터랩</span>
     </button>
   </div>
 </nav>
@@ -3362,6 +3384,7 @@ function go(id) {
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
   const ni = document.getElementById('ni-' + id);
   if (ni) ni.classList.add('active');
+  setBottomNav(id);
   window.scrollTo(0, 0);
   if (id === 'home') {
     if (!mapInstance) { setTimeout(initMap, 150); }
@@ -4423,9 +4446,13 @@ function closeSidebar() {
   document.getElementById('menuToggle').classList.remove('open');
 }
 
-function setBottomNav(id) {
+function setBottomNav(screenId) {
   document.querySelectorAll('.bnav-item').forEach(el => el.classList.remove('active'));
-  const el = document.getElementById('bn-' + id);
+  var bnId = 'bn-comm';
+  if (screenId === 'home') bnId = 'bn-home';
+  else if (screenId === 'datalab') bnId = 'bn-datalab';
+  else bnId = 'bn-comm';
+  var el = document.getElementById(bnId);
   if (el) el.classList.add('active');
 }
 

@@ -158,6 +158,13 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .comm-ad-side img{width:100%;border-radius:12px;display:block;transition:opacity .15s;}
 .comm-ad-side img:hover{opacity:.88;cursor:pointer;}
 
+/* 게시판 레이아웃: 콘텐츠 1200px + 우측 세로배너 (홈과 동일 좌측 정렬) */
+.board-layout{display:flex;gap:20px;}
+.board-main{flex:1;min-width:0;max-width:1200px;}
+.board-ad-side{width:160px;flex-shrink:0;position:sticky;top:0;align-self:flex-start;}
+.board-ad-side img{width:100%;border-radius:12px;display:block;transition:opacity .15s;}
+.board-ad-side img:hover{opacity:.88;cursor:pointer;}
+
 /* ===== COMMON ===== */
 .page-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;}
 .page-title{font-size:20px;font-weight:700;}
@@ -264,14 +271,22 @@ tbody tr:hover{background:#fafcff;}
 .ub-extra-label{font-size:13px;font-weight:600;color:var(--text1);white-space:nowrap;}
 
 /* ===== UNIFIED NOTICE ZONE ===== */
-.ub-notice{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px 20px;margin-bottom:16px;cursor:pointer;transition:all .15s;}
-.ub-notice:hover{background:#fafcff;box-shadow:0 2px 8px rgba(0,71,187,.06);}
-.ub-notice-badge{display:inline-flex;align-items:center;gap:4px;background:var(--navy);color:#fff;font-size:10px;font-weight:700;padding:3px 10px;border-radius:8px;margin-bottom:8px;}
-.ub-notice-badge svg{width:12px;height:12px;stroke-width:2.5;}
-.ub-notice-title{font-weight:700;font-size:15px;color:var(--text1);margin-bottom:6px;}
-.ub-notice-meta{font-size:12px;color:var(--text2);display:flex;align-items:center;gap:8px;}
+.ub-notice-zone{display:flex;flex-direction:column;gap:0;margin-bottom:16px;}
+.ub-notice{background:#fff;border:1px solid var(--line);border-bottom:none;padding:12px 18px;cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:14px;}
+.ub-notice-zone .ub-notice:first-child{border-radius:12px 12px 0 0;}
+.ub-notice-zone .ub-notice:last-child{border-radius:0 0 12px 12px;border-bottom:1px solid var(--line);}
+.ub-notice-zone .ub-notice:only-child{border-radius:12px;border-bottom:1px solid var(--line);}
+.ub-notice:hover{background:#fafcff;}
+.ub-notice-left{display:flex;flex-direction:column;gap:2px;flex:1;min-width:0;}
+.ub-notice-title-row{display:flex;align-items:center;gap:8px;min-width:0;}
+.ub-notice-title{font-weight:700;font-size:14px;color:var(--text1);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.ub-notice-badge{display:inline-flex;align-items:center;gap:3px;background:transparent;color:var(--text2);font-size:11px;font-weight:600;padding:0;border-radius:0;flex-shrink:0;}
+.ub-notice-badge svg{width:11px;height:11px;stroke:var(--text2);stroke-width:2;}
+.ub-notice-meta{font-size:11px;color:var(--text2);display:flex;align-items:center;gap:6px;margin-top:2px;}
 .ub-notice-meta .tio{background:var(--navy);color:#fff;font-size:9px;font-weight:700;padding:2px 7px;border-radius:8px;}
-.ub-notice-stats{display:flex;gap:12px;font-size:12px;color:var(--text2);margin-top:6px;}
+.chilten-admin-badge{display:inline-flex;align-items:center;gap:4px;background:linear-gradient(135deg,#1B2A4A,#2C3E6B);color:#fff;font-size:10px;font-weight:700;padding:2px 9px 2px 6px;border-radius:10px;white-space:nowrap;}
+.chilten-admin-badge img{width:18px;height:18px;object-fit:contain;filter:brightness(10);}
+.ub-notice-stats{display:flex;gap:10px;font-size:12px;color:var(--text2);flex-shrink:0;white-space:nowrap;}
 .ub-notice-stats .views{color:var(--red);font-weight:600;}
 .ub-notice-stats .comments{color:var(--text2);}
 
@@ -288,6 +303,7 @@ tbody tr:hover{background:#fafcff;}
 .prod-card:hover{box-shadow:0 6px 20px rgba(0,71,187,.12);transform:translateY(-2px);}
 .prod-card.my-region-card{}
 .prod-img{aspect-ratio:1/1;background:linear-gradient(135deg,var(--sub-blue),var(--sub-green));display:flex;align-items:center;justify-content:center;font-size:36px;position:relative;overflow:hidden;}
+#home-event-grid .prod-img{aspect-ratio:4/3;}
 .prod-badges{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:6px;}
 .prod-body{padding:12px;}
 .prod-title{font-weight:600;font-size:14px;margin-bottom:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:flex;align-items:center;gap:5px;}
@@ -295,9 +311,9 @@ tbody tr:hover{background:#fafcff;}
 .prod-alley{font-size:12px;color:var(--green);font-weight:600;margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .prod-alley .prod-region-txt{color:var(--text2);font-weight:400;margin-left:4px;}
 .prod-price{color:var(--red);font-weight:800;font-size:15px;}
-.prod-bottom{font-size:11px;color:var(--text2);margin-top:6px;display:flex;align-items:center;justify-content:space-between;}
+.prod-bottom{font-size:11px;color:var(--text2);margin-top:6px;}
 .prod-author{display:flex;align-items:center;gap:4px;}
-.prod-stats{display:flex;align-items:center;gap:12px;font-size:13px;color:var(--text2);}
+.prod-stats{display:flex;align-items:center;gap:12px;font-size:13px;color:var(--text2);padding-top:8px;margin-top:8px;border-top:1px solid var(--line);}
 .prod-stats .st{display:inline-flex;align-items:center;gap:4px;}
 .prod-stats .st svg{width:15px;height:15px;color:var(--text2);stroke-width:1.8;flex-shrink:0;}
 .prod-stats .st-label{font-size:13px;}
@@ -324,7 +340,8 @@ tbody tr:hover{background:#fafcff;}
 .product-grid.list-view .prod-title{font-size:14px;margin-bottom:2px;}
 .product-grid.list-view .prod-alley{margin-bottom:2px;}
 .product-grid.list-view .prod-price{font-size:15px;}
-.product-grid.list-view .prod-bottom{margin-top:auto;}
+.product-grid.list-view .prod-bottom{margin-top:auto;display:flex;align-items:center;justify-content:space-between;}
+.product-grid.list-view .prod-stats{border-top:none;padding-top:0;margin-top:0;}
 
 /* ===== MARKET DETAIL PAGE ===== */
 .md-back{display:flex;align-items:center;gap:6px;font-size:14px;color:var(--text2);cursor:pointer;margin-bottom:16px;font-weight:500;transition:color .15s;}
@@ -674,7 +691,8 @@ select.mw-input{cursor:pointer;-webkit-appearance:none;appearance:none;backgroun
 .tr-detail-alley-info{flex:1;min-width:0;}
 .tr-detail-alley-name{font-size:15px;font-weight:800;color:var(--text1);display:flex;align-items:center;gap:8px;margin-bottom:4px;}
 .tr-detail-alley-name .lane-badge{font-size:11px;font-weight:700;color:var(--green);background:var(--sub-green);padding:2px 8px;border-radius:10px;}
-.tr-detail-alley-name .tio-badge{display:inline-flex;align-items:center;gap:3px;font-size:10px;font-weight:800;color:var(--navy);background:#eef0f5;padding:2px 8px;border-radius:10px;}
+.tr-detail-alley-name .tio-badge{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:700;color:#fff;background:linear-gradient(135deg,#1B2A4A,#2C3E6B);padding:2px 9px 2px 6px;border-radius:10px;}
+.tr-detail-alley-name .tio-badge img{width:18px;height:18px;object-fit:contain;filter:brightness(10);}
 .tr-detail-alley-addr{font-size:13px;color:var(--text2);margin-bottom:2px;}
 .tr-detail-alley-hours{font-size:13px;color:var(--text2);margin-bottom:6px;}
 .tr-detail-alley-bottom{display:flex;align-items:center;gap:12px;}
@@ -724,13 +742,21 @@ select.mw-input{cursor:pointer;-webkit-appearance:none;appearance:none;backgroun
 .dl-card.c-green::before{background:linear-gradient(90deg,var(--green),#5ce0c0);}
 .dl-card.c-red::before{background:linear-gradient(90deg,var(--red),#ff6b8a);}
 .dl-card.c-navy::before{background:linear-gradient(90deg,var(--navy),#3d5a99);}
-.dl-icon{font-size:24px;margin-bottom:10px;width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;}
+.dl-summary-card{margin-bottom:24px;padding:24px 28px;}
+.dl-summary-card::before{background:linear-gradient(90deg,var(--blue),var(--green),var(--navy),var(--red));}
+.dl-summary-row{display:flex;align-items:center;justify-content:space-between;gap:0;}
+.dl-summary-item{display:flex;align-items:center;gap:14px;flex:1;justify-content:center;}
+.dl-summary-text{display:flex;flex-direction:column;}
+.dl-summary-text .dl-label{margin-bottom:2px;}
+.dl-summary-text .dl-val{font-size:24px;}
+.dl-summary-divider{width:1px;height:48px;background:var(--line);flex-shrink:0;}
+.dl-icon{font-size:24px;margin-bottom:0;width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 .dl-card.c-blue .dl-icon{background:rgba(0,71,187,.08);}
 .dl-card.c-green .dl-icon{background:rgba(0,185,147,.08);}
 .dl-card.c-red .dl-icon{background:rgba(227,2,80,.08);}
 .dl-card.c-navy .dl-icon{background:rgba(25,39,76,.08);}
 .dl-val{font-size:28px;font-weight:800;color:var(--text1);line-height:1.1;}
-.dl-label{font-size:12px;color:var(--text2);margin-top:4px;font-weight:500;}
+.dl-label{font-size:12px;color:var(--text2);margin-bottom:0;font-weight:600;}
 .dl-trend{display:inline-flex;align-items:center;gap:3px;font-size:11px;font-weight:700;padding:3px 10px;border-radius:10px;margin-top:8px;}
 .dl-trend.up{background:rgba(0,185,147,.1);color:#00896e;}
 .dl-trend.down{background:rgba(227,2,80,.1);color:var(--red);}
@@ -1380,6 +1406,19 @@ select.mw-input{cursor:pointer;-webkit-appearance:none;appearance:none;backgroun
 #fb-list .prod-card{transition:background .15s;border-radius:0!important;border:none!important;border-bottom:1px solid var(--line)!important;}
 #fb-list .prod-card:last-child{border-bottom:none!important;}
 #fb-list .prod-card:hover{background:#FAFCFF;transform:none!important;box-shadow:none!important;}
+#fb-list .prod-bottom{display:flex;align-items:center;justify-content:space-between;}
+#fb-list .prod-stats{border-top:none;padding-top:0;margin-top:0;}
+#tr-list{display:grid;grid-template-columns:1fr;gap:0;}
+#tr-list .prod-card{display:flex;flex-direction:row;align-items:stretch;border-radius:0;border-left:none;border-right:none;border-top:none;border-bottom:1px solid var(--line);}
+#tr-list .prod-card:first-child{border-top:1px solid var(--line);border-radius:10px 10px 0 0;}
+#tr-list .prod-card:last-child{border-radius:0 0 10px 10px;}
+#tr-list .prod-card:hover{transform:none;box-shadow:none;background:#FAFCFF;}
+#tr-list .prod-img{aspect-ratio:4/3;width:140px;min-width:140px;flex-shrink:0;border-radius:8px;overflow:hidden;margin:12px;margin-right:0;}
+#tr-list .prod-img img{width:100%;height:100%;object-fit:cover;}
+#tr-list .prod-body{flex:1;padding:12px 16px;display:flex;flex-direction:column;justify-content:center;}
+#tr-list .prod-title{font-size:14px;margin-bottom:2px;}
+#tr-list .prod-bottom{margin-top:auto;display:flex;align-items:center;justify-content:space-between;}
+#tr-list .prod-stats{border-top:none;padding-top:0;margin-top:0;}
 
 /* legacy pagination — hidden */
 .pagination{display:none;}
@@ -1661,18 +1700,10 @@ select.mw-input{cursor:pointer;-webkit-appearance:none;appearance:none;backgroun
     </div>
   </div>
 
-  <!-- 이벤트 소식 -->
-  <div class="card" style="margin-bottom:24px;">
-    <div class="sec-title" style="cursor:pointer;color:var(--blue)" onclick="go('events')">🎉 이벤트 소식</div>
-    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;">
-      <div style="padding:10px;border-radius:8px;background:var(--sub-blue);font-size:12px;cursor:pointer;" onclick="openEventDetail(2)"><strong style="color:var(--blue);">더케이볼링장</strong><br>캡슐 이벤트 95탄<div style="font-size:10px;color:var(--text2);margin-top:4px;">03.21</div></div>
-      <div style="padding:10px;border-radius:8px;background:var(--sub-green);font-size:12px;cursor:pointer;" onclick="openEventDetail(3)"><strong style="color:#009b7a;">포커스볼링센터</strong><br>아메리카노 천원 이벤트<div style="font-size:10px;color:var(--text2);margin-top:4px;">03.17</div></div>
-      <div style="padding:10px;border-radius:8px;background:#fff3e0;font-size:12px;cursor:pointer;" onclick="openEventDetail(4)"><strong style="color:#e65100;">로하스볼링라운지</strong><br>캡슐이벤트 진행중<div style="font-size:10px;color:var(--text2);margin-top:4px;">03.14</div></div>
-      <div style="padding:10px;border-radius:8px;background:var(--sub-blue);font-size:12px;cursor:pointer;" onclick="openEventDetail(5)"><strong style="color:var(--blue);">KJ볼링센터</strong><br>3.6.9 이벤트게임<div style="font-size:10px;color:var(--text2);margin-top:4px;">03.12</div></div>
-      <div style="padding:10px;border-radius:8px;background:var(--sub-green);font-size:12px;cursor:pointer;" onclick="openEventDetail(7)"><strong style="color:#009b7a;">강남볼링센터</strong><br>봄맞이 특별 할인 이벤트<div style="font-size:10px;color:var(--text2);margin-top:4px;">03.22</div></div>
-      <div style="padding:10px;border-radius:8px;background:#fff3e0;font-size:12px;cursor:pointer;" onclick="openEventDetail(8)"><strong style="color:#e65100;">수원볼링파크</strong><br>신규회원 가입 이벤트<div style="font-size:10px;color:var(--text2);margin-top:4px;">03.20</div></div>
-      <div style="padding:10px;border-radius:8px;background:var(--sub-blue);font-size:12px;cursor:pointer;" onclick="openEventDetail(6)"><strong style="color:var(--blue);">로하스볼리자</strong><br>캡슐이벤트 진행중<div style="font-size:10px;color:var(--text2);margin-top:4px;">02.27</div></div>
-    </div>
+  <!-- 최신 이벤트 소식 -->
+  <div style="margin-bottom:24px;">
+    <div class="sec-title" style="cursor:pointer;color:var(--blue);border-bottom:none;padding-bottom:0;margin-bottom:12px;" onclick="go('events')">🎉 최신 이벤트 소식</div>
+    <div class="product-grid" id="home-event-grid"></div>
   </div>
 
   <!-- 클럽홍보 + 대회 -->
@@ -1735,8 +1766,10 @@ select.mw-input{cursor:pointer;-webkit-appearance:none;appearance:none;backgroun
      중고장터
      ============================== -->
 <div id="s-market" class="screen">
+<div class="board-layout">
+<div class="board-main">
   <div class="page-header">
-    <div class="page-title">🛒 중고장터</div>
+    <div class="page-title">중고장터</div>
     <button class="btn btn-primary" onclick="openMarketWrite()">+ 글쓰기</button>
   </div>
 
@@ -1767,7 +1800,7 @@ select.mw-input{cursor:pointer;-webkit-appearance:none;appearance:none;backgroun
   </div>
 
   <div style="display:flex;align-items:center;margin-bottom:14px;">
-    <div style="font-size:13px;color:var(--text2);">총 <strong id="prod-count" style="color:var(--text1);">0</strong>개 상품</div>
+    <div style="font-size:13px;color:var(--text2);">총 <strong id="prod-count" style="color:var(--text1);">0</strong>개 게시글</div>
     <div class="view-toggle">
       <button class="view-toggle-btn" id="vt-grid" onclick="setViewMode('grid')" title="그리드 보기">
         <svg viewBox="0 0 16 16"><rect x="1" y="1" width="6" height="6" rx="1"/><rect x="9" y="1" width="6" height="6" rx="1"/><rect x="1" y="9" width="6" height="6" rx="1"/><rect x="9" y="9" width="6" height="6" rx="1"/></svg>
@@ -1777,7 +1810,7 @@ select.mw-input{cursor:pointer;-webkit-appearance:none;appearance:none;backgroun
       </button>
     </div>
   </div>
-  <div id="mk-notice-zone"></div>
+  <div id="mk-notice-zone" class="ub-notice-zone"></div>
   <div class="product-grid list-view" id="product-grid"></div>
   <div class="pagination">
     <button class="btn btn-gray btn-sm">◀ 이전</button>
@@ -1788,10 +1821,20 @@ select.mw-input{cursor:pointer;-webkit-appearance:none;appearance:none;backgroun
   </div>
 </div>
 
+<div class="board-ad-side">
+  <a href="#" onclick="return false;">
+    <img src="banner.jpg" alt="광고배너">
+  </a>
+</div>
+</div>
+</div>
+
 <!-- ==============================
      중고장터 글보기
      ============================== -->
 <div id="s-market-detail" class="screen">
+<div class="board-layout">
+<div class="board-main">
   <div style="display:flex;justify-content:flex-end;gap:8px;margin-bottom:12px;" id="md-market-topbtns">
     <button class="md-list-btn" onclick="go('market')"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg> 글목록</button>
   </div>
@@ -1800,16 +1843,23 @@ select.mw-input{cursor:pointer;-webkit-appearance:none;appearance:none;backgroun
   </div>
 </div>
 
+<div class="board-ad-side">
+  <a href="#" onclick="return false;">
+    <img src="banner.jpg" alt="광고배너">
+  </a>
+</div>
+</div>
+</div>
+
 <!-- ==============================
      중고장터 글쓰기
      ============================== -->
 <div id="s-market-write" class="screen">
-  <div style="display:flex;justify-content:flex-end;margin-bottom:12px;">
-    <button class="md-list-btn" onclick="go('market')"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg> 글목록</button>
-  </div>
-
+<div class="board-layout">
+<div class="board-main">
   <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;">
-    <div class="page-title" style="margin:0;"><i data-lucide="pen-line" class="sec-ic"></i> 중고장터 글쓰기</div>
+    <div class="page-title" style="margin:0;">중고장터 글쓰기</div>
+    <button class="md-list-btn" onclick="go('market')"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg> 글목록</button>
   </div>
 
   <!-- 노출 지역 선택 -->
@@ -1887,6 +1937,14 @@ select.mw-input{cursor:pointer;-webkit-appearance:none;appearance:none;backgroun
   </div>
 </div>
 
+<div class="board-ad-side">
+  <a href="#" onclick="return false;">
+    <img src="banner.jpg" alt="광고배너">
+  </a>
+</div>
+</div>
+</div>
+
 <!-- Region Selection Modal -->
 <div class="region-modal-overlay" id="region-modal-overlay" onclick="closeRegionModal(event)">
   <div class="region-modal" onclick="event.stopPropagation()">
@@ -1907,8 +1965,10 @@ select.mw-input{cursor:pointer;-webkit-appearance:none;appearance:none;backgroun
      자유게시판 리스트
      ============================== -->
 <div id="s-free" class="screen">
+<div class="board-layout">
+<div class="board-main">
   <div class="page-header">
-    <div class="page-title"><i data-lucide="file-text" class="sec-ic"></i> 자유게시판</div>
+    <div class="page-title">자유게시판</div>
     <button class="btn btn-primary" onclick="openFreeWrite()">+ 글쓰기</button>
   </div>
 
@@ -1934,30 +1994,47 @@ select.mw-input{cursor:pointer;-webkit-appearance:none;appearance:none;backgroun
   <div style="display:flex;align-items:center;margin-bottom:14px;">
     <div style="font-size:13px;color:var(--text2);">총 <strong id="fb-post-count" style="color:var(--text1);">0</strong>개 게시글</div>
   </div>
-  <div id="fb-notice-zone"></div>
+  <div id="fb-notice-zone" class="ub-notice-zone"></div>
   <div id="fb-list"></div>
+</div>
+
+<div class="board-ad-side">
+  <a href="#" onclick="return false;">
+    <img src="banner.jpg" alt="광고배너">
+  </a>
+</div>
+</div>
 </div>
 
 <!-- ==============================
      자유게시판 글보기
      ============================== -->
 <div id="s-free-detail" class="screen">
+<div class="board-layout">
+<div class="board-main">
   <div style="display:flex;justify-content:flex-end;gap:8px;margin-bottom:12px;" id="md-free-topbtns">
     <button class="md-list-btn" onclick="go('free')"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg> 글목록</button>
   </div>
   <div class="card" style="padding:24px;" id="fb-detail-content"></div>
 </div>
 
+<div class="board-ad-side">
+  <a href="#" onclick="return false;">
+    <img src="banner.jpg" alt="광고배너">
+  </a>
+</div>
+</div>
+</div>
+
 <!-- ==============================
      자유게시판 글쓰기
      ============================== -->
 <div id="s-free-write" class="screen">
-  <div style="display:flex;justify-content:flex-end;margin-bottom:12px;">
-    <button class="md-list-btn" onclick="go('free')"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg> 글목록</button>
-  </div>
-
+<div class="board-layout">
+<div class="board-main">
   <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;">
-    <div class="page-title" style="margin:0;"><i data-lucide="pen-line" class="sec-ic"></i> 자유게시판 글쓰기</div>
+    <div class="page-title" style="margin:0;">자유게시판 글쓰기</div>
+    <button class="md-list-btn" onclick="go('free')"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg> 글목록</button>
   </div>
 
   <!-- 제목 -->
@@ -2005,12 +2082,22 @@ select.mw-input{cursor:pointer;-webkit-appearance:none;appearance:none;backgroun
   </div>
 </div>
 
+<div class="board-ad-side">
+  <a href="#" onclick="return false;">
+    <img src="banner.jpg" alt="광고배너">
+  </a>
+</div>
+</div>
+</div>
+
 <!-- ==============================
      이벤트게시판 리스트
      ============================== -->
 <div id="s-events" class="screen">
+<div class="board-layout">
+<div class="board-main">
   <div class="page-header">
-    <div class="page-title"><i data-lucide="party-popper" class="sec-ic"></i> 이벤트게시판</div>
+    <div class="page-title">이벤트게시판</div>
     <button class="btn btn-primary" onclick="openEventWrite()">+ 글쓰기</button>
   </div>
 
@@ -2043,29 +2130,47 @@ select.mw-input{cursor:pointer;-webkit-appearance:none;appearance:none;backgroun
   <div style="display:flex;align-items:center;margin-bottom:14px;">
     <div style="font-size:13px;color:var(--text2);">총 <strong id="ev-post-count" style="color:var(--text1);">0</strong>개 이벤트</div>
   </div>
-  <div id="ev-notice-zone"></div>
-  <div id="ev-list"></div>
+  <div id="ev-notice-zone" class="ub-notice-zone"></div>
+  <div class="product-grid" id="ev-list"></div>
+</div>
+
+<div class="board-ad-side">
+  <a href="#" onclick="return false;">
+    <img src="banner.jpg" alt="광고배너">
+  </a>
+</div>
+</div>
 </div>
 
 <!-- ==============================
      이벤트게시판 글보기
      ============================== -->
 <div id="s-events-detail" class="screen">
+<div class="board-layout">
+<div class="board-main">
   <div style="display:flex;justify-content:flex-end;gap:8px;margin-bottom:12px;" id="md-events-topbtns">
     <button class="md-list-btn" onclick="go('events')"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg> 글목록</button>
   </div>
   <div class="card" style="padding:24px;" id="ev-detail-content"></div>
 </div>
 
+<div class="board-ad-side">
+  <a href="#" onclick="return false;">
+    <img src="banner.jpg" alt="광고배너">
+  </a>
+</div>
+</div>
+</div>
+
 <!-- ==============================
      이벤트게시판 글쓰기
      ============================== -->
 <div id="s-events-write" class="screen">
-  <div style="display:flex;justify-content:flex-end;margin-bottom:12px;">
-    <button class="md-list-btn" onclick="go('events')"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg> 글목록</button>
-  </div>
+<div class="board-layout">
+<div class="board-main">
   <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;">
-    <div class="page-title" style="margin:0;"><i data-lucide="pen-line" class="sec-ic"></i> 이벤트 글쓰기</div>
+    <div class="page-title" style="margin:0;">이벤트 글쓰기</div>
+    <button class="md-list-btn" onclick="go('events')"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg> 글목록</button>
   </div>
 
   <div class="mw-section">
@@ -2117,12 +2222,22 @@ select.mw-input{cursor:pointer;-webkit-appearance:none;appearance:none;backgroun
   </div>
 </div>
 
+<div class="board-ad-side">
+  <a href="#" onclick="return false;">
+    <img src="banner.jpg" alt="광고배너">
+  </a>
+</div>
+</div>
+</div>
+
 <!-- ==============================
      클럽홍보게시판 — 목록
      ============================== -->
 <div id="s-clubs" class="screen">
+<div class="board-layout">
+<div class="board-main">
   <div class="page-header">
-    <div class="page-title"><i data-lucide="trophy" class="sec-ic"></i> 클럽홍보게시판</div>
+    <div class="page-title">클럽홍보게시판</div>
     <button class="btn btn-primary" onclick="openClubWrite()">+ 클럽 홍보하기</button>
   </div>
 
@@ -2148,30 +2263,47 @@ select.mw-input{cursor:pointer;-webkit-appearance:none;appearance:none;backgroun
   <div style="display:flex;align-items:center;margin-bottom:14px;">
     <div style="font-size:13px;color:var(--text2);">총 <strong id="cp-post-count" style="color:var(--text1);">0</strong>개 게시글</div>
   </div>
-  <div id="cp-notice-zone"></div>
-  <div id="cp-list"></div>
+  <div id="cp-notice-zone" class="ub-notice-zone"></div>
+  <div class="product-grid" id="cp-list"></div>
+</div>
+
+<div class="board-ad-side">
+  <a href="#" onclick="return false;">
+    <img src="banner.jpg" alt="광고배너">
+  </a>
+</div>
+</div>
 </div>
 
 <!-- ==============================
      클럽홍보게시판 — 글보기
      ============================== -->
 <div id="s-clubs-detail" class="screen">
+<div class="board-layout">
+<div class="board-main">
   <div style="display:flex;justify-content:flex-end;gap:8px;margin-bottom:12px;" id="md-clubs-topbtns">
     <button class="md-list-btn" onclick="go('clubs')"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg> 글목록</button>
   </div>
   <div class="card" style="padding:24px;" id="cp-detail-content"></div>
 </div>
 
+<div class="board-ad-side">
+  <a href="#" onclick="return false;">
+    <img src="banner.jpg" alt="광고배너">
+  </a>
+</div>
+</div>
+</div>
+
 <!-- ==============================
      클럽홍보게시판 — 글쓰기
      ============================== -->
 <div id="s-clubs-write" class="screen">
-  <div style="display:flex;justify-content:flex-end;margin-bottom:12px;">
-    <button class="md-list-btn" onclick="go('clubs')"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg> 글목록</button>
-  </div>
-
+<div class="board-layout">
+<div class="board-main">
   <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;">
-    <div class="page-title" style="margin:0;"><i data-lucide="pen-line" class="sec-ic"></i> 클럽 홍보글 작성</div>
+    <div class="page-title" style="margin:0;">클럽 홍보글 작성</div>
+    <button class="md-list-btn" onclick="go('clubs')"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg> 글목록</button>
   </div>
 
   <!-- 제목 -->
@@ -2233,12 +2365,22 @@ select.mw-input{cursor:pointer;-webkit-appearance:none;appearance:none;backgroun
   </div>
 </div>
 
+<div class="board-ad-side">
+  <a href="#" onclick="return false;">
+    <img src="banner.jpg" alt="광고배너">
+  </a>
+</div>
+</div>
+</div>
+
 <!-- ==============================
      대회게시판 — 목록
      ============================== -->
 <div id="s-tour" class="screen">
+<div class="board-layout">
+<div class="board-main">
   <div class="page-header">
-    <div class="page-title"><i data-lucide="target" class="sec-ic"></i> 대회게시판</div>
+    <div class="page-title">대회게시판</div>
     <button class="btn btn-primary" onclick="openTourWrite()">+ 글쓰기</button>
   </div>
 
@@ -2264,30 +2406,47 @@ select.mw-input{cursor:pointer;-webkit-appearance:none;appearance:none;backgroun
   <div style="display:flex;align-items:center;margin-bottom:14px;">
     <div style="font-size:13px;color:var(--text2);">총 <strong id="tr-post-count" style="color:var(--text1);">0</strong>개 게시글</div>
   </div>
-  <div id="tr-notice-zone"></div>
-  <div class="card" style="padding:18px 20px;" id="tr-list"></div>
+  <div id="tr-notice-zone" class="ub-notice-zone"></div>
+  <div class="card" style="padding:0;border:none;box-shadow:none;" id="tr-list"></div>
+</div>
+
+<div class="board-ad-side">
+  <a href="#" onclick="return false;">
+    <img src="banner.jpg" alt="광고배너">
+  </a>
+</div>
+</div>
 </div>
 
 <!-- ==============================
      대회게시판 — 글보기
      ============================== -->
 <div id="s-tour-detail" class="screen">
+<div class="board-layout">
+<div class="board-main">
   <div style="display:flex;justify-content:flex-end;gap:8px;margin-bottom:12px;" id="md-tour-topbtns">
     <button class="md-list-btn" onclick="go('tour')"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg> 글목록</button>
   </div>
   <div class="card" style="padding:24px;" id="tr-detail-content"></div>
 </div>
 
+<div class="board-ad-side">
+  <a href="#" onclick="return false;">
+    <img src="banner.jpg" alt="광고배너">
+  </a>
+</div>
+</div>
+</div>
+
 <!-- ==============================
      대회게시판 — 글쓰기
      ============================== -->
 <div id="s-tour-write" class="screen">
-  <div style="display:flex;justify-content:flex-end;margin-bottom:12px;">
-    <button class="md-list-btn" onclick="go('tour')"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg> 글목록</button>
-  </div>
-
+<div class="board-layout">
+<div class="board-main">
   <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;">
-    <div class="page-title" style="margin:0;"><i data-lucide="pen-line" class="sec-ic"></i> 대회게시판 글쓰기</div>
+    <div class="page-title" style="margin:0;">대회게시판 글쓰기</div>
+    <button class="md-list-btn" onclick="go('tour')"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg> 글목록</button>
   </div>
 
   <!-- 제목 -->
@@ -2345,13 +2504,21 @@ select.mw-input{cursor:pointer;-webkit-appearance:none;appearance:none;backgroun
   </div>
 </div>
 
+<div class="board-ad-side">
+  <a href="#" onclick="return false;">
+    <img src="banner.jpg" alt="광고배너">
+  </a>
+</div>
+</div>
+</div>
+
 <!-- ==============================
      볼링장 지도뷰
      ============================== -->
 <div id="s-home" class="screen">
   <div class="page-header" style="gap:10px;">
     <div style="display:flex;align-items:center;gap:10px;flex-shrink:0;">
-      <div class="page-title"><i data-lucide="map-pin" class="sec-ic"></i> 볼링장</div>
+      <div class="page-title">볼링장</div>
       <div class="greeting-bubble" id="dynamicGreeting"></div>
     </div>
     <div class="ad-ticker-wrap">
@@ -2393,7 +2560,7 @@ select.mw-input{cursor:pointer;-webkit-appearance:none;appearance:none;backgroun
      ============================== -->
 <div id="s-list" class="screen">
   <div class="page-header">
-    <div class="page-title"><i data-lucide="list" class="sec-ic"></i> 볼링장 목록</div>
+    <div class="page-title">볼링장 목록</div>
     <button class="btn btn-outline btn-sm" onclick="go('home')">🗺️ 홈(지도)으로</button>
   </div>
   <div class="filter-row">
@@ -2438,11 +2605,50 @@ select.mw-input{cursor:pointer;-webkit-appearance:none;appearance:none;backgroun
      칠텐 데이터 랩
      ============================== -->
 <div id="s-datalab" class="screen">
+<div class="board-layout">
+<div class="board-main">
   <div class="page-header">
-    <div class="page-title"><i data-lucide="bar-chart-3" class="sec-ic"></i> 칠텐 데이터 랩</div>
+    <div class="page-title">칠텐 데이터 랩</div>
     <span class="badge b-blue" style="font-size:12px;padding:5px 12px;">2026년 3월 4주차 기준</span>
   </div>
   <div class="dl-subtitle">칠텐 플랫폼의 핵심 지표와 볼러 분석 데이터를 한눈에 확인하세요.</div>
+
+  <!-- 핵심 지표 통합 카드 -->
+  <div class="dl-card dl-summary-card">
+    <div class="dl-summary-row">
+      <div class="dl-summary-item">
+        <div class="dl-icon ic-glass"><i data-lucide="users"></i></div>
+        <div class="dl-summary-text">
+          <div class="dl-label">총 회원수</div>
+          <div class="dl-val" id="dl-members">0</div>
+        </div>
+      </div>
+      <div class="dl-summary-divider"></div>
+      <div class="dl-summary-item">
+        <div class="dl-icon ic-glass green"><i data-lucide="trophy"></i></div>
+        <div class="dl-summary-text">
+          <div class="dl-label">클럽수</div>
+          <div class="dl-val" id="dl-clubs">0</div>
+        </div>
+      </div>
+      <div class="dl-summary-divider"></div>
+      <div class="dl-summary-item">
+        <div class="dl-icon ic-glass navy"><i data-lucide="bar-chart-3"></i></div>
+        <div class="dl-summary-text">
+          <div class="dl-label">누적 기록수</div>
+          <div class="dl-val" id="dl-records">0</div>
+        </div>
+      </div>
+      <div class="dl-summary-divider"></div>
+      <div class="dl-summary-item">
+        <div class="dl-icon ic-glass red"><i data-lucide="map-pin"></i></div>
+        <div class="dl-summary-text">
+          <div class="dl-label">전국 볼링장 수</div>
+          <div class="dl-val" id="dl-alleys">0</div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- 1. 점수별 회원 분포 -->
   <div class="dl-section">
@@ -2503,34 +2709,14 @@ select.mw-input{cursor:pointer;-webkit-appearance:none;appearance:none;backgroun
     <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:14px;" id="dl-level-summary"></div>
   </div>
 
-  <!-- 5. 핵심 지표 카드 4개 (하단) -->
-  <div class="dl-grid">
-    <div class="dl-card c-blue">
-      <div class="dl-icon ic-glass"><i data-lucide="users"></i></div>
-      <div class="dl-val" id="dl-members">0</div>
-      <div class="dl-label">총 회원수</div>
-      <div class="dl-trend up">▲ 1,230 이번달</div>
-    </div>
-    <div class="dl-card c-green">
-      <div class="dl-icon ic-glass green"><i data-lucide="trophy"></i></div>
-      <div class="dl-val" id="dl-clubs">0</div>
-      <div class="dl-label">클럽수</div>
-      <div class="dl-trend up">▲ 42 이번달</div>
-    </div>
-    <div class="dl-card c-navy">
-      <div class="dl-icon ic-glass navy"><i data-lucide="bar-chart-3"></i></div>
-      <div class="dl-val" id="dl-records">0</div>
-      <div class="dl-label">누적 기록수</div>
-      <div class="dl-trend up">▲ 45,200 이번달</div>
-    </div>
-    <div class="dl-card c-red">
-      <div class="dl-icon ic-glass red"><i data-lucide="map-pin"></i></div>
-      <div class="dl-val" id="dl-alleys">0</div>
-      <div class="dl-label">전국 볼링장 수</div>
-      <div class="dl-trend up">▲ 3 이번달</div>
-    </div>
-  </div>
 
+</div><!-- /board-main -->
+<div class="board-ad-side">
+  <a href="#" onclick="return false;">
+    <img src="banner.jpg" alt="광고배너">
+  </a>
+</div>
+</div><!-- /board-layout -->
 </div>
 
 
@@ -2725,7 +2911,7 @@ select.mw-input{cursor:pointer;-webkit-appearance:none;appearance:none;backgroun
      ============================== -->
 <div id="s-search" class="screen">
   <div class="page-header">
-    <div class="page-title">🔍 검색 결과 : <span id="srKeywordLabel" style="color:var(--blue);"></span></div>
+    <div class="page-title">검색 결과 : <span id="srKeywordLabel" style="color:var(--blue);"></span></div>
     <div style="font-size:13px;color:var(--text2);margin-top:4px;">총 <strong id="srTotalCount" style="color:var(--text1);">0</strong>건</div>
   </div>
   <div class="card" style="padding:0;overflow:hidden;">
@@ -2774,11 +2960,16 @@ var _eyeSvg = '<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" vi
 var _msgSvg = '<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:2px;"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>';
 function renderNoticeHtml(n, onclickFn) {
   return '<div class="ub-notice" onclick="'+onclickFn+'('+n.id+')">'
-    + '<div class="ub-notice-badge">'+_pinSvg+' 공지</div>'
-    + '<div class="ub-notice-title">'+n.title+'</div>'
-    + '<div class="ub-notice-meta">'
-    +   '<span class="tio">7iO</span>'
-    +   '<span>'+n.author+'</span><span>'+(n.date||'')+'</span>'
+    + '<div class="ub-notice-left">'
+    +   '<div class="ub-notice-title-row">'
+    +     '<div class="ub-notice-title">'+n.title+'</div>'
+    +     '<div class="ub-notice-badge">'+_pinSvg+' 공지</div>'
+    +   '</div>'
+    +   '<div class="ub-notice-meta">'
+    +     (n.author==='칠텐운영자' ? '<span class="chilten-admin-badge"><img src="logo_white.svg" alt=""></span>' : '<span class="tio">7iO</span>')
+    +     '<span>'+n.author+'</span>'
+    +     '<span>'+(n.date||'')+'</span>'
+    +   '</div>'
     + '</div>'
     + '<div class="ub-notice-stats"><span class="views">'+_eyeSvg+' 조회 '+n.views.toLocaleString()+'</span><span class="comments">'+_msgSvg+' 댓글 '+n.comments+'</span></div>'
     + '</div>';
@@ -3208,7 +3399,7 @@ function go(id) {
   }
   if (id === 'datalab') { renderDataLab(); }
   if (id === 'chat-list') { renderChatList(); }
-  if (id === 'comm') { renderPartnerAlleys(); }
+  if (id === 'comm') { renderPartnerAlleys(); renderHomeEvents(); }
   if (id === 'search') { renderSearchResults(); }
   // 상세 패널 닫기 (홈 아닌 화면으로 이동 시)
   if (id !== 'home') { closeMapDetail && closeMapDetail(); }
@@ -3581,27 +3772,27 @@ var tourPosts = [
     alleyName:'', alleyRegion:'', alleyLanes:0, alleyAddr:'', alleyHours:'', alleyAvg:'', alleyAuto:false, alleyTio:true,
     content:'대회게시판 운영정책 안내입니다.\n\n1. 대회 정보를 정확하게 기재해주세요.\n2. 허위 대회 정보 게시 시 삭제될 수 있습니다.\n3. 문의사항은 운영진에게 연락 부탁드립니다.', tags:[], img:null},
   {id:1, title:'포커스 올핀대회', author:'엔씨볼링', date:'2026.03.25', time:'09:39', views:4, comments:0, likes:0, isNew:true,
-    alleyName:'포커스볼링센터(구) 강서볼링장', alleyRegion:'서울 강서구', alleyLanes:24, alleyAddr:'서울 강서구 화곡로 123', alleyHours:'연중무휴 09:00 ~ 02:00', alleyAvg:'168.3', alleyAuto:true, alleyTio:true,
+    alleyName:'포커스볼링센터(구) 강서볼링장', alleyRegion:'서울 강서구', alleyLanes:24, alleyAddr:'서울 강서구 화곡로 123', alleyHours:'연중무휴 09:00 ~ 02:00', alleyAvg:'168.3', alleyGames:32412, alleyAuto:true, alleyTio:true,
     content:'남성게임 접수받습니다 :)\n\n포커스 올핀대회 안내\n\n▶ 대회일시: 4/10(금) 오후 9시 00분 선착순 42명\n▶ 참가비: 게임비 포함 40,000원 (사이드 별도)\n▶ 게임방법: 올핀 4게임 합산 / 매게임 우측 2테이블 이동\n▶ 핸디: 나이핸디 66년생부터 +1점\n▶ 참가자격: 아마추어 남성 볼링 동호인\n\n🏆 시상 내역\n1위: 상금 600,000원\n2위: 상금 250,000원\n3위: 상금 100,000원\n행운상: 40,000원',
     tags:['#포커스볼링','#올핀대회','#강서구'], img:'bowling_image/1.jpg'},
   {id:2, title:'9핀대회', author:'엘리트', date:'2026.03.24', time:'', views:37, comments:0, likes:0, isNew:true,
-    alleyName:'퍼펙트볼&펀', alleyRegion:'경기 용인시 처인구', alleyLanes:32, alleyAddr:'경기 용인시 처인구 중부대로 456', alleyHours:'연중무휴 10:00 ~ 01:00', alleyAvg:'172.1', alleyAuto:true, alleyTio:true,
+    alleyName:'퍼펙트볼&펀', alleyRegion:'경기 용인시 처인구', alleyLanes:32, alleyAddr:'경기 용인시 처인구 중부대로 456', alleyHours:'연중무휴 10:00 ~ 01:00', alleyAvg:'172.1', alleyGames:45890, alleyAuto:true, alleyTio:true,
     content:'9핀 대회 안내\n\n▶ 일시: 2026년 4월 5일(토) 오후 2시\n▶ 장소: 퍼펙트볼&펀 (경기 용인)\n▶ 참가비: 35,000원 (게임비 포함)\n▶ 게임방법: 9핀 4게임 합산\n▶ 참가자격: 아마추어 동호인\n\n🏆 시상\n1위: 500,000원 / 2위: 200,000원 / 3위: 100,000원',
     tags:['#9핀대회','#퍼펙트볼','#용인'], img:'bowling_image/2.jpg'},
   {id:3, title:'광주JS볼링센터', author:'김볼링', date:'2026.03.20', time:'22:12', views:142, comments:0, likes:0, isNew:false,
-    alleyName:'광주JS볼링센터', alleyRegion:'경기 광주시', alleyLanes:15, alleyAddr:'경기 광주시 머루숲길 5', alleyHours:'연중무휴 9:30 ~ 02:00', alleyAvg:'177.7', alleyAuto:true, alleyTio:true,
+    alleyName:'광주JS볼링센터', alleyRegion:'경기 광주시', alleyLanes:15, alleyAddr:'경기 광주시 머루숲길 5', alleyHours:'연중무휴 9:30 ~ 02:00', alleyAvg:'177.7', alleyGames:18340, alleyAuto:true, alleyTio:true,
     content:'남성게임 접수받습니다 :)\n\n광주 JS 남성 올핀게임\n\n▶ 대회일시: 4/10(금) 오후 9시100분 선착순 42명\n▶ 참가비: 게임비 포함 40,000원 (사이드 별도)\n▶ 게임방법: 올핀 4게임 합산 / 매게임 우측 2테이블 이동\n▶ 핸디: 나이핸디 66년생부터 +1점\n▶ 참가자격: 아마추어 남성 볼링 동호인\n\n🏆 시상 내역\n1위: 상금 600,000원\n2위: 상금 250,000원\n3위: 상금 100,000원\n행운상 7/14/21/28/35위: 40,000원',
     tags:['#광주JS','#올핀게임','#남성대회'], img:'bowling_image/3.jpg'},
   {id:4, title:'퍼펙트볼 볼린이 대회', author:'엘리트', date:'2026.03.13', time:'', views:286, comments:0, likes:0, isNew:false,
-    alleyName:'퍼펙트볼&펀', alleyRegion:'경기 용인시 처인구', alleyLanes:32, alleyAddr:'경기 용인시 처인구 중부대로 456', alleyHours:'연중무휴 10:00 ~ 01:00', alleyAvg:'172.1', alleyAuto:true, alleyTio:true,
+    alleyName:'퍼펙트볼&펀', alleyRegion:'경기 용인시 처인구', alleyLanes:32, alleyAddr:'경기 용인시 처인구 중부대로 456', alleyHours:'연중무휴 10:00 ~ 01:00', alleyAvg:'172.1', alleyGames:45890, alleyAuto:true, alleyTio:true,
     content:'볼린이를 위한 대회!\n\n▶ 일시: 2026년 4월 12일(토) 오후 3시\n▶ 장소: 퍼펙트볼&펀\n▶ 참가비: 25,000원\n▶ 참가자격: 에버 140 이하 (여성은 에버 120 이하)\n▶ 게임방법: 올핀 4게임 합산 + 핸디 적용\n\n🏆 시상\n1위: 300,000원 / 2위: 150,000원 / 3위: 80,000원\n\n초보분들 부담없이 참가하세요!',
     tags:['#볼린이대회','#퍼펙트볼','#초보환영'], img:'bowling_image/4.jpg'},
   {id:5, title:'성남 단대볼링센터', author:'댕댕이R', date:'2026.03.09', time:'', views:198, comments:2, likes:3, isNew:false,
-    alleyName:'단대볼링센터', alleyRegion:'경기 성남시 수정구', alleyLanes:20, alleyAddr:'경기 성남시 수정구 단대동', alleyHours:'연중무휴 09:00 ~ 01:00', alleyAvg:'165.4', alleyAuto:true, alleyTio:true,
+    alleyName:'단대볼링센터', alleyRegion:'경기 성남시 수정구', alleyLanes:20, alleyAddr:'경기 성남시 수정구 단대동', alleyHours:'연중무휴 09:00 ~ 01:00', alleyAvg:'165.4', alleyGames:22100, alleyAuto:true, alleyTio:true,
     content:'캡슐이벤트 상품 내역\n\n참여는 볼 4구 / 10만원 이상 드릴 시\n\n400,000원 1명\n200,000원 5명 / 1만원, 2만원 다수\n\n많은 참여 부탁드립니다!',
     tags:['#단대볼링','#성남','#캡슐이벤트'], img:'bowling_image/5.jpg'},
   {id:6, title:'볼러스 쌍쌍게임', author:'볼러스레인', date:'2026.03.07', time:'', views:124, comments:1, likes:2, isNew:false,
-    alleyName:'볼러스레인', alleyRegion:'서울 노원구', alleyLanes:18, alleyAddr:'서울 노원구 중계동 345', alleyHours:'연중무휴 10:00 ~ 01:00', alleyAvg:'158.2', alleyAuto:true, alleyTio:false,
+    alleyName:'볼러스레인', alleyRegion:'서울 노원구', alleyLanes:18, alleyAddr:'서울 노원구 중계동 345', alleyHours:'연중무휴 10:00 ~ 01:00', alleyAvg:'158.2', alleyGames:15670, alleyAuto:true, alleyTio:false,
     content:'볼러스 쌍쌍게임 안내\n\n남녀 2인 1조 팀 대회!\n\n▶ 일시: 2026년 3월 29일(토) 오후 6시\n▶ 참가비: 팀당 50,000원\n▶ 게임방법: 4게임 합산 (핸디 적용)\n\n🏆 시상\n1위: 400,000원 / 2위: 200,000원 / 3위: 100,000원',
     tags:['#볼러스레인','#쌍쌍게임','#노원구'], img:'bowling_image/6.jpg'}
 ];
@@ -3659,13 +3850,13 @@ function renderTourBoard() {
       : '<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:36px;background:var(--sub-blue);">🎳</div>';
     var newDot = p.isNew ? '<span class="new-dot"></span>' : '';
     var viewsClass = p.views >= 100 ? 'hot' : '';
-    return '<div class="tr-list-item" onclick="openTourDetail('+p.id+')">'
-      + '<div class="tr-thumb">'+thumbHtml+'</div>'
-      + '<div class="tr-body">'
-      +   '<div class="tr-title">'+p.title+newDot+'</div>'
-      +   '<div class="tr-alley-row"><span class="tr-alley-name">'+p.alleyName+'</span><span class="tr-region">'+p.alleyRegion+'</span></div>'
-      +   '<div class="tr-meta">'+p.author+'  '+p.date+(p.time?' '+p.time:'')+'</div>'
-      +   '<div class="tr-stats" style="display:flex;align-items:center;gap:12px;font-size:13px;color:var(--text2);">'+statHtml(p.views,p.comments)+'</div>'
+    return '<div class="prod-card" onclick="openTourDetail('+p.id+')">'
+      + '<div class="prod-img">'+thumbHtml+'</div>'
+      + '<div class="prod-body">'
+      +   '<div class="prod-title"><span>'+p.title+'</span>'+(p.isNew?'<span class="new-dot"></span>':'')+'</div>'
+      +   '<div class="prod-alley"><span style="color:var(--green);font-weight:700;">'+p.alleyName+'</span><span class="prod-region-txt">'+p.alleyRegion+'</span></div>'
+      +   '<div class="prod-bottom"><div class="prod-author"><span>'+p.author+'</span><span>'+p.date+(p.time?' '+p.time:'')+'</span></div>'
+      +   '<div class="prod-stats">'+statHtml(p.views,p.comments)+'</div></div>'
       + '</div></div>';
   });
 }
@@ -3676,14 +3867,14 @@ function openTourDetail(id) {
   var comments = trComments[p.id] || [];
 
   // Alley info card
-  var tioHtml = p.alleyTio ? '<span class="tio-badge">7iO</span>' : '';
-  var autoHtml = p.alleyAuto ? '<span class="tr-detail-alley-auto">🌀 자동기록</span>' : '';
+  var tioHtml = p.alleyTio ? '<span class="tio-badge"><img src="logo_white.svg" alt="">칠텐제휴</span>' : '';
+  var autoHtml = p.alleyAuto ? '<span class="tr-detail-alley-auto">⚡ 자동기록</span>' : '';
   var alleyCardHtml = '<div class="tr-detail-alley">'
     + '<div class="tr-detail-alley-info">'
     +   '<div class="tr-detail-alley-name">'+p.alleyName+' <span class="lane-badge">'+p.alleyLanes+'레인</span> '+tioHtml+'</div>'
     +   '<div class="tr-detail-alley-addr">'+p.alleyAddr+'</div>'
     +   '<div class="tr-detail-alley-hours">'+p.alleyHours+'</div>'
-    +   '<div class="tr-detail-alley-bottom"><span class="tr-detail-alley-avg">'+p.alleyAvg+'avg /</span>'+autoHtml+'</div>'
+    +   '<div class="tr-detail-alley-bottom"><span class="tr-detail-alley-avg">'+p.alleyAvg+'avg / '+(p.alleyGames?Number(p.alleyGames).toLocaleString():'0')+'G</span>'+autoHtml+'</div>'
     + '</div></div>';
 
   // Image
@@ -3854,22 +4045,16 @@ function renderClubBoard() {
   cpListEl.className = 'cp-grid';
   infInit('clubs', posts, 'cp-list', function(p){
     var thumbHtml = p.clubThumb
-      ? '<img src="'+p.clubThumb+'" alt="'+p.clubName+'">'
-      : '<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:48px;">🎳</div>';
-    var tagsHtml = '';
-    var showTags = [];
-    if(p.clubName) showTags.push(p.clubName);
-    if(p.clubRegion) showTags.push(p.clubRegion);
-    if(p.clubAlley) showTags.push(p.clubAlley);
-    showTags.forEach(function(t){ tagsHtml += '<span class="cp-thumb-tag">'+t+'</span>'; });
-
-    return '<div class="cp-card" onclick="openClubDetail('+p.id+')">'
-      + '<div class="cp-thumb">'+thumbHtml+'<div class="cp-thumb-tags">'+tagsHtml+'</div></div>'
-      + '<div class="cp-body">'
-      +   '<div class="cp-title">'+p.title+'</div>'
-      +   (p.clubAlley ? '<div style="font-size:12px;color:var(--blue);font-weight:600;margin-bottom:4px;">📍 '+p.clubAlley+'</div>' : '')
-      +   '<div class="cp-meta"><span class="author">'+p.author+'</span><span>'+p.date+'</span></div>'
-      +   '<div class="cp-stats">'+statHtml(p.views,p.comments)+'</div>'
+      ? '<img src="'+p.clubThumb+'" alt="'+p.clubName+'" style="width:100%;height:100%;object-fit:cover;">'
+      : '<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:36px;background:var(--sub-blue);">🎳</div>';
+    return '<div class="prod-card" onclick="openClubDetail('+p.id+')">'
+      + '<div class="prod-img">'+thumbHtml+'</div>'
+      + '<div class="prod-body">'
+      +   '<div class="prod-badges">'+(p.clubName ? '<span class="badge b-blue" style="font-size:10px;">'+p.clubName+'</span>' : '')+(p.clubRegion ? '<span class="badge b-gray" style="font-size:10px;">'+p.clubRegion+'</span>' : '')+'</div>'
+      +   '<div class="prod-title"><span>'+p.title+'</span>'+(p.isNew?'<span class="new-dot"></span>':'')+'</div>'
+      +   (p.clubAlley ? '<div class="prod-alley"><span style="color:var(--green)">'+p.clubAlley+'</span></div>' : '')
+      +   '<div class="prod-bottom"><div class="prod-author"><span>'+p.author+'</span><span>'+p.date+'</span></div>'
+      +   '<div class="prod-stats">'+statHtml(p.views,p.comments)+'</div></div>'
       + '</div></div>';
   });
 }
@@ -3975,6 +4160,7 @@ let currentStat = '전체';
 var ballImgDir = 'bowling_image/ball/';
 const products = [
   {id:100, title:'중고장터 이용규칙 안내', price:0, region:'', status:'', cat:'', likes:0, views:4218, comments:38, alley:'', author:'칠텐운영자', date:'2020.04.15', time:'', isNew:false, isNotice:true, img:null},
+  {id:101, title:'[필독] 안전거래 가이드', price:0, region:'', status:'', cat:'', likes:0, views:2965, comments:15, alley:'', author:'칠텐운영자', date:'2023.08.20', time:'', isNew:false, isNotice:true, img:null},
   {id:1, title:'블랙위도우 블루 우레탄 15p', price:150000, region:'서울 강동구', status:'판매중', cat:'볼', likes:23, views:17, comments:0, alley:'가인볼링장(길동점)', author:'정민O', time:'14:10', isNew:true, img:ballImgDir+'ball.jpg'},
   {id:2, title:'아이온 맥스 펄 15P', price:270000, region:'서울 송파구', status:'예약중', cat:'볼', likes:45, views:41, comments:0, alley:'정석볼링장(거여점)', author:'로비', time:'14:02', isNew:true, img:ballImgDir+'71RXBLcgBuL._AC_SL1500_.jpg'},
   {id:3, title:'해머 이펙트 블랙 우레탄(15p)', price:150000, region:'서울 노원구', status:'판매중', cat:'볼', likes:8, views:67, comments:0, alley:'블랙홀볼링', author:'김볼링', time:'12:03', isNew:true, img:ballImgDir+'images (1).jpg'},
@@ -4136,8 +4322,27 @@ function renderPartnerAlleys() {
       + '</div>';
   }).join('');
 }
+function renderHomeEvents() {
+  var grid = document.getElementById('home-event-grid');
+  if (!grid) return;
+  if (typeof eventPosts === 'undefined') return;
+  var posts = eventPosts.filter(function(p){ return !p.isNotice && p.img; });
+  posts.sort(function(a,b){ return b.date.localeCompare(a.date); });
+  posts = posts.slice(0, 4);
+  grid.innerHTML = posts.map(function(p){
+    var alleyShort = p.alley ? p.alley.split('(')[0] : '';
+    return '<div class="prod-card" onclick="openEventDetail('+p.id+')">'
+      + '<div class="prod-img"><img src="'+p.img+'" alt="'+p.title+'" style="width:100%;height:100%;object-fit:cover;"></div>'
+      + '<div class="prod-body">'
+      +   '<div class="prod-title"><span>'+p.title+'</span></div>'
+      +   (alleyShort ? '<div class="prod-alley"><span style="color:var(--green)">'+alleyShort+'</span><span class="prod-region-txt">'+(p.region||'')+'</span></div>' : '')
+      +   '<div class="prod-bottom"><div class="prod-author"><span>'+p.author+'</span><span>'+p.date.replace('2026.','').replace('2025.','')+'</span></div></div>'
+      + '</div></div>';
+  }).join('');
+}
+
 // Initial render on page load
-setTimeout(renderPartnerAlleys, 100);
+setTimeout(function(){ renderPartnerAlleys(); renderHomeEvents(); }, 100);
 
 // ===== COMM BANNER SLIDER =====
 var _bannerIdx = 0;
@@ -4922,6 +5127,7 @@ var fbPhotos = [];
 
 var freePosts = [
   {id:1, title:'자유게시판 운영정책 안내', author:'칠텐운영자', date:'2020.02.26', views:5736, comments:31, isNotice:true, img:null, content:''},
+  {id:101, title:'[안내] 광고성 게시물 신고 방법', author:'칠텐운영자', date:'2024.11.05', views:1842, comments:8, isNotice:true, img:null, content:'광고성 게시물 신고 방법을 안내드립니다.\n\n1. 해당 게시물 우측 상단 ··· 메뉴 클릭\n2. 신고하기 선택\n3. 신고 사유 선택 후 제출\n\n신고된 게시물은 운영진 검토 후 조치됩니다.'},
   {id:2, title:'하드볼 추천', author:'헌리스', date:'2026.03.22', views:168, comments:3, isNotice:false, img:null, content:'하드볼 입문 추천해주세요.\n14파운드 기준으로 컨벤셔널로 지공하려고 합니다.\n초보인데 어떤 하드볼이 좋을까요?'},
   {id:3, title:'볼링커뮤니티나 카페 유명한곳', author:'12Boom', date:'2026.03.22', views:212, comments:1, isNotice:false, img:null, content:'볼링 관련 커뮤니티나 카페 중에 유명한 곳이 있나요?\n칠텐 말고 다른 곳도 궁금합니다.'},
   {id:4, title:'와일드레커 질문', author:'볼리TV', date:'2026.03.22', views:150, comments:4, isNotice:false, img:null, content:'와일드레커 써보신 분 계시나요?\n레인 컨디션이 좀 마른 편인데 잘 맞을까요?'},
@@ -5160,13 +5366,13 @@ var evPhotos = [];
 
 var eventPosts = [
   {id:1, title:'볼링장 이벤트 게시판 운영정책 안내', author:'칠텐운영자', date:'2020.07.27', views:3364, comments:97, isNotice:true, alley:'', region:'', img:null, content:'', evType:''},
-  {id:2, title:'★ 더케이 캡슐 이벤트 95탄 ★', author:'윤회사상', date:'2026.03.21', views:71, comments:0, alley:'THE K 볼링장(더케이볼링장)', region:'경기 광명시', img:'bowling_image/event/1.jpg', content:'더케이 볼링장 캡슐 이벤트 95탄!\n최신볼 선택권 10EA\n게임비 할인 및 다양한 경품 준비했습니다.\n많은 참여 부탁드립니다!', evType:'캡슐'},
-  {id:3, title:'단 하루, 아메리카노 천원 이벤트 (3/21)', author:'김눈', date:'2026.03.17', views:88, comments:0, alley:'포커스볼링센터(구) 강서볼링장', region:'서울 강서구', img:'bowling_image/event/2.jpg', content:'[단 하루, ☕커피 천원 이벤트]\n포커스볼링센터의 커피 원두가 업그레이드 됩니다. 이를 기념하며 많은 분들이 맛보실 수 있게, 3/21(토) 단 하루! 오픈부터 마감까지 아메리카노 톨사이즈를 단돈 천 원에 드릴 예정이에요 :)\n이 날, 꼭 잊지 마시고 포커스에 커피 한 잔 하러 오세요 😉☕🎳\n\n* 현금으로 부탁드려요. 카드 결제시 부가세 10% 별도\n* 1인 1회에 해당하며, 당일 재방문하여 재구매시 이벤트가가 아닌 정가로 구매하실 수 있습니다.\n* 아메리카노 톨사이즈 이외의 커피류는 이벤트 대상이 아닙니다.', evType:'만원의행복'},
-  {id:4, title:'로하스 볼링장 캡슐이벤트', author:'로하스볼링', date:'2026.03.14', views:118, comments:0, alley:'로하스 볼링라운지', region:'경기 광명시', img:'bowling_image/event/3.jpg', content:'로하스 볼링라운지 캡슐 이벤트!\n게임하시고 캡슐 뽑기 도전하세요!\n다양한 경품이 준비되어 있습니다.', evType:'캡슐'},
-  {id:5, title:'3월29일 3.6.9이벤트게임', author:'KJ볼링센터', date:'2026.03.12', views:81, comments:0, alley:'KJ볼링센터', region:'경기 광주시', img:'bowling_image/event/4.jpg', content:'3월 29일 3.6.9 이벤트 게임!\n게임비: 3,6,9 프레임 스트라이크시 할인!\n많은 참여 부탁드립니다.', evType:'나인핀'},
-  {id:6, title:'로하스볼리자 캡슐이벤트 진행중', author:'로하스볼링', date:'2026.02.27', views:373, comments:0, alley:'로하스 볼링라운지', region:'경기 광명시', img:'bowling_image/event/5.jpg', content:'로하스볼리자 캡슐이벤트 진행중!\n각 1회씩 뽑기 기회!\n최신볼 선택권, 할인쿠폰 등 다양한 경품!', evType:'캡슐'},
-  {id:7, title:'봄맞이 특별 할인 이벤트', author:'김볼링', date:'2026.03.22', views:156, comments:2, alley:'강남볼링센터', region:'서울 강남구', img:'bowling_image/event/1.jpg', content:'봄맞이 특별 이벤트!\n게임당 500원 할인! 평일/주말 전부 적용됩니다.\n3월 한달간 진행합니다.', evType:'만원의행복'},
-  {id:8, title:'신규회원 가입 이벤트 (상시)', author:'수원볼링', date:'2026.03.20', views:95, comments:1, alley:'수원볼링파크', region:'경기 수원시', img:'bowling_image/event/3.jpg', content:'수원볼링파크 신규회원 가입 이벤트!\n첫 방문 시 무료 게임 2게임 제공!\n칠텐 앱 통해 가입하시면 추가 1게임 더!', evType:'2인조'},
+  {id:2, title:'★ 더케이 캡슐 이벤트 95탄 ★', author:'윤회사상', date:'2026.03.21', views:71, comments:0, alley:'THE K 볼링장(더케이볼링장)', region:'경기 광명시', alleyLanes:28, alleyAddr:'경기 광명시 철산로 234', alleyHours:'연중무휴 10:00 ~ 02:00', alleyAvg:'171.5', alleyGames:45230, alleyAuto:true, alleyTio:true, img:'bowling_image/event/1.jpg', content:'더케이 볼링장 캡슐 이벤트 95탄!\n최신볼 선택권 10EA\n게임비 할인 및 다양한 경품 준비했습니다.\n많은 참여 부탁드립니다!', evType:'캡슐'},
+  {id:3, title:'단 하루, 아메리카노 천원 이벤트 (3/21)', author:'김눈', date:'2026.03.17', views:88, comments:0, alley:'포커스볼링센터(구) 강서볼링장', region:'서울 강서구', alleyLanes:24, alleyAddr:'서울 강서구 화곡로 123', alleyHours:'연중무휴 09:00 ~ 02:00', alleyAvg:'168.3', alleyGames:32412, alleyAuto:true, alleyTio:true, img:'bowling_image/event/2.jpg', content:'[단 하루, ☕커피 천원 이벤트]\n포커스볼링센터의 커피 원두가 업그레이드 됩니다. 이를 기념하며 많은 분들이 맛보실 수 있게, 3/21(토) 단 하루! 오픈부터 마감까지 아메리카노 톨사이즈를 단돈 천 원에 드릴 예정이에요 :)\n이 날, 꼭 잊지 마시고 포커스에 커피 한 잔 하러 오세요 😉☕🎳\n\n* 현금으로 부탁드려요. 카드 결제시 부가세 10% 별도\n* 1인 1회에 해당하며, 당일 재방문하여 재구매시 이벤트가가 아닌 정가로 구매하실 수 있습니다.\n* 아메리카노 톨사이즈 이외의 커피류는 이벤트 대상이 아닙니다.', evType:'만원의행복'},
+  {id:4, title:'로하스 볼링장 캡슐이벤트', author:'로하스볼링', date:'2026.03.14', views:118, comments:0, alley:'로하스 볼링라운지', region:'경기 광명시', alleyLanes:20, alleyAddr:'경기 광명시 오리로 567', alleyHours:'연중무휴 10:00 ~ 01:00', alleyAvg:'165.8', alleyGames:28750, alleyAuto:true, alleyTio:false, img:'bowling_image/event/3.jpg', content:'로하스 볼링라운지 캡슐 이벤트!\n게임하시고 캡슐 뽑기 도전하세요!\n다양한 경품이 준비되어 있습니다.', evType:'캡슐'},
+  {id:5, title:'3월29일 3.6.9이벤트게임', author:'KJ볼링센터', date:'2026.03.12', views:81, comments:0, alley:'KJ볼링센터', region:'경기 광주시', alleyLanes:15, alleyAddr:'경기 광주시 경충대로 890', alleyHours:'연중무휴 09:30 ~ 01:00', alleyAvg:'177.7', alleyGames:18340, alleyAuto:true, alleyTio:true, img:'bowling_image/event/4.jpg', content:'3월 29일 3.6.9 이벤트 게임!\n게임비: 3,6,9 프레임 스트라이크시 할인!\n많은 참여 부탁드립니다.', evType:'나인핀'},
+  {id:6, title:'로하스볼리자 캡슐이벤트 진행중', author:'로하스볼링', date:'2026.02.27', views:373, comments:0, alley:'로하스 볼링라운지', region:'경기 광명시', alleyLanes:20, alleyAddr:'경기 광명시 오리로 567', alleyHours:'연중무휴 10:00 ~ 01:00', alleyAvg:'165.8', alleyGames:28750, alleyAuto:true, alleyTio:false, img:'bowling_image/event/5.jpg', content:'로하스볼리자 캡슐이벤트 진행중!\n각 1회씩 뽑기 기회!\n최신볼 선택권, 할인쿠폰 등 다양한 경품!', evType:'캡슐'},
+  {id:7, title:'봄맞이 특별 할인 이벤트', author:'김볼링', date:'2026.03.22', views:156, comments:2, alley:'강남볼링센터', region:'서울 강남구', alleyLanes:36, alleyAddr:'서울 강남구 테헤란로 112', alleyHours:'연중무휴 09:00 ~ 03:00', alleyAvg:'172.4', alleyGames:67890, alleyAuto:true, alleyTio:true, img:'bowling_image/event/1.jpg', content:'봄맞이 특별 이벤트!\n게임당 500원 할인! 평일/주말 전부 적용됩니다.\n3월 한달간 진행합니다.', evType:'만원의행복'},
+  {id:8, title:'신규회원 가입 이벤트 (상시)', author:'수원볼링', date:'2026.03.20', views:95, comments:1, alley:'수원볼링파크', region:'경기 수원시', alleyLanes:32, alleyAddr:'경기 수원시 팔달구 효원로 456', alleyHours:'연중무휴 10:00 ~ 01:00', alleyAvg:'169.1', alleyGames:41580, alleyAuto:true, alleyTio:true, img:'bowling_image/event/3.jpg', content:'수원볼링파크 신규회원 가입 이벤트!\n첫 방문 시 무료 게임 2게임 제공!\n칠텐 앱 통해 가입하시면 추가 1게임 더!', evType:'2인조'},
 ];
 
 // eventPosts 정의 후 티커 초기화
@@ -5229,17 +5435,13 @@ function renderEventBoard() {
   var evListEl = document.getElementById('ev-list');
   evListEl.style.cssText = 'display:grid;grid-template-columns:repeat(4,1fr);gap:12px;';
   infInit('events', posts, 'ev-list', function(p){
-    var imgHtml = p.img
-      ? '<div style="width:100%;aspect-ratio:4/3;overflow:hidden;border-radius:10px 10px 0 0;"><img src="' + p.img + '" alt="" style="width:100%;height:100%;object-fit:cover;"></div>'
-      : '<div style="width:100%;aspect-ratio:4/3;background:var(--bg);border-radius:10px 10px 0 0;display:flex;align-items:center;justify-content:center;color:var(--text2);font-size:14px;">이미지 없음</div>';
-    return '<div onclick="openEventDetail(' + p.id + ')" style="background:#fff;border-radius:10px;border:1px solid var(--line);cursor:pointer;overflow:hidden;transition:box-shadow .2s;" onmouseover="this.style.boxShadow=\'0 4px 16px rgba(0,0,0,.1)\'" onmouseout="this.style.boxShadow=\'none\'">'
-      + imgHtml
-      + '<div style="padding:12px 14px 14px;">'
-      +   (p.evType ? '<span style="display:inline-block;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:700;color:var(--blue);background:var(--sub-blue);margin-bottom:5px;">' + p.evType + '</span>' : '')
-      +   '<div style="font-size:15px;font-weight:700;color:var(--text1);margin-bottom:4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">' + p.title + '</div>'
-      +   (p.alley ? '<div style="font-size:12px;color:var(--green);font-weight:600;margin-bottom:3px;">' + p.alley + ' <span style="color:var(--text2);font-weight:400;">' + p.region + '</span></div>' : '')
-      +   '<div style="font-size:12px;color:var(--text2);margin-bottom:6px;">' + p.author + '  ' + p.date + '</div>'
-      +   '<div style="display:flex;justify-content:flex-end;gap:12px;font-size:13px;color:var(--text2);">'+statHtml(p.views,p.comments)+'</div>'
+    return '<div class="prod-card" onclick="openEventDetail('+p.id+')">'
+      + '<div class="prod-img">'+(p.img ? '<img src="'+p.img+'" alt="'+p.title+'" style="width:100%;height:100%;object-fit:cover;">' : '<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:36px;background:var(--sub-blue);">🎳</div>')+'</div>'
+      + '<div class="prod-body">'
+      +   '<div class="prod-title"><span>'+p.title+'</span>'+(p.isNew?'<span class="new-dot"></span>':'')+'</div>'
+      +   (p.alley ? '<div class="prod-alley"><span style="color:var(--green)">'+p.alley+'</span><span class="prod-region-txt">'+p.region+'</span></div>' : '')
+      +   '<div class="prod-bottom"><div class="prod-author"><span>'+p.author+'</span><span>'+p.date+'</span></div>'
+      +   '<div class="prod-stats">'+statHtml(p.views,p.comments)+'</div></div>'
       + '</div></div>';
   });
 }
@@ -5252,12 +5454,16 @@ function openEventDetail(id) {
 
   var alleyInfoHtml = '';
   if (p.alley) {
-    alleyInfoHtml = '<div class="md-standing-box" style="margin-bottom:16px;">'
-      + '<div class="md-standing-left">'
-      +   '<div style="font-weight:700;font-size:15px;color:var(--text1);margin-bottom:4px;">' + p.alley + ' <span class="badge b-green" style="font-size:10px;vertical-align:middle;">제휴</span></div>'
-      +   '<div style="font-size:12px;color:var(--text2);">' + p.region + '</div>'
-      + '</div>'
-      + '</div>';
+    var evTioHtml = p.alleyTio ? '<span class="tio-badge"><img src="logo_white.svg" alt="">칠텐제휴</span>' : '';
+    var evAutoHtml = p.alleyAuto ? '<span class="tr-detail-alley-auto">⚡ 자동기록</span>' : '';
+    var evLanes = p.alleyLanes ? ' <span class="lane-badge">'+p.alleyLanes+'레인</span> ' : '';
+    alleyInfoHtml = '<div class="tr-detail-alley">'
+      + '<div class="tr-detail-alley-info">'
+      +   '<div class="tr-detail-alley-name">'+p.alley+evLanes+evTioHtml+'</div>'
+      +   (p.alleyAddr ? '<div class="tr-detail-alley-addr">'+p.alleyAddr+'</div>' : '')
+      +   (p.alleyHours ? '<div class="tr-detail-alley-hours">'+p.alleyHours+'</div>' : '')
+      +   '<div class="tr-detail-alley-bottom"><span class="tr-detail-alley-avg">'+(p.alleyAvg||'0')+'avg / '+(p.alleyGames?Number(p.alleyGames).toLocaleString():'0')+'G</span>'+evAutoHtml+'</div>'
+      + '</div></div>';
   }
 
   var evExtraImgs = ['bowling_image/event/1.jpg','bowling_image/event/2.jpg','bowling_image/event/3.jpg','bowling_image/event/4.jpg','bowling_image/event/5.jpg'];
