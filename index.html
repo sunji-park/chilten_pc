@@ -158,6 +158,13 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .comm-ad-side img{width:100%;border-radius:12px;display:block;transition:opacity .15s;}
 .comm-ad-side img:hover{opacity:.88;cursor:pointer;}
 
+/* 게시판 레이아웃: 콘텐츠 1200px + 우측 세로배너 (홈과 동일 좌측 정렬) */
+.board-layout{display:flex;gap:20px;}
+.board-main{flex:1;min-width:0;max-width:1200px;}
+.board-ad-side{width:160px;flex-shrink:0;position:sticky;top:0;align-self:flex-start;}
+.board-ad-side img{width:100%;border-radius:12px;display:block;transition:opacity .15s;}
+.board-ad-side img:hover{opacity:.88;cursor:pointer;}
+
 /* ===== COMMON ===== */
 .page-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;}
 .page-title{font-size:20px;font-weight:700;}
@@ -455,6 +462,17 @@ tbody tr:hover{background:#fafcff;}
 .md-replies .md-comment-avatar{width:24px;height:24px;font-size:10px;}
 .md-reply-indicator{display:inline-flex;align-items:center;gap:4px;background:var(--sub-blue);color:var(--blue);font-size:12px;font-weight:600;padding:4px 10px;border-radius:6px;margin-bottom:8px;}
 .md-reply-indicator .close-reply{cursor:pointer;margin-left:4px;font-size:14px;line-height:1;}
+.md-cmt-actions{display:inline-flex;gap:2px;margin-left:8px;}
+.md-cmt-actions button{font-size:11px;color:var(--text2);cursor:pointer;background:none;border:none;font-family:inherit;padding:2px 5px;border-radius:4px;transition:all .15s;}
+.md-cmt-actions .cmt-edit-btn:hover{color:var(--blue);background:var(--sub-blue);}
+.md-cmt-actions .cmt-del-btn:hover{color:var(--red);background:#FFF1F3;}
+.md-cmt-edit-area{display:flex;gap:6px;margin-top:6px;}
+.md-cmt-edit-area input{flex:1;padding:6px 10px;border:1.5px solid var(--blue);border-radius:6px;font-size:12px;font-family:inherit;outline:none;}
+.md-cmt-edit-area button{padding:5px 12px;border:none;border-radius:6px;font-size:11px;font-weight:600;cursor:pointer;font-family:inherit;}
+.md-cmt-edit-save{background:var(--blue);color:#fff;}
+.md-cmt-edit-save:hover{background:#003899;}
+.md-cmt-edit-cancel{background:var(--bg);color:var(--text2);}
+.md-cmt-edit-cancel:hover{background:var(--line);}
 
 /* ===== FREE BOARD ===== */
 .fb-search{display:flex;align-items:center;background:#F3F4F6;border-radius:10px;padding:12px 16px;margin-bottom:16px;gap:8px;}
@@ -1724,8 +1742,10 @@ select.mw-input{cursor:pointer;-webkit-appearance:none;appearance:none;backgroun
      중고장터
      ============================== -->
 <div id="s-market" class="screen">
+<div class="board-layout">
+<div class="board-main">
   <div class="page-header">
-    <div class="page-title">🛒 중고장터</div>
+    <div class="page-title">중고장터</div>
     <button class="btn btn-primary" onclick="openMarketWrite()">+ 글쓰기</button>
   </div>
 
@@ -1777,10 +1797,20 @@ select.mw-input{cursor:pointer;-webkit-appearance:none;appearance:none;backgroun
   </div>
 </div>
 
+<div class="board-ad-side">
+  <a href="#" onclick="return false;">
+    <img src="banner.jpg" alt="광고배너">
+  </a>
+</div>
+</div>
+</div>
+
 <!-- ==============================
      중고장터 글보기
      ============================== -->
 <div id="s-market-detail" class="screen">
+<div class="board-layout">
+<div class="board-main">
   <div style="display:flex;justify-content:flex-end;gap:8px;margin-bottom:12px;" id="md-market-topbtns">
     <button class="md-list-btn" onclick="go('market')"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg> 글목록</button>
   </div>
@@ -1789,16 +1819,23 @@ select.mw-input{cursor:pointer;-webkit-appearance:none;appearance:none;backgroun
   </div>
 </div>
 
+<div class="board-ad-side">
+  <a href="#" onclick="return false;">
+    <img src="banner.jpg" alt="광고배너">
+  </a>
+</div>
+</div>
+</div>
+
 <!-- ==============================
      중고장터 글쓰기
      ============================== -->
 <div id="s-market-write" class="screen">
-  <div style="display:flex;justify-content:flex-end;margin-bottom:12px;">
-    <button class="md-list-btn" onclick="go('market')"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg> 글목록</button>
-  </div>
-
+<div class="board-layout">
+<div class="board-main">
   <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;">
-    <div class="page-title" style="margin:0;"><i data-lucide="pen-line" class="sec-ic"></i> 중고장터 글쓰기</div>
+    <div class="page-title" style="margin:0;">중고장터 글쓰기</div>
+    <button class="md-list-btn" onclick="go('market')"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg> 글목록</button>
   </div>
 
   <!-- 노출 지역 선택 -->
@@ -1876,6 +1913,14 @@ select.mw-input{cursor:pointer;-webkit-appearance:none;appearance:none;backgroun
   </div>
 </div>
 
+<div class="board-ad-side">
+  <a href="#" onclick="return false;">
+    <img src="banner.jpg" alt="광고배너">
+  </a>
+</div>
+</div>
+</div>
+
 <!-- Region Selection Modal -->
 <div class="region-modal-overlay" id="region-modal-overlay" onclick="closeRegionModal(event)">
   <div class="region-modal" onclick="event.stopPropagation()">
@@ -1896,8 +1941,10 @@ select.mw-input{cursor:pointer;-webkit-appearance:none;appearance:none;backgroun
      자유게시판 리스트
      ============================== -->
 <div id="s-free" class="screen">
+<div class="board-layout">
+<div class="board-main">
   <div class="page-header">
-    <div class="page-title"><i data-lucide="file-text" class="sec-ic"></i> 자유게시판</div>
+    <div class="page-title">자유게시판</div>
     <button class="btn btn-primary" onclick="openFreeWrite()">+ 글쓰기</button>
   </div>
 
@@ -1927,26 +1974,43 @@ select.mw-input{cursor:pointer;-webkit-appearance:none;appearance:none;backgroun
   <div id="fb-list"></div>
 </div>
 
+<div class="board-ad-side">
+  <a href="#" onclick="return false;">
+    <img src="banner.jpg" alt="광고배너">
+  </a>
+</div>
+</div>
+</div>
+
 <!-- ==============================
      자유게시판 글보기
      ============================== -->
 <div id="s-free-detail" class="screen">
+<div class="board-layout">
+<div class="board-main">
   <div style="display:flex;justify-content:flex-end;gap:8px;margin-bottom:12px;" id="md-free-topbtns">
     <button class="md-list-btn" onclick="go('free')"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg> 글목록</button>
   </div>
   <div class="card" style="padding:24px;" id="fb-detail-content"></div>
 </div>
 
+<div class="board-ad-side">
+  <a href="#" onclick="return false;">
+    <img src="banner.jpg" alt="광고배너">
+  </a>
+</div>
+</div>
+</div>
+
 <!-- ==============================
      자유게시판 글쓰기
      ============================== -->
 <div id="s-free-write" class="screen">
-  <div style="display:flex;justify-content:flex-end;margin-bottom:12px;">
-    <button class="md-list-btn" onclick="go('free')"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg> 글목록</button>
-  </div>
-
+<div class="board-layout">
+<div class="board-main">
   <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;">
-    <div class="page-title" style="margin:0;"><i data-lucide="pen-line" class="sec-ic"></i> 자유게시판 글쓰기</div>
+    <div class="page-title" style="margin:0;">자유게시판 글쓰기</div>
+    <button class="md-list-btn" onclick="go('free')"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg> 글목록</button>
   </div>
 
   <!-- 제목 -->
@@ -1994,12 +2058,22 @@ select.mw-input{cursor:pointer;-webkit-appearance:none;appearance:none;backgroun
   </div>
 </div>
 
+<div class="board-ad-side">
+  <a href="#" onclick="return false;">
+    <img src="banner.jpg" alt="광고배너">
+  </a>
+</div>
+</div>
+</div>
+
 <!-- ==============================
      이벤트게시판 리스트
      ============================== -->
 <div id="s-events" class="screen">
+<div class="board-layout">
+<div class="board-main">
   <div class="page-header">
-    <div class="page-title"><i data-lucide="party-popper" class="sec-ic"></i> 이벤트게시판</div>
+    <div class="page-title">이벤트게시판</div>
     <button class="btn btn-primary" onclick="openEventWrite()">+ 글쓰기</button>
   </div>
 
@@ -2036,25 +2110,43 @@ select.mw-input{cursor:pointer;-webkit-appearance:none;appearance:none;backgroun
   <div id="ev-list"></div>
 </div>
 
+<div class="board-ad-side">
+  <a href="#" onclick="return false;">
+    <img src="banner.jpg" alt="광고배너">
+  </a>
+</div>
+</div>
+</div>
+
 <!-- ==============================
      이벤트게시판 글보기
      ============================== -->
 <div id="s-events-detail" class="screen">
+<div class="board-layout">
+<div class="board-main">
   <div style="display:flex;justify-content:flex-end;gap:8px;margin-bottom:12px;" id="md-events-topbtns">
     <button class="md-list-btn" onclick="go('events')"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg> 글목록</button>
   </div>
   <div class="card" style="padding:24px;" id="ev-detail-content"></div>
 </div>
 
+<div class="board-ad-side">
+  <a href="#" onclick="return false;">
+    <img src="banner.jpg" alt="광고배너">
+  </a>
+</div>
+</div>
+</div>
+
 <!-- ==============================
      이벤트게시판 글쓰기
      ============================== -->
 <div id="s-events-write" class="screen">
-  <div style="display:flex;justify-content:flex-end;margin-bottom:12px;">
-    <button class="md-list-btn" onclick="go('events')"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg> 글목록</button>
-  </div>
+<div class="board-layout">
+<div class="board-main">
   <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;">
-    <div class="page-title" style="margin:0;"><i data-lucide="pen-line" class="sec-ic"></i> 이벤트 글쓰기</div>
+    <div class="page-title" style="margin:0;">이벤트 글쓰기</div>
+    <button class="md-list-btn" onclick="go('events')"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg> 글목록</button>
   </div>
 
   <div class="mw-section">
@@ -2106,12 +2198,22 @@ select.mw-input{cursor:pointer;-webkit-appearance:none;appearance:none;backgroun
   </div>
 </div>
 
+<div class="board-ad-side">
+  <a href="#" onclick="return false;">
+    <img src="banner.jpg" alt="광고배너">
+  </a>
+</div>
+</div>
+</div>
+
 <!-- ==============================
      클럽홍보게시판 — 목록
      ============================== -->
 <div id="s-clubs" class="screen">
+<div class="board-layout">
+<div class="board-main">
   <div class="page-header">
-    <div class="page-title"><i data-lucide="trophy" class="sec-ic"></i> 클럽홍보게시판</div>
+    <div class="page-title">클럽홍보게시판</div>
     <button class="btn btn-primary" onclick="openClubWrite()">+ 클럽 홍보하기</button>
   </div>
 
@@ -2141,26 +2243,43 @@ select.mw-input{cursor:pointer;-webkit-appearance:none;appearance:none;backgroun
   <div id="cp-list"></div>
 </div>
 
+<div class="board-ad-side">
+  <a href="#" onclick="return false;">
+    <img src="banner.jpg" alt="광고배너">
+  </a>
+</div>
+</div>
+</div>
+
 <!-- ==============================
      클럽홍보게시판 — 글보기
      ============================== -->
 <div id="s-clubs-detail" class="screen">
+<div class="board-layout">
+<div class="board-main">
   <div style="display:flex;justify-content:flex-end;gap:8px;margin-bottom:12px;" id="md-clubs-topbtns">
     <button class="md-list-btn" onclick="go('clubs')"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg> 글목록</button>
   </div>
   <div class="card" style="padding:24px;" id="cp-detail-content"></div>
 </div>
 
+<div class="board-ad-side">
+  <a href="#" onclick="return false;">
+    <img src="banner.jpg" alt="광고배너">
+  </a>
+</div>
+</div>
+</div>
+
 <!-- ==============================
      클럽홍보게시판 — 글쓰기
      ============================== -->
 <div id="s-clubs-write" class="screen">
-  <div style="display:flex;justify-content:flex-end;margin-bottom:12px;">
-    <button class="md-list-btn" onclick="go('clubs')"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg> 글목록</button>
-  </div>
-
+<div class="board-layout">
+<div class="board-main">
   <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;">
-    <div class="page-title" style="margin:0;"><i data-lucide="pen-line" class="sec-ic"></i> 클럽 홍보글 작성</div>
+    <div class="page-title" style="margin:0;">클럽 홍보글 작성</div>
+    <button class="md-list-btn" onclick="go('clubs')"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg> 글목록</button>
   </div>
 
   <!-- 제목 -->
@@ -2222,12 +2341,22 @@ select.mw-input{cursor:pointer;-webkit-appearance:none;appearance:none;backgroun
   </div>
 </div>
 
+<div class="board-ad-side">
+  <a href="#" onclick="return false;">
+    <img src="banner.jpg" alt="광고배너">
+  </a>
+</div>
+</div>
+</div>
+
 <!-- ==============================
      대회게시판 — 목록
      ============================== -->
 <div id="s-tour" class="screen">
+<div class="board-layout">
+<div class="board-main">
   <div class="page-header">
-    <div class="page-title"><i data-lucide="target" class="sec-ic"></i> 대회게시판</div>
+    <div class="page-title">대회게시판</div>
     <button class="btn btn-primary" onclick="openTourWrite()">+ 글쓰기</button>
   </div>
 
@@ -2257,26 +2386,43 @@ select.mw-input{cursor:pointer;-webkit-appearance:none;appearance:none;backgroun
   <div class="card" style="padding:18px 20px;" id="tr-list"></div>
 </div>
 
+<div class="board-ad-side">
+  <a href="#" onclick="return false;">
+    <img src="banner.jpg" alt="광고배너">
+  </a>
+</div>
+</div>
+</div>
+
 <!-- ==============================
      대회게시판 — 글보기
      ============================== -->
 <div id="s-tour-detail" class="screen">
+<div class="board-layout">
+<div class="board-main">
   <div style="display:flex;justify-content:flex-end;gap:8px;margin-bottom:12px;" id="md-tour-topbtns">
     <button class="md-list-btn" onclick="go('tour')"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg> 글목록</button>
   </div>
   <div class="card" style="padding:24px;" id="tr-detail-content"></div>
 </div>
 
+<div class="board-ad-side">
+  <a href="#" onclick="return false;">
+    <img src="banner.jpg" alt="광고배너">
+  </a>
+</div>
+</div>
+</div>
+
 <!-- ==============================
      대회게시판 — 글쓰기
      ============================== -->
 <div id="s-tour-write" class="screen">
-  <div style="display:flex;justify-content:flex-end;margin-bottom:12px;">
-    <button class="md-list-btn" onclick="go('tour')"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg> 글목록</button>
-  </div>
-
+<div class="board-layout">
+<div class="board-main">
   <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;">
-    <div class="page-title" style="margin:0;"><i data-lucide="pen-line" class="sec-ic"></i> 대회게시판 글쓰기</div>
+    <div class="page-title" style="margin:0;">대회게시판 글쓰기</div>
+    <button class="md-list-btn" onclick="go('tour')"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg> 글목록</button>
   </div>
 
   <!-- 제목 -->
@@ -2334,13 +2480,21 @@ select.mw-input{cursor:pointer;-webkit-appearance:none;appearance:none;backgroun
   </div>
 </div>
 
+<div class="board-ad-side">
+  <a href="#" onclick="return false;">
+    <img src="banner.jpg" alt="광고배너">
+  </a>
+</div>
+</div>
+</div>
+
 <!-- ==============================
      볼링장 지도뷰
      ============================== -->
 <div id="s-home" class="screen">
   <div class="page-header" style="gap:10px;">
     <div style="display:flex;align-items:center;gap:10px;flex-shrink:0;">
-      <div class="page-title"><i data-lucide="map-pin" class="sec-ic"></i> 볼링장</div>
+      <div class="page-title">볼링장</div>
       <div class="greeting-bubble" id="dynamicGreeting"></div>
     </div>
     <div class="ad-ticker-wrap">
@@ -2382,7 +2536,7 @@ select.mw-input{cursor:pointer;-webkit-appearance:none;appearance:none;backgroun
      ============================== -->
 <div id="s-list" class="screen">
   <div class="page-header">
-    <div class="page-title"><i data-lucide="list" class="sec-ic"></i> 볼링장 목록</div>
+    <div class="page-title">볼링장 목록</div>
     <button class="btn btn-outline btn-sm" onclick="go('home')">🗺️ 홈(지도)으로</button>
   </div>
   <div class="filter-row">
@@ -2427,8 +2581,10 @@ select.mw-input{cursor:pointer;-webkit-appearance:none;appearance:none;backgroun
      칠텐 데이터 랩
      ============================== -->
 <div id="s-datalab" class="screen">
+<div class="board-layout">
+<div class="board-main">
   <div class="page-header">
-    <div class="page-title"><i data-lucide="bar-chart-3" class="sec-ic"></i> 칠텐 데이터 랩</div>
+    <div class="page-title">칠텐 데이터 랩</div>
     <span class="badge b-blue" style="font-size:12px;padding:5px 12px;">2026년 3월 4주차 기준</span>
   </div>
   <div class="dl-subtitle">칠텐 플랫폼의 핵심 지표와 볼러 분석 데이터를 한눈에 확인하세요.</div>
@@ -2520,6 +2676,13 @@ select.mw-input{cursor:pointer;-webkit-appearance:none;appearance:none;backgroun
     </div>
   </div>
 
+</div><!-- /board-main -->
+<div class="board-ad-side">
+  <a href="#" onclick="return false;">
+    <img src="banner.jpg" alt="광고배너">
+  </a>
+</div>
+</div><!-- /board-layout -->
 </div>
 
 
@@ -2714,7 +2877,7 @@ select.mw-input{cursor:pointer;-webkit-appearance:none;appearance:none;backgroun
      ============================== -->
 <div id="s-search" class="screen">
   <div class="page-header">
-    <div class="page-title">🔍 검색 결과 : <span id="srKeywordLabel" style="color:var(--blue);"></span></div>
+    <div class="page-title">검색 결과 : <span id="srKeywordLabel" style="color:var(--blue);"></span></div>
     <div style="font-size:13px;color:var(--text2);margin-top:4px;">총 <strong id="srTotalCount" style="color:var(--text1);">0</strong>건</div>
   </div>
   <div class="card" style="padding:0;overflow:hidden;">
@@ -3636,6 +3799,9 @@ function renderTourBoard() {
     nzone.innerHTML = nhtml;
   }
 
+  // 댓글 수 동기화
+  if(typeof trComments!=='undefined'&&trComments) list.forEach(function(p){ p.comments = countAllComments(trComments[p.id]||[]); });
+
   document.getElementById('tr-post-count').textContent = list.length;
 
   // Infinite scroll
@@ -3829,6 +3995,9 @@ function renderClubBoard() {
     notices.forEach(function(n){ nhtml += renderNoticeHtml(n, 'openClubDetail'); });
     cpNzone.innerHTML = nhtml;
   }
+
+  // 댓글 수 동기화
+  if(typeof cpComments!=='undefined'&&cpComments) list.forEach(function(p){ p.comments = countAllComments(cpComments[p.id]||[]); });
 
   document.getElementById('cp-post-count').textContent = list.length;
 
@@ -4051,6 +4220,9 @@ function renderProducts() {
     mkNotices.forEach(function(n){ nhtml += renderNoticeHtml(n, 'openProductDetail'); });
     mkNoticeZone.innerHTML = nhtml;
   }
+
+  // 댓글 수 동기화
+  if(typeof mdComments!=='undefined'&&mdComments) list.forEach(function(p){ p.comments = countAllComments(mdComments[p.id]||[]); });
 
   document.getElementById('prod-count').textContent = list.length;
 
@@ -4976,6 +5148,9 @@ function renderFreeBoard() {
     fbNzone.innerHTML = nhtml;
   }
 
+  // 댓글 수 동기화
+  if(typeof fbComments!=='undefined'&&fbComments) list.forEach(function(p){ p.comments = countAllComments(fbComments[p.id]||[]); });
+
   document.getElementById('fb-post-count').textContent = list.length;
 
   // Infinite scroll
@@ -5196,6 +5371,9 @@ function renderEventBoard() {
     notices.forEach(function(n){ nhtml += renderNoticeHtml(n, 'openEventDetail'); });
     evNzone.innerHTML = nhtml;
   }
+
+  // 댓글 수 동기화
+  if(typeof evComments!=='undefined'&&evComments) list.forEach(function(p){ p.comments = countAllComments(evComments[p.id]||[]); });
 
   document.getElementById('ev-post-count').textContent = list.length;
 
@@ -5569,27 +5747,36 @@ function countAllComments(arr){
 function highlightMentions(text){
   return text.replace(/@([\w가-힣]+)/g,'<span class="mention">@$1</span>');
 }
+function _cmtActions(c,pid,isReply){
+  if(c.author!=='나') return '';
+  return '<span class="md-cmt-actions">'
+    +'<button class="cmt-edit-btn" onclick="startEditComment('+c.cid+',\''+pid+'\','+!!isReply+')">수정</button>'
+    +'<button class="cmt-del-btn" onclick="deleteComment('+c.cid+',\''+pid+'\','+!!isReply+')">삭제</button>'
+    +'</span>';
+}
 function renderCommentList(arr,pid){
   var q = "'"+pid+"'";
   return (arr||[]).map(function(c){
     var repliesHtml='';
     if(c.replies&&c.replies.length){
       repliesHtml='<div class="md-replies">'+c.replies.map(function(r){
-        return '<div class="md-comment-item">'
+        return '<div class="md-comment-item" data-cid="'+r.cid+'">'
           +'<div class="md-comment-avatar">'+r.author.charAt(0)+'</div>'
           +'<div class="md-comment-body">'
           +'<div class="md-comment-meta"><strong onclick="mentionAuthor(\''+r.author+'\','+q+')">'+r.author+'</strong>'+(r.time||r.date||'')
-          +'<button class="md-reply-btn" onclick="setReplyTarget(\''+r.author+'\','+q+')">답글</button></div>'
-          +'<div class="md-comment-text">'+highlightMentions(r.text)+'</div>'
+          +'<button class="md-reply-btn" onclick="setReplyTarget(\''+r.author+'\','+q+')">답글</button>'
+          +_cmtActions(r,pid,true)+'</div>'
+          +'<div class="md-comment-text" id="cmt-text-'+r.cid+'">'+highlightMentions(r.text)+'</div>'
           +'</div></div>';
       }).join('')+'</div>';
     }
-    return '<div class="md-comment-item">'
+    return '<div class="md-comment-item" data-cid="'+c.cid+'">'
       +'<div class="md-comment-avatar">'+c.author.charAt(0)+'</div>'
       +'<div class="md-comment-body">'
       +'<div class="md-comment-meta"><strong onclick="mentionAuthor(\''+c.author+'\','+q+')">'+c.author+'</strong>'+(c.time||c.date||'')
-      +'<button class="md-reply-btn" onclick="setReplyTarget(\''+c.author+'\','+q+','+c.cid+')">답글</button></div>'
-      +'<div class="md-comment-text">'+highlightMentions(c.text)+'</div>'
+      +'<button class="md-reply-btn" onclick="setReplyTarget(\''+c.author+'\','+q+','+c.cid+')">답글</button>'
+      +_cmtActions(c,pid,false)+'</div>'
+      +'<div class="md-comment-text" id="cmt-text-'+c.cid+'">'+highlightMentions(c.text)+'</div>'
       +'</div></div>'+repliesHtml;
   }).join('');
 }
@@ -5622,6 +5809,81 @@ function mentionAuthor(author,pid){
   if(!inp)return;
   inp.value='@'+author+' ';
   inp.focus();
+}
+
+// ===== 댓글 수정/삭제 (모든 게시판 공통) =====
+function _findCommentStore(pid) {
+  // pid 형식: 'tr-3', 'cp-2', 'fb-1', 'ev-5', 또는 숫자(market)
+  var parts = String(pid).match(/^(tr|cp|fb|ev)-(\d+)$/);
+  if (parts) {
+    var prefix = parts[1], id = parseInt(parts[2]);
+    if (prefix==='tr') return {store:trComments, id:id, refresh:function(){openTourDetail(id);}};
+    if (prefix==='cp') return {store:cpComments, id:id, refresh:function(){openClubDetail(id);}};
+    if (prefix==='fb') return {store:fbComments, id:id, refresh:function(){openFreeDetail(id);}};
+    if (prefix==='ev') return {store:evComments, id:id, refresh:function(){openEventDetail(id);}};
+  }
+  var numId = parseInt(pid);
+  if (!isNaN(numId)) return {store:mdComments, id:numId, refresh:function(){openProductDetail(numId);}};
+  return null;
+}
+
+function _findCmtInArr(arr, cid) {
+  for (var i=0;i<arr.length;i++){
+    if (arr[i].cid===cid) return {arr:arr,idx:i,comment:arr[i]};
+    if (arr[i].replies) {
+      for(var j=0;j<arr[i].replies.length;j++){
+        if(arr[i].replies[j].cid===cid) return {arr:arr[i].replies,idx:j,comment:arr[i].replies[j]};
+      }
+    }
+  }
+  return null;
+}
+
+function startEditComment(cid, pid) {
+  var info = _findCommentStore(pid);
+  if (!info || !info.store[info.id]) return;
+  var found = _findCmtInArr(info.store[info.id], cid);
+  if (!found) return;
+  var textEl = document.getElementById('cmt-text-'+cid);
+  if (!textEl) return;
+  var origText = found.comment.text;
+  textEl.innerHTML = '<div class="md-cmt-edit-area">'
+    +'<input type="text" id="cmt-edit-inp-'+cid+'" value="'+origText.replace(/"/g,'&quot;')+'">'
+    +'<button class="md-cmt-edit-save" onclick="saveEditComment('+cid+',\''+pid+'\')">저장</button>'
+    +'<button class="md-cmt-edit-cancel" onclick="cancelEditComment('+cid+',\''+pid+'\')">취소</button>'
+    +'</div>';
+  var inp = document.getElementById('cmt-edit-inp-'+cid);
+  if(inp){inp.focus();inp.setSelectionRange(inp.value.length,inp.value.length);}
+}
+
+function saveEditComment(cid, pid) {
+  var inp = document.getElementById('cmt-edit-inp-'+cid);
+  if (!inp) return;
+  var newText = inp.value.trim();
+  if (!newText) { alert('댓글 내용을 입력해주세요.'); return; }
+  var info = _findCommentStore(pid);
+  if (!info || !info.store[info.id]) return;
+  var found = _findCmtInArr(info.store[info.id], cid);
+  if (!found) return;
+  found.comment.text = newText;
+  found.comment.time = (found.comment.time||'') + ' (수정됨)';
+  info.refresh();
+}
+
+function cancelEditComment(cid, pid) {
+  var info = _findCommentStore(pid);
+  if (!info) return;
+  info.refresh();
+}
+
+function deleteComment(cid, pid) {
+  if (!confirm('댓글을 삭제하시겠습니까?')) return;
+  var info = _findCommentStore(pid);
+  if (!info || !info.store[info.id]) return;
+  var found = _findCmtInArr(info.store[info.id], cid);
+  if (!found) return;
+  found.arr.splice(found.idx, 1);
+  info.refresh();
 }
 
 function addProductComment(pid) {
