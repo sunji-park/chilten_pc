@@ -1023,12 +1023,10 @@ select.mw-input{cursor:pointer;-webkit-appearance:none;appearance:none;backgroun
   min-width: 180px;
   max-width: 210px;
 }
-.leaflet-tooltip.alley-tooltip::before {
-  display: none;
-}
+.leaflet-tooltip.alley-tooltip::before,
 .leaflet-tooltip-bottom.alley-tooltip::before,
 .leaflet-tooltip-top.alley-tooltip::before {
-  display: none;
+  display: none !important;
 }
 .att-header {
   background: var(--blue);
@@ -1057,15 +1055,15 @@ select.mw-input{cursor:pointer;-webkit-appearance:none;appearance:none;backgroun
 .att-btn-premium { background: var(--red); color: #fff; border-color: var(--red); }
 .att-btn-premium:hover { background: #B5013F; color: #fff; border-color: #B5013F; }
 
-/* ===== 마커 커스텀 (볼링핀 아이콘) ===== */
-.custom-marker {
-  width: 28px; height: 34px;
-  background: none; border: none; box-shadow: none;
-  display: flex; align-items: center; justify-content: center;
-  filter: drop-shadow(0 2px 4px rgba(0,0,0,.3));
+/* ===== 마커 커스텀 (pin.svg) ===== */
+.pin-icon {
+  background: none !important; border: none !important; box-shadow: none !important;
+  margin: 0 !important; padding: 0 !important;
+  filter: drop-shadow(0 2px 3px rgba(0,0,0,.3));
+  line-height: 0 !important;
+  width: 16px !important; height: 46px !important;
 }
-.custom-marker.normal svg { fill: var(--green); }
-.custom-marker.partner svg { fill: var(--blue); }
+.pin-icon img { display: block; margin: 0; padding: 0; }
 
 /* ===== 슬라이드 상세 패널 ===== */
 .map-detail-panel {
@@ -1156,11 +1154,7 @@ select.mw-input{cursor:pointer;-webkit-appearance:none;appearance:none;backgroun
 @keyframes eventPulse{0%,100%{opacity:1;}50%{opacity:.7;}}
 @keyframes premiumGlow{0%,100%{box-shadow:0 0 8px rgba(227,2,80,.25);}50%{box-shadow:0 0 16px rgba(227,2,80,.5);}}
 
-/* 칠텐제휴 마커 강조 */
-.custom-marker.partner{width:34px;height:40px;}
-.custom-marker.partner svg{fill:var(--blue);}
-@keyframes partnerPulse{0%,100%{filter:drop-shadow(0 2px 4px rgba(0,71,187,.3));}50%{filter:drop-shadow(0 2px 10px rgba(0,71,187,.6));}}
-.custom-marker.partner{animation:partnerPulse 2.5s ease-in-out infinite;}
+/* 칠텐제휴 마커 — pin.svg 동일 사용 */
 
 /* 칠텐제휴 툴팁 */
 .leaflet-tooltip.alley-tooltip.partner-tooltip{border:2px solid var(--blue);box-shadow:0 4px 16px rgba(0,71,187,.2),0 0 0 3px rgba(0,71,187,.06);}
@@ -4232,16 +4226,10 @@ function initMap() {
     { tel:'064-123-4567', fee:'3,000원', add:'1,500원', hours:'09:00~23:00', laneType:'합성레인', facilities:['주차가능','리조트'], visitors:'678', records:'3,890', avg:'152', rate200:'10%', event:'', eventShort:'', reviews:[{user:'전주맛집',avatar:'🍲',score:4,text:'전주 오시면 여기서 볼링 추천!',date:'2026.02.16'}], monthlyAvg:[145,146,147,148,149,149,150,150,151,151,152,152] },
   ];
 
-  // 볼링핀 SVG 아이콘
-  var pinSvgNormal = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 34" width="24" height="34"><path d="M12 0C10.5 0 9.2 1.2 9 2.8C8.6 5 9.5 6.5 9 8.5C8 12 5 14 4 18C3.2 21 3 24 4.5 27C6 30 8.5 32 12 34C15.5 32 18 30 19.5 27C21 24 20.8 21 20 18C19 14 16 12 15 8.5C14.5 6.5 15.4 5 15 2.8C14.8 1.2 13.5 0 12 0Z" fill="#00B993" stroke="#fff" stroke-width="1.2"/><circle cx="12" cy="5" r="2.5" fill="#fff" opacity=".4"/></svg>';
-  var pinSvgPartner = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 40" width="28" height="40"><path d="M14 0C12.2 0 10.7 1.4 10.5 3.3C10 5.8 11 7.5 10.5 10C9.3 14 6 16.5 4.8 21C3.8 24.5 3.5 28 5.2 31.5C7 35 9.9 37.3 14 40C18.1 37.3 21 35 22.8 31.5C24.5 28 24.2 24.5 23.2 21C22 16.5 18.7 14 17.5 10C17 7.5 18 5.8 17.5 3.3C17.3 1.4 15.8 0 14 0Z" fill="#0047BB" stroke="#fff" stroke-width="1.4"/><circle cx="14" cy="6" r="3" fill="#fff" opacity=".4"/><text x="14" y="24" text-anchor="middle" fill="#fff" font-size="10" font-weight="800" font-family="sans-serif">C</text></svg>';
-
   alleys.forEach((a, i) => {
     const isPartner = a.partner;
-    var pinHtml = '<div class="custom-marker '+(isPartner?'partner':'normal')+'">'+(isPartner?pinSvgPartner:pinSvgNormal)+'</div>';
-    const mSize = isPartner ? [28,40] : [24,34];
-    const mAnchor = isPartner ? [14,40] : [12,34];
-    const icon = L.divIcon({ className: '', html: pinHtml, iconSize:mSize, iconAnchor:mAnchor });
+    var pinHtml = '<img src="pin.svg" width="16" height="46" style="display:block;">';
+    const icon = L.divIcon({ className: 'pin-icon', html: pinHtml, iconSize:[16,46], iconAnchor:[-3,36] });
     const marker = L.marker([a.lat, a.lng], { icon, zIndexOffset: isPartner ? 500 : 0 }).addTo(mapInstance);
 
     const d = alleyDetails[i] || {};
@@ -4277,7 +4265,7 @@ function initMap() {
       permanent: true,
       direction: 'top',
       className: tooltipClass,
-      offset: [0, isPartner ? -12 : -10],
+      offset: [-1, -6],
       interactive: true,
       opacity: 1
     });
@@ -4290,8 +4278,8 @@ function initMap() {
   // 사이드바 리스트
   const listEl = document.getElementById('map-alley-list');
   listEl.innerHTML = alleys.map((a, i) => `
-    <div class="map-alley-card" onclick="mapJump(${i})" style="${a.partner ? 'border-left:3px solid var(--blue);background:var(--sub-blue);' : ''}">
-      <div class="map-alley-name">${a.name} ${a.partner ? '<span style="font-size:10px;background:var(--blue);color:#fff;padding:1px 6px;border-radius:8px;font-weight:600;">칠텐제휴</span>' : '<span style="font-size:10px;background:#f0f0f0;color:#888;padding:1px 6px;border-radius:8px;font-weight:600;">일반</span>'}</div>
+    <div class="map-alley-card" onclick="mapJump(${i})">
+      <div class="map-alley-name">${a.name} ${a.partner ? '<span style="font-size:10px;background:var(--blue);color:#fff;padding:1px 6px;border-radius:8px;font-weight:600;">칠텐제휴</span>' : ''}</div>
       <div class="map-alley-sub">${a.addr} · ${a.lanes}레인</div>
     </div>
   `).join('');
@@ -4463,8 +4451,8 @@ function applyAlleyFilter() {
   // 사이드 리스트 업데이트
   listEl.innerHTML = filtered.map(function(item) {
     var a = item.alley;
-    return '<div class="map-alley-card" onclick="mapJump('+item.idx+')" style="'+(a.partner ? 'border-left:3px solid var(--blue);background:var(--sub-blue);' : '')+'">'
-      + '<div class="map-alley-name">'+a.name+' '+(a.partner ? '<span style="font-size:10px;background:var(--blue);color:#fff;padding:1px 6px;border-radius:8px;font-weight:600;">칠텐제휴</span>' : '<span style="font-size:10px;background:#f0f0f0;color:#888;padding:1px 6px;border-radius:8px;font-weight:600;">일반</span>')+'</div>'
+    return '<div class="map-alley-card" onclick="mapJump('+item.idx+')">'
+      + '<div class="map-alley-name">'+a.name+' '+(a.partner ? '<span style="font-size:10px;background:var(--blue);color:#fff;padding:1px 6px;border-radius:8px;font-weight:600;">칠텐제휴</span>' : '')+'</div>'
       + '<div class="map-alley-sub">'+a.addr+' · '+a.lanes+'레인</div>'
       + '</div>';
   }).join('');
