@@ -1073,7 +1073,7 @@ select.mw-input{cursor:pointer;-webkit-appearance:none;appearance:none;backgroun
   width: 460px;
   height: calc(100vh - var(--header-h));
   background: #fff;
-  border-left: 1px solid var(--line);
+  border-left: none;
   box-shadow: -6px 0 30px rgba(0,71,187,.12);
   z-index: 500;
   transform: translateX(110%);
@@ -1168,8 +1168,8 @@ select.mw-input{cursor:pointer;-webkit-appearance:none;appearance:none;backgroun
 /* 홈페이지 바로가기 버튼 */
 .mdp-homepage-btn{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;padding:12px;background:var(--blue);color:#fff;border:none;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;transition:all .15s;}
 .mdp-homepage-btn:hover{background:var(--navy);}
-.mdp-homepage-btn.coming-soon{background:var(--bg);color:var(--text2);border:1.5px dashed var(--line);cursor:pointer;}
-.mdp-homepage-btn.coming-soon:hover{background:#e9ecef;}
+.mdp-homepage-btn.coming-soon{background:var(--sub-blue);color:var(--blue);border:1.5px solid var(--blue);cursor:pointer;}
+.mdp-homepage-btn.coming-soon:hover{background:var(--blue);color:#fff;}
 
 /* 오픈준비중 모달 */
 .coming-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:2100;display:none;align-items:center;justify-content:center;}
@@ -1257,7 +1257,7 @@ select.mw-input{cursor:pointer;-webkit-appearance:none;appearance:none;backgroun
 .review-modal-body .mdp-review-card{margin-bottom:10px;}
 
 /* ===== 상주클럽 섹션 ===== */
-.mdp-club-section{margin-top:8px;border-top:2px solid var(--line);padding-top:16px;}
+.mdp-club-section{margin-top:8px;padding-top:16px;}
 .mdp-club-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
 .mdp-club-header .mdp-section-title{margin-bottom:0;}
 .mdp-club-count{font-size:12px;color:var(--blue);font-weight:700;background:var(--sub-blue);padding:2px 10px;border-radius:12px;}
@@ -1274,6 +1274,8 @@ select.mw-input{cursor:pointer;-webkit-appearance:none;appearance:none;backgroun
 .mdp-club-tag{background:#fff;border:1px solid #ddd;border-radius:4px;padding:1px 6px;font-size:10px;color:var(--blue);font-weight:500;}
 .mdp-club-members{font-size:11px;color:var(--text2);font-weight:600;display:flex;align-items:center;gap:3px;}
 .mdp-club-members strong{color:var(--blue);}
+.mdp-club-members-right{flex-shrink:0;text-align:center;font-size:12px;color:var(--text2);font-weight:600;display:flex;flex-direction:column;align-items:center;justify-content:center;min-width:48px;}
+.mdp-club-members-right strong{font-size:16px;font-weight:800;color:var(--blue);display:block;}
 
 /* ===== 사진 스와이퍼 ===== */
 .photo-swiper{position:relative;border-radius:12px;overflow:hidden;margin-bottom:18px;background:var(--bg);}
@@ -2548,8 +2550,7 @@ select.mw-input{cursor:pointer;-webkit-appearance:none;appearance:none;backgroun
     <div class="mdp-section">
       <div class="mdp-section-title">🏗️ 시설 정보</div>
       <div class="mdp-fac-grid" id="mdp-fac-grid"></div>
-      <div class="mdp-section-title" style="margin-top:4px;margin-bottom:8px;">편의시설</div>
-      <div class="mdp-chips" id="mdp-facilities"></div>
+      <!-- 편의시설 — 추후 구현 -->
     </div>
 
     <!-- 📊 칠텐 지표 (대형 카드) -->
@@ -4292,10 +4293,39 @@ function mapJump(idx) {
   if (!mapInstance) return;
   const a = alleys[idx];
   mapInstance.setView([a.lat, a.lng], 14);
+  openMapDetail(idx);
 }
 
 // 현재 열린 볼링장 인덱스 (이벤트 이미지 모달용)
 var currentAlleyIdx = -1;
+
+// 숫자 카운트업 애니메이션
+function animateStat(elId, targetStr) {
+  var el = document.getElementById(elId);
+  if (!el) return;
+  var cleaned = String(targetStr).replace(/,/g, '');
+  var targetNum = parseFloat(cleaned);
+  if (isNaN(targetNum) || targetNum === 0) { el.textContent = targetStr; return; }
+  var hasComma = String(targetStr).indexOf(',') !== -1;
+  var isDecimal = cleaned.indexOf('.') !== -1;
+  var decimals = isDecimal ? (cleaned.split('.')[1] || '').length : 0;
+  var suffix = String(targetStr).replace(/[\d,.\-]/g, '');
+  var duration = 800;
+  var start = 0;
+  var startTime = null;
+  function step(ts) {
+    if (!startTime) startTime = ts;
+    var progress = Math.min((ts - startTime) / duration, 1);
+    var ease = 1 - Math.pow(1 - progress, 3);
+    var current = start + (targetNum - start) * ease;
+    var display = isDecimal ? current.toFixed(decimals) : Math.round(current).toString();
+    if (hasComma) display = Number(display).toLocaleString();
+    el.textContent = display + suffix;
+    if (progress < 1) requestAnimationFrame(step);
+  }
+  el.textContent = '0';
+  requestAnimationFrame(step);
+}
 
 function openMapDetail(idx) {
   currentAlleyIdx = idx;
@@ -4342,13 +4372,11 @@ function openMapDetail(idx) {
     ['시설타입', d.facilityType || '일반'],
   ].map(function(r){ return '<div class="mdp-fac-item"><div class="mdp-fac-lbl">'+r[0]+'</div><div class="mdp-fac-val">'+r[1]+'</div></div>'; }).join('');
 
-  // 편의시설
-  document.getElementById('mdp-facilities').innerHTML =
-    (d.facilities||[]).map(function(f){ return '<span class="mdp-chip">'+f+'</span>'; }).join('');
+  // 편의시설 — 추후 구현
 
-  // ── 칠텐 지표 (에버, 게임수만 표시) ──
-  document.getElementById('mdp-records').textContent  = d.records || '-';
-  document.getElementById('mdp-avg').textContent      = d.avg || '-';
+  // ── 칠텐 지표 (에버, 게임수 — 카운트업 애니메이션) ──
+  animateStat('mdp-avg', d.avg || '0');
+  animateStat('mdp-records', d.records || '0');
 
   var avgCard = document.getElementById('mdp-stat-avg-card');
   var recCard = document.getElementById('mdp-stat-records-card');
@@ -4402,6 +4430,7 @@ function showAlley(idx) {
 }
 
 function closeMapDetail() {
+  mdpStopAuto();
   document.getElementById('mapDetailPanel').classList.remove('open');
   document.getElementById('mdpOverlay').classList.remove('active');
 }
@@ -4537,8 +4566,21 @@ setTimeout(function(){
 // ===== 패널 내부 스와이퍼 =====
 var mdpSwiperIdx = 0;
 var mdpSwiperTotal = 5;
+var mdpAutoTimer = null;
+
+function mdpStartAuto() {
+  mdpStopAuto();
+  mdpAutoTimer = setInterval(function() {
+    mdpSwiperIdx = (mdpSwiperIdx + 1) % mdpSwiperTotal;
+    mdpSwiperUpdate();
+  }, 3000);
+}
+function mdpStopAuto() {
+  if (mdpAutoTimer) { clearInterval(mdpAutoTimer); mdpAutoTimer = null; }
+}
 
 function mdpSwiperLoad(a, idx) {
+  mdpStopAuto();
   mdpSwiperIdx = 0;
   var images = ['bowling_image/1.jpg','bowling_image/2.jpg','bowling_image/3.jpg','bowling_image/4.jpg','bowling_image/5.jpg','bowling_image/6.jpg','bowling_image/7.jpeg'];
   var labels = ['전경','레인','프로샵','이벤트','외관','내부','라운지'];
@@ -4560,13 +4602,15 @@ function mdpSwiperLoad(a, idx) {
     dotsEl.appendChild(dot);
   }
   mdpSwiperUpdate();
+  mdpStartAuto();
 }
 
 function mdpSwiperMove(dir) {
   mdpSwiperIdx = (mdpSwiperIdx + dir + mdpSwiperTotal) % mdpSwiperTotal;
   mdpSwiperUpdate();
+  mdpStartAuto();
 }
-function mdpSwiperGoTo(i) { mdpSwiperIdx = i; mdpSwiperUpdate(); }
+function mdpSwiperGoTo(i) { mdpSwiperIdx = i; mdpSwiperUpdate(); mdpStartAuto(); }
 function mdpSwiperUpdate() {
   var tr = document.getElementById('mdpSwiperTrack');
   if (tr) tr.style.transform = 'translateX(-' + (mdpSwiperIdx * 100) + '%)';
@@ -4789,10 +4833,10 @@ function renderResidentClubs(alleyName, idx) {
       + '<div class="mdp-club-img"><img src="' + clubImgSrc + '" alt="' + c.name + '"></div>'
       + '<div class="mdp-club-info">'
       +   '<div class="mdp-club-name">' + c.name + '</div>'
-      +   '<div class="mdp-club-meta"><span>📍 ' + c.region + '</span><span>·</span><span>🎳 ' + c.alley + '</span></div>'
+      +   '<div class="mdp-club-meta"><span>' + c.region + '</span><span>·</span><span>' + c.alley + '</span></div>'
       +   '<div class="mdp-club-tags">' + tagsHtml + '</div>'
-      +   '<div class="mdp-club-members">👥 회원 <strong>' + c.members + '명</strong></div>'
       + '</div>'
+      + '<div class="mdp-club-members-right"><strong>' + c.members + '</strong>명</div>'
       + '</div>';
   }).join('');
 }
