@@ -156,6 +156,87 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
 .auth-back-btn{display:inline-flex;align-items:center;gap:4px;font-size:13px;color:var(--text2);cursor:pointer;margin-bottom:20px;background:none;border:none;font-family:inherit;padding:0;transition:color .15s;}
 .auth-back-btn:hover{color:var(--blue);}
 
+/* ===== 회원가입 스텝 인디케이터 ===== */
+.signup-steps{display:flex;align-items:center;justify-content:center;gap:0;margin-bottom:28px;}
+.signup-step{display:flex;flex-direction:column;align-items:center;gap:4px;min-width:48px;}
+.signup-step .step-num{width:28px;height:28px;border-radius:50%;background:var(--bg);border:2px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--text2);transition:all .25s;}
+.signup-step .step-label{font-size:10px;color:var(--text2);font-weight:500;transition:color .25s;}
+.signup-step.active .step-num{background:var(--blue);border-color:var(--blue);color:#fff;}
+.signup-step.active .step-label{color:var(--blue);font-weight:700;}
+.signup-step.done .step-num{background:var(--green);border-color:var(--green);color:#fff;}
+.signup-step.done .step-label{color:var(--green);}
+.signup-step-line{width:24px;height:2px;background:var(--line);margin-bottom:16px;}
+
+/* 이용약관 체크 */
+.terms-check{display:flex;align-items:center;gap:10px;padding:11px 0;cursor:pointer;user-select:none;}
+.terms-check.all{background:var(--bg);border-radius:10px;padding:14px 16px;margin-bottom:4px;}
+.terms-check input[type=checkbox]{display:none;}
+.tc-box{width:22px;height:22px;border:2px solid var(--line);border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .15s;}
+.tc-box::after{content:'✓';font-size:13px;color:transparent;font-weight:700;transition:color .15s;}
+.terms-check input:checked + .tc-box{background:var(--blue);border-color:var(--blue);}
+.terms-check input:checked + .tc-box::after{color:#fff;}
+.tc-label{font-size:14px;color:var(--text1);flex:1;font-weight:500;}
+.terms-check.all .tc-label{font-weight:700;font-size:15px;}
+.tc-view{background:none;border:none;color:var(--text2);font-size:12px;cursor:pointer;text-decoration:underline;padding:0;}
+.tc-view:hover{color:var(--blue);}
+.terms-divider{height:1px;background:var(--line);margin:4px 0;}
+
+/* 가입방식 선택 카드 */
+.signup-method-cards{margin-top:8px;}
+.signup-method-card{display:flex;flex-direction:column;align-items:center;width:100%;padding:24px 16px;border:2px solid var(--line);border-radius:14px;background:#fff;cursor:pointer;transition:all .2s;text-align:center;}
+.signup-method-card:hover{border-color:var(--blue);background:var(--sub-blue);}
+.smc-icon{font-size:32px;margin-bottom:8px;}
+.smc-title{font-size:16px;font-weight:700;color:var(--text1);margin-bottom:4px;}
+.smc-desc{font-size:12px;color:var(--text2);}
+.signup-method-divider{text-align:center;margin:18px 0;position:relative;}
+.signup-method-divider::before{content:'';position:absolute;left:0;right:0;top:50%;border-top:1px solid var(--line);}
+.signup-method-divider span{background:#fff;padding:0 14px;font-size:12px;color:var(--text2);position:relative;}
+.signup-social-row{display:flex;gap:10px;}
+.signup-social-card{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;padding:16px 8px;border:1.5px solid var(--line);border-radius:12px;background:#fff;cursor:pointer;transition:all .2s;}
+.signup-social-card:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,.1);}
+.signup-social-card.google .ssc-icon{color:#4285F4;font-size:20px;}
+.signup-social-card.naver{border-color:#03C75A;} .signup-social-card.naver .ssc-icon{color:#03C75A;font-size:16px;font-weight:800;}
+.signup-social-card.kakao{border-color:#FEE500;} .signup-social-card.kakao .ssc-icon{color:#3C1E1E;}
+.ssc-icon{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700;}
+.ssc-name{font-size:12px;color:var(--text2);font-weight:600;}
+
+/* 이전 버튼 (텍스트) */
+.auth-btn-back{background:none;border:none;color:var(--text2);font-size:13px;cursor:pointer;padding:0;font-family:inherit;transition:color .15s;margin-top:16px;}
+.auth-btn-back:hover{color:var(--blue);}
+
+/* 정보입력 인라인 필드 */
+.auth-field-inline{display:flex;gap:8px;align-items:flex-end;}
+.auth-field-inline input{flex:1;}
+.auth-inline-btn{height:44px;padding:0 16px;border:1.5px solid var(--blue);border-radius:8px;background:#fff;color:var(--blue);font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap;transition:all .15s;flex-shrink:0;}
+.auth-inline-btn:hover{background:var(--blue);color:#fff;}
+.auth-inline-btn.verify{border-color:var(--green);color:var(--green);}
+.auth-inline-btn.verify:hover{background:var(--green);color:#fff;}
+.auth-inline-btn:disabled{border-color:var(--line);color:var(--text2);background:var(--bg);cursor:default;}
+.auth-field-msg{font-size:11px;margin-top:6px;min-height:16px;}
+.auth-field-msg.success{color:var(--green);}
+.auth-field-msg.error{color:var(--red);}
+.auth-field-msg.info{color:var(--blue);}
+.field-req{color:var(--red);font-weight:700;}
+
+/* 소셜가입 안내 */
+.signup-social-notice{display:flex;align-items:center;gap:8px;padding:10px 14px;background:var(--sub-blue);border:1px solid rgba(0,71,187,.15);border-radius:10px;margin-bottom:20px;}
+.ssn-icon{font-size:16px;flex-shrink:0;}
+.ssn-text{font-size:12px;color:var(--blue);font-weight:500;}
+
+/* 이메일 찾기 결과 모달 */
+.find-result-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:3100;display:flex;align-items:center;justify-content:center;}
+.find-result-modal{background:#fff;border-radius:20px;padding:36px 32px;text-align:center;width:360px;max-width:90vw;box-shadow:0 16px 48px rgba(0,0,0,.2);}
+.find-result-icon{font-size:48px;margin-bottom:12px;}
+.find-result-title{font-size:18px;font-weight:700;color:var(--text1);margin-bottom:16px;}
+.find-result-value{font-size:20px;font-weight:800;color:var(--blue);background:var(--sub-blue);border-radius:10px;padding:14px 20px;letter-spacing:1px;}
+.find-result-desc{font-size:12px;color:var(--text2);margin-top:10px;}
+
+/* 비밀번호 찾기 발송 완료 */
+.find-pw-sent{text-align:center;padding:24px 0 0;}
+.fps-icon{font-size:48px;margin-bottom:8px;}
+.fps-title{font-size:16px;font-weight:700;color:var(--green);margin-bottom:6px;}
+.fps-desc{font-size:13px;color:var(--text2);line-height:1.6;}
+
 /* ===== MAIN ===== */
 .main{margin-left:var(--sidebar-w);margin-top:var(--header-h);padding:24px;min-height:calc(100vh - var(--header-h));}
 .screen{display:none;}
@@ -6385,11 +6466,195 @@ function showAuthView(modal, view) {
     document.getElementById('authLoginMain').style.display = view === 'main' ? '' : 'none';
     document.getElementById('authFindEmail').style.display = view === 'findEmail' ? '' : 'none';
     document.getElementById('authFindPw').style.display = view === 'findPw' ? '' : 'none';
+    // 이메일찾기 폼 초기화
+    if (view === 'findEmail') {
+      document.getElementById('findEmailName').value = '';
+      document.getElementById('findEmailGender').value = '';
+      document.getElementById('findEmailBirth').value = '';
+      document.getElementById('findEmailBtn').disabled = true;
+    }
+    // 비밀번호찾기 폼 초기화
+    if (view === 'findPw') {
+      document.getElementById('findPwName').value = '';
+      document.getElementById('findPwEmail').value = '';
+      document.getElementById('findPwBtn').disabled = true;
+      document.getElementById('findPwBtn').style.display = '';
+      document.getElementById('findPwSent').style.display = 'none';
+    }
   }
 }
 function doLogin() {
   // 데모용: 로그인 시 로그인 상태로 전환
   closeAuthModal('login');
+}
+
+// ===== 회원가입 4단계 로직 =====
+var _signupMethod = 'direct'; // 'direct' | 'google' | 'naver' | 'kakao'
+var _emailVerified = false;
+
+function goSignupStep(step) {
+  // 패널 표시
+  for (var i = 1; i <= 4; i++) {
+    document.getElementById('signupStep' + i).style.display = (i === step) ? '' : 'none';
+  }
+  // 스텝 인디케이터 업데이트
+  document.querySelectorAll('#signupSteps .signup-step').forEach(function(el) {
+    var s = parseInt(el.getAttribute('data-step'));
+    el.classList.remove('active', 'done');
+    if (s < step) el.classList.add('done');
+    else if (s === step) el.classList.add('active');
+  });
+
+  // Step3: 소셜가입 시 자동입력 처리
+  if (step === 3) {
+    var isSocial = (_signupMethod !== 'direct');
+    document.getElementById('signupSocialNotice').style.display = isSocial ? 'flex' : 'none';
+    if (isSocial) {
+      var providerName = { google: 'Google', naver: 'Naver', kakao: 'Kakao' }[_signupMethod] || '';
+      document.getElementById('signupSocialLabel').textContent = providerName + ' 계정으로부터 전달된 정보는 수정할 수 없습니다.';
+      // 데모용 소셜 자동입력 데이터
+      var demoSocial = {
+        google: { email: 'user@gmail.com', name: '홍길동' },
+        naver:  { email: 'user@naver.com', name: '홍길동' },
+        kakao:  { email: 'user@kakao.com', name: '홍길동' }
+      };
+      var d = demoSocial[_signupMethod] || {};
+      var emailEl = document.getElementById('signupEmail');
+      var nameEl = document.getElementById('signupName');
+      emailEl.value = d.email || '';
+      emailEl.readOnly = true;
+      emailEl.style.color = 'var(--text2)';
+      emailEl.style.background = 'var(--bg)';
+      nameEl.value = d.name || '';
+      nameEl.readOnly = true;
+      nameEl.style.color = 'var(--text2)';
+      nameEl.style.background = 'var(--bg)';
+      // 소셜은 이메일 인증 불필요 — 인증 버튼 숨김
+      document.getElementById('signupSendCode').style.display = 'none';
+      _emailVerified = true;
+    } else {
+      var emailEl2 = document.getElementById('signupEmail');
+      var nameEl2 = document.getElementById('signupName');
+      emailEl2.value = '';
+      emailEl2.readOnly = false;
+      emailEl2.style.color = '';
+      emailEl2.style.background = '';
+      nameEl2.value = '';
+      nameEl2.readOnly = false;
+      nameEl2.style.color = '';
+      nameEl2.style.background = '';
+      document.getElementById('signupSendCode').style.display = '';
+      _emailVerified = false;
+      document.getElementById('signupVerifyWrap').style.display = 'none';
+      document.getElementById('signupVerifyMsg').textContent = '';
+    }
+  }
+
+  // Step4: 완료 정보 표시
+  if (step === 4) {
+    var email = document.getElementById('signupEmail').value || '—';
+    var nick = document.getElementById('signupNickname').value || '—';
+    document.getElementById('signupCompleteEmail').textContent = email;
+    document.getElementById('signupCompleteNickname').textContent = '닉네임: ' + nick;
+  }
+}
+
+function selectSignupMethod(method) {
+  _signupMethod = method;
+  goSignupStep(3);
+}
+
+// 약관 전체동의
+function toggleAllTerms(checked) {
+  document.querySelectorAll('.term-item').forEach(function(el) { el.checked = checked; });
+  checkTerms();
+}
+function checkTerms() {
+  var allRequired = Array.from(document.querySelectorAll('.term-item.required'));
+  var ok = allRequired.every(function(el) { return el.checked; });
+  document.getElementById('termsNextBtn').disabled = !ok;
+  // 전체 체크 동기화
+  var allItems = Array.from(document.querySelectorAll('.term-item'));
+  document.getElementById('termsAll').checked = allItems.every(function(el) { return el.checked; });
+}
+
+// 이메일 인증
+function sendVerifyCode() {
+  var email = document.getElementById('signupEmail').value.trim();
+  if (!email) { alert('이메일을 입력해 주세요.'); return; }
+  document.getElementById('signupVerifyWrap').style.display = '';
+  var msg = document.getElementById('signupVerifyMsg');
+  msg.textContent = '인증번호가 ' + email + '으로 발송되었습니다.';
+  msg.className = 'auth-field-msg info';
+  _emailVerified = false;
+}
+function verifyCode() {
+  var code = document.getElementById('signupVerifyCode').value.trim();
+  var msg = document.getElementById('signupVerifyMsg');
+  if (code.length === 6) {
+    _emailVerified = true;
+    msg.textContent = '이메일 인증이 완료되었습니다.';
+    msg.className = 'auth-field-msg success';
+    document.getElementById('signupVerifyBtn').disabled = true;
+    document.getElementById('signupVerifyBtn').textContent = '인증완료';
+    document.getElementById('signupSendCode').disabled = true;
+    document.getElementById('signupSendCode').textContent = '발송완료';
+  } else {
+    msg.textContent = '인증번호 6자리를 정확히 입력해 주세요.';
+    msg.className = 'auth-field-msg error';
+  }
+}
+
+// 회원가입 모달 초기화 (열 때마다 1단계로)
+var _origOpenAuth = openAuthModal;
+openAuthModal = function(type) {
+  if (type === 'signup') {
+    _signupMethod = 'direct';
+    _emailVerified = false;
+    // 폼 초기화
+    document.querySelectorAll('#authSignupOverlay input, #authSignupOverlay select').forEach(function(el) {
+      if (el.type === 'checkbox') el.checked = false;
+      else el.value = '';
+      el.readOnly = false;
+      el.style.color = '';
+      el.style.background = '';
+      el.disabled = false;
+    });
+    document.getElementById('signupVerifyWrap').style.display = 'none';
+    document.getElementById('signupVerifyMsg').textContent = '';
+    document.getElementById('signupSendCode').textContent = '인증번호 발송';
+    document.getElementById('signupSendCode').style.display = '';
+    document.getElementById('signupVerifyBtn').textContent = '확인';
+    document.getElementById('termsNextBtn').disabled = true;
+    goSignupStep(1);
+  }
+  _origOpenAuth(type);
+};
+
+// ===== 이메일 찾기 로직 =====
+function checkFindEmailReady() {
+  var name = document.getElementById('findEmailName').value.trim();
+  var gender = document.getElementById('findEmailGender').value;
+  var birth = document.getElementById('findEmailBirth').value;
+  document.getElementById('findEmailBtn').disabled = !(name && gender && birth);
+}
+function doFindEmail() {
+  // 데모: 마스킹 처리 예시 (@ 앞 뒤 3자리 ***)
+  var demoEmail = 'bowling***@gmail.com';
+  document.getElementById('findEmailResult').textContent = demoEmail;
+  document.getElementById('findEmailResultOverlay').style.display = 'flex';
+}
+
+// ===== 비밀번호 찾기 로직 =====
+function checkFindPwReady() {
+  var name = document.getElementById('findPwName').value.trim();
+  var email = document.getElementById('findPwEmail').value.trim();
+  document.getElementById('findPwBtn').disabled = !(name && email);
+}
+function doFindPw() {
+  // 발송 완료 UI 표시
+  document.getElementById('findPwBtn').style.display = 'none';
+  document.getElementById('findPwSent').style.display = '';
 }
 
 // ===== 볼링장 검색 모달 =====
@@ -6699,112 +6964,254 @@ function closeAppGateToday() {
       <div id="authFindEmail" style="display:none;">
         <button class="auth-back-btn" onclick="showAuthView('login','main')">← 뒤로</button>
         <div class="auth-modal-title">이메일 찾기</div>
-        <div class="auth-modal-desc">가입하신 회원정보를 입력하세요.</div>
+        <div class="auth-modal-desc">가입 시 입력한 정보를 입력해 주세요.</div>
         <div class="auth-field">
-          <input type="text" placeholder="이름">
+          <label>이름</label>
+          <input type="text" id="findEmailName" placeholder="이름을 입력하세요." oninput="checkFindEmailReady()">
         </div>
         <div class="auth-field">
-          <select>
-            <option value="">성별</option>
+          <label>성별</label>
+          <select id="findEmailGender" onchange="checkFindEmailReady()">
+            <option value="">성별을 선택하세요.</option>
             <option>남성</option>
             <option>여성</option>
           </select>
         </div>
-        <div class="auth-row">
-          <div class="auth-field">
-            <select><option value="">년</option><option>1990</option><option>1991</option><option>1992</option><option>1993</option><option>1994</option><option>1995</option><option>1996</option><option>1997</option><option>1998</option><option>1999</option><option>2000</option></select>
-          </div>
-          <div class="auth-field">
-            <select><option value="">월</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option></select>
-          </div>
-          <div class="auth-field">
-            <select><option value="">일</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24</option><option>25</option><option>26</option><option>27</option><option>28</option><option>29</option><option>30</option><option>31</option></select>
-          </div>
-        </div>
         <div class="auth-field">
-          <input type="tel" placeholder="휴대폰번호(-제외)">
+          <label>생년월일</label>
+          <input type="date" id="findEmailBirth" onchange="checkFindEmailReady()">
         </div>
-        <button class="auth-btn-primary" style="margin-top:16px;">확인</button>
+        <button class="auth-btn-primary" id="findEmailBtn" disabled style="margin-top:16px;" onclick="doFindEmail()">이메일 찾기</button>
+      </div>
+
+      <!-- 이메일 찾기 결과 모달 -->
+      <div class="find-result-overlay" id="findEmailResultOverlay" style="display:none;" onclick="if(event.target===this)this.style.display='none'">
+        <div class="find-result-modal">
+          <div class="find-result-icon">📧</div>
+          <div class="find-result-title">이메일을 찾았습니다</div>
+          <div class="find-result-value" id="findEmailResult">—</div>
+          <div class="find-result-desc">보안을 위해 일부 문자가 가려져 있습니다.</div>
+          <button class="auth-btn-primary" style="margin-top:20px;" onclick="document.getElementById('findEmailResultOverlay').style.display='none';showAuthView('login','main')">로그인하러 가기</button>
+        </div>
       </div>
 
       <!-- 비밀번호 찾기 -->
       <div id="authFindPw" style="display:none;">
         <button class="auth-back-btn" onclick="showAuthView('login','main')">← 뒤로</button>
         <div class="auth-modal-title">비밀번호 찾기</div>
-        <div class="auth-modal-desc" style="margin-bottom:40px;"></div>
+        <div class="auth-modal-desc">가입 시 사용한 정보를 입력하시면,<br>등록된 이메일로 비밀번호 초기화 메일을 보내드립니다.</div>
         <div class="auth-field">
-          <input type="email" placeholder="이메일을 입력하세요.">
+          <label>이름</label>
+          <input type="text" id="findPwName" placeholder="이름을 입력하세요." oninput="checkFindPwReady()">
         </div>
-        <button class="auth-btn-primary" style="margin-top:24px;">다음</button>
+        <div class="auth-field">
+          <label>이메일</label>
+          <input type="email" id="findPwEmail" placeholder="가입한 이메일을 입력하세요." oninput="checkFindPwReady()">
+        </div>
+        <button class="auth-btn-primary" id="findPwBtn" disabled style="margin-top:24px;" onclick="doFindPw()">비밀번호 찾기</button>
+
+        <!-- 발송 완료 안내 -->
+        <div class="find-pw-sent" id="findPwSent" style="display:none;">
+          <div class="fps-icon">✉️</div>
+          <div class="fps-title">초기화 메일 발송 완료</div>
+          <div class="fps-desc">입력하신 이메일로 비밀번호 초기화 안내 메일을 발송했습니다.<br>메일함을 확인해 주세요.</div>
+          <button class="auth-btn-primary" style="margin-top:16px;" onclick="showAuthView('login','main')">로그인으로 돌아가기</button>
+        </div>
       </div>
     </div>
   </div>
 </div>
 
 <!-- ==============================
-     회원가입 모달
+     회원가입 모달 (4단계)
      ============================== -->
 <div class="auth-overlay" id="authSignupOverlay" onclick="if(event.target===this)closeAuthModal('signup')">
   <div class="auth-modal">
     <button class="auth-modal-close" onclick="closeAuthModal('signup')">&times;</button>
     <div class="auth-modal-body">
-      <div class="auth-logo">
-          <img src="chilten_logo_blue.svg" alt="칠텐">
+
+      <!-- ── 스텝 인디케이터 ── -->
+      <div class="signup-steps" id="signupSteps">
+        <div class="signup-step active" data-step="1"><span class="step-num">1</span><span class="step-label">이용약관</span></div>
+        <div class="signup-step-line"></div>
+        <div class="signup-step" data-step="2"><span class="step-num">2</span><span class="step-label">가입방식</span></div>
+        <div class="signup-step-line"></div>
+        <div class="signup-step" data-step="3"><span class="step-num">3</span><span class="step-label">정보입력</span></div>
+        <div class="signup-step-line"></div>
+        <div class="signup-step" data-step="4"><span class="step-num">4</span><span class="step-label">완료</span></div>
       </div>
-      <div class="auth-modal-title" style="font-size:18px;margin-bottom:4px;">회원가입</div>
-      <div class="auth-modal-desc">칠텐에 오신 것을 환영합니다!</div>
-      <div class="auth-field">
-        <label>이메일</label>
-        <input type="email" placeholder="이메일을 입력하세요.">
+
+      <!-- ── STEP 1: 이용약관 동의 ── -->
+      <div id="signupStep1" class="signup-panel">
+        <div class="auth-modal-title" style="font-size:18px;margin-bottom:4px;">이용약관 동의</div>
+        <div class="auth-modal-desc">서비스 이용을 위해 약관에 동의해 주세요.</div>
+
+        <label class="terms-check all">
+          <input type="checkbox" id="termsAll" onchange="toggleAllTerms(this.checked)">
+          <span class="tc-box"></span>
+          <span class="tc-label">전체 동의합니다</span>
+        </label>
+        <div class="terms-divider"></div>
+        <label class="terms-check">
+          <input type="checkbox" class="term-item required" onchange="checkTerms()">
+          <span class="tc-box"></span>
+          <span class="tc-label">[필수] 이용약관 동의</span>
+          <button class="tc-view" onclick="event.preventDefault();">보기</button>
+        </label>
+        <label class="terms-check">
+          <input type="checkbox" class="term-item required" onchange="checkTerms()">
+          <span class="tc-box"></span>
+          <span class="tc-label">[필수] 개인정보 수집 및 이용 동의</span>
+          <button class="tc-view" onclick="event.preventDefault();">보기</button>
+        </label>
+        <label class="terms-check">
+          <input type="checkbox" class="term-item required" onchange="checkTerms()">
+          <span class="tc-box"></span>
+          <span class="tc-label">[필수] 만 14세 이상입니다</span>
+          <span></span>
+        </label>
+        <label class="terms-check">
+          <input type="checkbox" class="term-item" onchange="checkTerms()">
+          <span class="tc-box"></span>
+          <span class="tc-label">[선택] 마케팅 정보 수신 동의</span>
+          <button class="tc-view" onclick="event.preventDefault();">보기</button>
+        </label>
+
+        <button class="auth-btn-primary" id="termsNextBtn" disabled style="margin-top:24px;" onclick="goSignupStep(2)">다음</button>
       </div>
-      <div class="auth-field">
-        <label>비밀번호</label>
-        <input type="password" placeholder="비밀번호 (8자 이상)">
+
+      <!-- ── STEP 2: 가입방식 선택 ── -->
+      <div id="signupStep2" class="signup-panel" style="display:none;">
+        <div class="auth-modal-title" style="font-size:18px;margin-bottom:4px;">가입 방식 선택</div>
+        <div class="auth-modal-desc">원하시는 가입 방식을 선택해 주세요.</div>
+
+        <div class="signup-method-cards">
+          <button class="signup-method-card" onclick="selectSignupMethod('direct')">
+            <span class="smc-icon">📧</span>
+            <span class="smc-title">직접 입력</span>
+            <span class="smc-desc">이메일과 비밀번호를 직접 입력하여 가입합니다.</span>
+          </button>
+          <div class="signup-method-divider"><span>또는</span></div>
+          <div class="auth-modal-desc" style="margin-bottom:12px;font-size:12px;">소셜 계정으로 간편하게 가입하세요.</div>
+          <div class="signup-social-row">
+            <button class="signup-social-card google" onclick="selectSignupMethod('google')">
+              <span class="ssc-icon"><b>G</b></span>
+              <span class="ssc-name">Google</span>
+            </button>
+            <button class="signup-social-card naver" onclick="selectSignupMethod('naver')">
+              <span class="ssc-icon"><b>N</b></span>
+              <span class="ssc-name">Naver</span>
+            </button>
+            <button class="signup-social-card kakao" onclick="selectSignupMethod('kakao')">
+              <span class="ssc-icon" style="font-size:11px;font-weight:800;">TALK</span>
+              <span class="ssc-name">Kakao</span>
+            </button>
+          </div>
+        </div>
+
+        <button class="auth-btn-back" onclick="goSignupStep(1)">← 이전</button>
       </div>
-      <div class="auth-field">
-        <label>비밀번호 확인</label>
-        <input type="password" placeholder="비밀번호를 다시 입력하세요.">
-      </div>
-      <div class="auth-field">
-        <label>이름</label>
-        <input type="text" placeholder="이름을 입력하세요.">
-      </div>
-      <div class="auth-field">
-        <label>성별</label>
-        <select>
-          <option value="">성별을 선택하세요.</option>
-          <option>남성</option>
-          <option>여성</option>
-        </select>
-      </div>
-      <div class="auth-row">
+
+      <!-- ── STEP 3: 정보입력 ── -->
+      <div id="signupStep3" class="signup-panel" style="display:none;">
+        <div class="auth-modal-title" style="font-size:18px;margin-bottom:4px;">정보 입력</div>
+        <div class="auth-modal-desc" id="signupStep3Desc">회원 정보를 입력해 주세요.</div>
+
+        <!-- 소셜 가입 시 자동입력 안내 -->
+        <div class="signup-social-notice" id="signupSocialNotice" style="display:none;">
+          <span class="ssn-icon">🔗</span>
+          <span class="ssn-text" id="signupSocialLabel">소셜 계정으로부터 전달된 정보는 수정할 수 없습니다.</span>
+        </div>
+
         <div class="auth-field">
-          <label>생년월일</label>
-          <select><option value="">년</option><option>1990</option><option>1991</option><option>1992</option><option>1993</option><option>1994</option><option>1995</option><option>1996</option><option>1997</option><option>1998</option><option>1999</option><option>2000</option></select>
+          <label>이메일 <span class="field-req">*</span></label>
+          <div class="auth-field-inline">
+            <input type="email" id="signupEmail" placeholder="이메일을 입력하세요." style="flex:1;">
+            <button class="auth-inline-btn" id="signupSendCode" onclick="sendVerifyCode()">인증번호 발송</button>
+          </div>
+        </div>
+        <div class="auth-field" id="signupVerifyWrap" style="display:none;">
+          <label>인증번호 <span class="field-req">*</span></label>
+          <div class="auth-field-inline">
+            <input type="text" id="signupVerifyCode" placeholder="인증번호 6자리 입력" maxlength="6" style="flex:1;">
+            <button class="auth-inline-btn verify" id="signupVerifyBtn" onclick="verifyCode()">확인</button>
+          </div>
+          <div class="auth-field-msg" id="signupVerifyMsg"></div>
+        </div>
+
+        <div class="auth-field">
+          <label>비밀번호 <span class="field-req">*</span></label>
+          <input type="password" id="signupPw" placeholder="비밀번호 (8자 이상, 영문+숫자+특수문자)">
         </div>
         <div class="auth-field">
-          <label>&nbsp;</label>
-          <select><option value="">월</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option></select>
+          <label>비밀번호 확인 <span class="field-req">*</span></label>
+          <input type="password" id="signupPwConfirm" placeholder="비밀번호를 다시 입력하세요.">
         </div>
         <div class="auth-field">
-          <label>&nbsp;</label>
-          <select><option value="">일</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24</option><option>25</option><option>26</option><option>27</option><option>28</option><option>29</option><option>30</option><option>31</option></select>
+          <label>이름 <span class="field-req">*</span></label>
+          <input type="text" id="signupName" placeholder="이름을 입력하세요.">
+        </div>
+        <div class="auth-row">
+          <div class="auth-field" style="flex:1;">
+            <label>생년월일 <span class="field-req">*</span></label>
+            <input type="date" id="signupBirth">
+          </div>
+          <div class="auth-field" style="flex:0 0 120px;">
+            <label>성별 <span class="field-req">*</span></label>
+            <select id="signupGender">
+              <option value="">선택</option>
+              <option>남성</option>
+              <option>여성</option>
+            </select>
+          </div>
+        </div>
+        <div class="auth-field">
+          <label>닉네임 <span class="field-req">*</span></label>
+          <input type="text" id="signupNickname" placeholder="활동에 사용할 닉네임">
+        </div>
+        <div class="auth-row">
+          <div class="auth-field" style="flex:1;">
+            <label>장애 여부 <span class="field-req">*</span></label>
+            <select id="signupDisability">
+              <option value="">선택</option>
+              <option>비장애</option>
+              <option>장애</option>
+            </select>
+          </div>
+          <div class="auth-field" style="flex:1;">
+            <label>볼링 구분 <span class="field-req">*</span></label>
+            <select id="signupLevel">
+              <option value="">선택</option>
+              <option>아마추어</option>
+              <option>프로</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="display:flex;gap:10px;margin-top:24px;">
+          <button class="auth-btn-back" style="margin-top:0;" onclick="goSignupStep(2)">← 이전</button>
+          <button class="auth-btn-primary" style="flex:1;margin-top:0;" onclick="goSignupStep(4)">가입하기</button>
         </div>
       </div>
-      <div class="auth-field">
-        <label>휴대폰번호</label>
-        <input type="tel" placeholder="휴대폰번호(-제외)">
+
+      <!-- ── STEP 4: 완료 ── -->
+      <div id="signupStep4" class="signup-panel" style="display:none;">
+        <div style="text-align:center;padding:40px 0 20px;">
+          <div style="font-size:64px;margin-bottom:16px;">🎳</div>
+          <div class="auth-modal-title" style="font-size:20px;margin-bottom:8px;">회원가입 완료!</div>
+          <div class="auth-modal-desc" style="margin-bottom:0;">칠텐에 오신 것을 환영합니다.<br>지금 바로 볼링의 모든 것을 경험해 보세요!</div>
+        </div>
+        <div style="background:var(--bg);border-radius:12px;padding:16px 20px;margin:24px 0;">
+          <div style="font-size:13px;color:var(--text2);margin-bottom:6px;">가입 정보</div>
+          <div style="font-size:14px;font-weight:600;color:var(--text1);" id="signupCompleteEmail">—</div>
+          <div style="font-size:13px;color:var(--text2);margin-top:4px;" id="signupCompleteNickname">—</div>
+        </div>
+        <button class="auth-btn-primary" onclick="closeAuthModal('signup')">시작하기</button>
+        <div style="text-align:center;margin-top:16px;font-size:13px;color:var(--text2);">
+          <span style="color:var(--blue);font-weight:600;cursor:pointer;" onclick="closeAuthModal('signup');openAuthModal('login')">로그인하러 가기 →</span>
+        </div>
       </div>
-      <button class="auth-btn-primary" style="margin-top:12px;" onclick="closeAuthModal('signup')">가입하기</button>
-      <div class="auth-divider"><span>간편 가입</span></div>
-      <div class="auth-social">
-        <div class="auth-social-btn google"><b>G</b></div>
-        <div class="auth-social-btn naver"><b>N</b></div>
-        <div class="auth-social-btn kakao" style="font-size:13px;font-weight:800;">TALK</div>
-      </div>
-      <div style="text-align:center;margin-top:20px;font-size:13px;color:var(--text2);">
-        이미 계정이 있으신가요? <span style="color:var(--blue);font-weight:600;cursor:pointer;" onclick="closeAuthModal('signup');openAuthModal('login')">로그인</span>
-      </div>
+
     </div>
   </div>
 </div>
