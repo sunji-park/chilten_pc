@@ -254,7 +254,7 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
 
 /* 토글 버튼 (장애여부 / 볼링구분) */
 .auth-toggle{display:flex;border:1.5px solid var(--line);border-radius:8px;overflow:hidden;height:44px;}
-.auth-toggle-btn{flex:1;border:none;background:#fff;color:var(--text2);font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .15s;padding:0 4px;}
+.auth-toggle-btn{flex:1;border:none;background:#fff;color:var(--text2);font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .15s;padding:0 8px;white-space:nowrap;}
 .auth-toggle-btn.active{background:var(--blue);color:#fff;}
 
 /* 소셜가입 안내 */
@@ -277,48 +277,130 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
 .fps-desc{font-size:13px;color:var(--text2);line-height:1.6;}
 
 /* ===== 마이페이지 ===== */
-.my-profile-card{text-align:center;background:#fff;border:1px solid var(--line);border-radius:16px;padding:32px 20px 20px;margin-bottom:12px;}
-.my-profile-avatar{position:relative;display:inline-block;margin-bottom:14px;}
-.my-profile-avatar img{width:80px;height:80px;object-fit:contain;border-radius:50%;border:3px solid var(--sub-blue);padding:8px;background:#fff;}
-.my-avatar-edit{position:absolute;bottom:0;right:-4px;width:28px;height:28px;background:#fff;border:2px solid var(--line);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;cursor:pointer;}
-.my-profile-name{font-size:20px;font-weight:800;color:var(--text1);margin-bottom:2px;}
-.my-profile-nick{font-size:14px;font-weight:500;color:var(--text2);}
-.my-profile-email{font-size:13px;color:var(--text2);margin-bottom:12px;}
-.my-profile-ref{display:flex;align-items:center;justify-content:center;gap:8px;font-size:13px;color:var(--text2);}
+.my-profile-card{display:flex;align-items:center;gap:16px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px;margin-bottom:10px;position:relative;}
+.my-profile-avatar{flex-shrink:0;position:relative;width:90px;height:90px;cursor:pointer;}
+.my-profile-avatar img{width:90px;height:90px;object-fit:cover;border-radius:50%;border:3px solid var(--sub-blue);padding:6px;background:#fff;display:block;}
+.my-profile-info{flex:1;min-width:0;}
+.my-avatar-edit{position:absolute;bottom:2px;right:-4px;background:#fff;border:1.5px solid var(--line);border-radius:10px;font-size:11px;font-weight:600;color:var(--text2);cursor:pointer;box-shadow:0 1px 4px rgba(0,0,0,.1);padding:3px 8px;font-family:inherit;transition:background .15s;}
+.my-profile-avatar:hover .my-avatar-edit{background:var(--bg);}
+.my-profile-name{font-size:18px;font-weight:800;color:var(--text1);margin-bottom:2px;}
+.my-profile-nick{font-size:13px;font-weight:500;color:var(--text2);}
+.my-profile-email-row{display:flex;align-items:center;gap:8px;margin-top:2px;}
+.my-profile-email{font-size:12px;color:var(--text2);}
+.my-login-method{display:inline-flex;align-items:center;gap:4px;font-size:11px;color:var(--text2);font-weight:500;}
+.my-login-method-icon{display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;border-radius:3px;font-size:9px;font-weight:800;flex-shrink:0;}
+.my-profile-ref{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text2);flex-shrink:0;margin-left:auto;}
 .my-ref-code{font-weight:800;color:var(--blue);letter-spacing:1px;}
 .my-ref-copy{padding:4px 14px;border:1.5px solid var(--text1);border-radius:20px;background:#fff;font-size:11px;font-weight:700;cursor:pointer;transition:all .15s;}
 .my-ref-copy:hover{background:var(--text1);color:#fff;}
-.my-profile-detail-btn{display:block;margin:16px auto 0;background:none;border:none;font-size:13px;font-weight:600;color:var(--text1);cursor:pointer;font-family:inherit;}
-.my-profile-detail-btn:hover{color:var(--blue);}
-
-.my-section-card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px;margin-bottom:12px;}
-.my-sec-header{display:flex;align-items:center;justify-content:space-between;font-size:15px;font-weight:700;color:var(--text1);cursor:pointer;margin-bottom:14px;}
+.my-section-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px 20px;margin-bottom:10px;}
+.my-sec-header{font-size:14px;font-weight:700;color:var(--text1);margin-bottom:8px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;}
 .my-sec-arrow{font-size:14px;color:var(--text2);}
-
 .my-activity-row{display:flex;text-align:center;}
 .my-activity-item{flex:1;}
 .my-activity-num{font-size:22px;font-weight:800;color:var(--blue);}
 .my-activity-num span{font-size:13px;font-weight:600;}
 .my-activity-label{font-size:12px;color:var(--text2);margin-top:2px;}
-
-.my-menu-item{display:flex;align-items:center;justify-content:space-between;padding:14px 0;border-bottom:1px solid var(--bg);font-size:14px;color:var(--text1);cursor:pointer;transition:color .15s;}
-.my-menu-item:last-child{border-bottom:none;}
+.my-menu-item{display:flex;align-items:center;justify-content:space-between;padding:10px 0;font-size:14px;color:var(--text1);cursor:pointer;transition:color .15s;}
 .my-menu-item:hover{color:var(--blue);}
-
-.my-bottom-actions{display:flex;justify-content:flex-end;gap:16px;padding:20px 0;font-size:14px;}
+.my-bottom-actions{display:flex;justify-content:flex-end;gap:16px;padding:12px 0;font-size:14px;}
 .my-action-btn{background:none;border:none;color:var(--text2);font-size:14px;font-weight:500;cursor:pointer;font-family:inherit;transition:color .15s;padding:0;}
 .my-action-btn:hover{color:var(--text1);}
-.my-action-btn.danger{color:var(--text2);}
 .my-action-btn.danger:hover{color:var(--red);}
-
-/* 정보수정 */
-.my-edit-row{display:flex;align-items:center;justify-content:space-between;padding:14px 0;border-bottom:1px solid var(--bg);}
-.my-edit-row:last-of-type{border-bottom:none;}
-.my-edit-val{font-size:15px;font-weight:600;color:var(--text1);}
-.my-edit-label{font-size:12px;color:var(--text2);flex-shrink:0;}
-.my-edit-submit-btn{padding:10px 28px;background:var(--blue);color:#fff;border:none;border-radius:24px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .15s;}
-.my-edit-submit-btn:hover{background:var(--navy);}
-.my-edit-info{text-align:center;font-size:13px;color:var(--text2);padding:14px 0 4px;line-height:1.5;}
+.my-edit-row{display:flex;align-items:center;justify-content:space-between;padding:6px 0;gap:12px;}
+.my-edit-label{font-size:12px;color:var(--text2);flex-shrink:0;min-width:64px;}
+.my-edit-input{flex:1;min-width:0;padding:8px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;color:var(--text1);font-family:inherit;background:#fff;transition:border-color .15s;}
+.my-edit-input:focus{outline:none;border-color:var(--blue);}
+.my-edit-input[readonly]{background:var(--bg);color:var(--text2);cursor:default;border-color:transparent;}
+.my-edit-input[readonly]:focus{border-color:transparent;}
+.my-edit-select{flex:1;min-width:0;padding:8px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;color:var(--text1);font-family:inherit;background:#fff;cursor:pointer;transition:border-color .15s;}
+.my-edit-select:focus{outline:none;border-color:var(--blue);}
+.my-edit-row-actions{display:flex;justify-content:flex-end;padding:8px 0 0;}
+.my-btn-verify{padding:8px 24px;background:var(--navy);color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;transition:opacity .15s;}
+.my-btn-verify:hover{opacity:.85;}
+.my-verified-badge,.my-unverified-badge{display:inline-block;font-size:11px;font-weight:600;padding:2px 8px;border-radius:4px;margin-left:8px;vertical-align:middle;}
+.my-verified-badge{color:var(--blue);background:rgba(33,101,207,.08);}
+.my-unverified-badge{color:#e67e22;background:rgba(230,126,34,.08);}
+.my-edit-info{text-align:center;font-size:12px;color:var(--text2);padding:8px 0 0;line-height:1.5;}
+.my-save-bar{padding:6px 0;display:flex;align-items:center;justify-content:flex-end;gap:8px;}
+.my-save-msg{font-size:12px;color:#e74c3c;display:none;font-weight:600;margin-right:auto;}
+.my-save-msg.show{display:block;}
+.my-cancel-btn{padding:8px 20px;border:1px solid var(--line);border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;background:#fff;color:var(--text2);transition:all .15s;display:none;}
+.my-cancel-btn.show{display:inline-block;}
+.my-cancel-btn:hover{border-color:var(--text2);color:var(--text1);}
+.my-save-btn{padding:8px 24px;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .15s;color:#fff;background:var(--blue);}
+.my-save-btn:hover{opacity:.85;}
+.my-save-btn.disabled{background:var(--line);color:var(--text2);cursor:default;pointer-events:none;}
+/* 약관 모달 */
+.terms-modal-overlay,.confirm-modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:9999;align-items:center;justify-content:center;}
+.terms-modal-overlay.active,.confirm-modal-overlay.active{display:flex;}
+.terms-modal-box{background:#fff;border-radius:16px;width:92%;max-width:560px;max-height:80vh;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,.18);}
+.terms-modal-header{display:flex;align-items:center;justify-content:space-between;padding:18px 22px;border-bottom:1px solid var(--line);}
+.terms-modal-header strong{font-size:16px;font-weight:700;color:var(--text1);}
+.terms-modal-close{background:none;border:none;font-size:20px;color:var(--text2);cursor:pointer;padding:0;line-height:1;}
+.terms-modal-body{padding:22px;overflow-y:auto;font-size:13px;line-height:1.8;color:var(--text2);}
+.confirm-modal-box{background:#fff;border-radius:16px;width:88%;max-width:380px;padding:32px 24px 24px;text-align:center;box-shadow:0 8px 32px rgba(0,0,0,.18);}
+.confirm-modal-title{font-size:17px;font-weight:700;color:var(--text1);margin-bottom:12px;}
+.confirm-modal-msg{font-size:14px;color:var(--text2);line-height:1.6;margin-bottom:24px;}
+.confirm-modal-btns{display:flex;gap:10px;}
+.confirm-modal-cancel,.confirm-modal-ok{flex:1;padding:12px 0;border-radius:10px;font-size:15px;font-weight:600;cursor:pointer;font-family:inherit;border:none;transition:opacity .15s;}
+.confirm-modal-cancel{background:var(--bg);color:var(--text2);}
+.confirm-modal-cancel:hover{opacity:.8;}
+.confirm-modal-ok{background:var(--blue);color:#fff;}
+.confirm-modal-ok:hover{opacity:.85;}
+.confirm-modal-ok.danger{background:#e74c3c;}
+/* 검색 모달 (주소/볼링장) */
+.search-modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:9999;align-items:center;justify-content:center;}
+.search-modal-overlay.active{display:flex;}
+.search-modal-box{background:#fff;border-radius:16px;width:92%;max-width:480px;max-height:70vh;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,.18);}
+.search-modal-header{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--line);}
+.search-modal-header strong{font-size:16px;font-weight:700;color:var(--text1);}
+.search-modal-close{background:none;border:none;font-size:20px;color:var(--text2);cursor:pointer;padding:0;line-height:1;}
+.search-modal-search{display:flex;gap:8px;padding:14px 20px;border-bottom:1px solid var(--bg);}
+.search-modal-search input{flex:1;padding:9px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;font-family:inherit;color:var(--text1);}
+.search-modal-search input:focus{outline:none;border-color:var(--blue);}
+.search-modal-search button{padding:9px 18px;background:var(--blue);color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;white-space:nowrap;}
+.search-modal-search button:hover{opacity:.85;}
+.search-modal-results{overflow-y:auto;padding:8px 0;flex:1;}
+.search-modal-empty{text-align:center;padding:40px 20px;font-size:13px;color:var(--text2);}
+.search-result-item{padding:12px 20px;cursor:pointer;transition:background .1s;border-bottom:1px solid var(--bg);}
+.search-result-item:last-child{border-bottom:none;}
+.search-result-item:hover{background:var(--bg);}
+.search-result-name{font-size:14px;font-weight:600;color:var(--text1);margin-bottom:2px;}
+.search-result-addr{font-size:12px;color:var(--text2);}
+/* 활동내역 모달 */
+.act-modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:9999;align-items:center;justify-content:center;}
+.act-modal-overlay.active{display:flex;}
+.act-modal-box{background:#fff;border-radius:16px;width:94%;max-width:640px;max-height:80vh;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,.18);}
+.act-modal-header{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--line);}
+.act-modal-header strong{font-size:16px;font-weight:700;color:var(--text1);}
+.act-modal-close{background:none;border:none;font-size:20px;color:var(--text2);cursor:pointer;padding:0;line-height:1;}
+.act-tabs{display:flex;border-bottom:1px solid var(--line);}
+.act-tab{flex:1;padding:12px 0;text-align:center;font-size:14px;font-weight:600;color:var(--text2);background:none;border:none;border-bottom:2px solid transparent;cursor:pointer;font-family:inherit;transition:all .15s;}
+.act-tab.active{color:var(--blue);border-bottom-color:var(--blue);}
+.act-tab span{font-size:12px;font-weight:700;margin-left:2px;}
+.act-filters{display:flex;gap:6px;padding:12px 20px;flex-wrap:wrap;}
+.act-filter{padding:5px 14px;border:1px solid var(--line);border-radius:20px;background:#fff;font-size:12px;font-weight:500;color:var(--text2);cursor:pointer;font-family:inherit;transition:all .15s;}
+.act-filter.active{background:var(--blue);color:#fff;border-color:var(--blue);}
+.act-filter:hover{border-color:var(--blue);}
+.act-list{overflow-y:auto;flex:1;padding:0 20px;}
+.act-item{display:flex;gap:12px;padding:14px 0;border-bottom:1px solid var(--bg);cursor:pointer;transition:background .1s;}
+.act-item:last-child{border-bottom:none;}
+.act-item:hover{background:var(--bg);margin:0 -20px;padding:14px 20px;}
+.act-item-thumb{width:56px;height:56px;border-radius:8px;background:var(--bg);flex-shrink:0;overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:22px;}
+.act-item-thumb img{width:100%;height:100%;object-fit:cover;}
+.act-item-body{flex:1;min-width:0;}
+.act-item-top{display:flex;align-items:center;gap:8px;margin-bottom:4px;}
+.act-item-badge{font-size:11px;font-weight:600;padding:2px 8px;border-radius:4px;background:var(--bg);color:var(--text2);}
+.act-item-badge.market{background:rgba(230,126,34,.1);color:#e67e22;}
+.act-item-badge.free{background:rgba(33,101,207,.08);color:var(--blue);}
+.act-item-badge.event{background:rgba(231,76,60,.08);color:#e74c3c;}
+.act-item-badge.club{background:rgba(46,204,113,.1);color:#27ae60;}
+.act-item-badge.tour{background:rgba(142,68,173,.1);color:#8e44ad;}
+.act-item-date{font-size:11px;color:var(--text2);margin-left:auto;}
+.act-item-title{font-size:14px;font-weight:600;color:var(--text1);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.act-item-desc{font-size:12px;color:var(--text2);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.act-empty{text-align:center;padding:40px 20px;font-size:13px;color:var(--text2);}
 
 /* ===== MAIN ===== */
 .main{margin-left:var(--sidebar-w);margin-top:var(--header-h);padding:24px;min-height:calc(100vh - var(--header-h));}
@@ -1829,9 +1911,6 @@ select.mw-input{cursor:pointer;-webkit-appearance:none;appearance:none;backgroun
   <div class="nav-item" id="ni-datalab" onclick="go('datalab')">
     <span class="ni ic-nav"><i data-lucide="bar-chart-3"></i></span> 칠텐 데이터 랩
   </div>
-  <div class="nav-item" id="ni-mypage" onclick="go('mypage')">
-    <span class="ni ic-nav"><i data-lucide="user"></i></span> 마이페이지
-  </div>
 
   <!-- 배너 영역 -->
   <div style="padding:14px 16px;margin-top:auto;">
@@ -3252,22 +3331,26 @@ select.mw-input{cursor:pointer;-webkit-appearance:none;appearance:none;backgroun
 
   <!-- 프로필 상단 -->
   <div class="my-profile-card">
-    <div class="my-profile-avatar">
-      <img src="chilten_logo_blue.svg" alt="칠텐" style="height:60px;">
-      <div class="my-avatar-edit">📷</div>
+    <div class="my-profile-avatar" onclick="alert('프로필 사진을 변경할 수 있습니다.')" title="프로필 사진 변경">
+      <img src="chilten_logo_blue.svg" alt="칠텐">
+      <div class="my-avatar-edit">수정</div>
     </div>
-    <div class="my-profile-name">박선지 <span class="my-profile-nick">박팀장</span></div>
-    <div class="my-profile-email">sjstar@gameone.kr</div>
+    <div class="my-profile-info">
+      <div class="my-profile-name">박선지 <span class="my-profile-nick">박팀장</span></div>
+      <div class="my-profile-email-row">
+        <span class="my-profile-email">sjstar@gameone.kr</span>
+        <span class="my-login-method"><span class="my-login-method-icon" style="background:#FEE500;color:#3C1E1E;">K</span> 카카오 로그인</span>
+      </div>
+    </div>
     <div class="my-profile-ref">
       추천코드 <span class="my-ref-code">R55693</span>
       <button class="my-ref-copy" onclick="alert('추천코드가 복사되었습니다.')">복사</button>
     </div>
-    <button class="my-profile-detail-btn" onclick="go('mypage-edit')">내역보기 ></button>
   </div>
 
   <!-- 나의 활동내역 -->
   <div class="my-section-card">
-    <div class="my-sec-header" onclick="alert('활동내역 상세')">나의 활동내역 <span class="my-sec-arrow">></span></div>
+    <div class="my-sec-header" onclick="openActModal()">나의 활동내역 <span class="my-sec-arrow">></span></div>
     <div class="my-activity-row">
       <div class="my-activity-item">
         <div class="my-activity-num">2<span>건</span></div>
@@ -3284,109 +3367,136 @@ select.mw-input{cursor:pointer;-webkit-appearance:none;appearance:none;backgroun
     </div>
   </div>
 
-  <!-- 설정 메뉴 -->
-  <div class="my-section-card">
-    <div class="my-menu-item" onclick="alert('이용약관')">이용약관 <span class="my-sec-arrow">></span></div>
-    <div class="my-menu-item" onclick="alert('개인정보 처리방침')">개인정보 처리방침 <span class="my-sec-arrow">></span></div>
-    <div class="my-menu-item" onclick="alert('위치정보 이용약관')">위치정보 이용약관 <span class="my-sec-arrow">></span></div>
+  <!-- 상단 저장/취소 -->
+  <div class="my-save-bar">
+    <div class="my-save-msg" id="mySaveMsgTop">변경된 내용이 있습니다. 꼭 저장해주세요!</div>
+    <button class="my-cancel-btn" id="myCancelTop" onclick="doMypageCancel()">취소</button>
+    <button class="my-save-btn disabled" id="mySaveTop" disabled onclick="doMypageSave()">저장</button>
   </div>
 
-  <!-- 하단 액션 -->
-  <div class="my-bottom-actions">
-    <button class="my-action-btn danger" onclick="alert('회원탈퇴')">회원탈퇴</button>
-    <button class="my-action-btn" onclick="alert('로그아웃')">로그아웃</button>
-  </div>
-
-</div><!-- /comm-main -->
-<div class="comm-ad-side">
-  <a href="#" onclick="return false;"><img src="banner.jpg" alt="광고배너"></a>
-</div>
-</div><!-- /comm-layout -->
-</div>
-
-<!-- ==============================
-     마이페이지 > 정보수정
-     ============================== -->
-<div id="s-mypage-edit" class="screen">
-<div class="comm-layout">
-<div class="comm-main">
-
-  <div class="page-header">
-    <button class="auth-btn-back" onclick="go('mypage')" style="margin:0;">← 뒤로</button>
-    <div class="page-title">정보수정</div>
-  </div>
-
-  <!-- 기본정보 (읽기전용) -->
-  <div class="my-section-card">
+  <!-- 기본정보 : 본인인증 완료 유저 (디폴트) -->
+  <div class="my-section-card" id="myInfoVerified">
+    <div class="my-sec-header">기본정보 <span class="my-verified-badge">본인인증 완료</span></div>
     <div class="my-edit-row">
-      <span class="my-edit-val">박선지</span>
       <span class="my-edit-label">실명</span>
+      <input type="text" class="my-edit-input" value="박선지" readonly>
     </div>
     <div class="my-edit-row">
-      <span class="my-edit-val">남자</span>
       <span class="my-edit-label">성별</span>
+      <input type="text" class="my-edit-input" value="남자" readonly>
     </div>
     <div class="my-edit-row">
-      <span class="my-edit-val">19760826</span>
       <span class="my-edit-label">생년월일</span>
+      <input type="text" class="my-edit-input" value="19760826" readonly>
     </div>
     <div class="my-edit-row">
-      <span class="my-edit-val">010-4226-7947</span>
       <span class="my-edit-label">휴대폰</span>
+      <input type="text" class="my-edit-input" value="010-4226-7947" readonly>
     </div>
-    <div style="text-align:right;padding:4px 0;">
-      <button class="my-edit-submit-btn">정보수정</button>
+    <div class="my-edit-row-actions">
+      <button class="my-btn-verify" onclick="alert('본인인증 팝업이 열립니다.\n인증 완료 후 정보가 자동 갱신됩니다.')">본인인증으로 수정</button>
     </div>
+  </div>
+
+  <!-- 기본정보 : 본인인증 미완료 유저 (숨김) -->
+  <div class="my-section-card" id="myInfoUnverified" style="display:none;">
+    <div class="my-sec-header">기본정보 <span class="my-unverified-badge">본인인증 미완료</span></div>
+    <div class="my-edit-row">
+      <span class="my-edit-label">실명</span>
+      <input type="text" class="my-edit-input my-track" value="박선지" id="uvName">
+    </div>
+    <div class="my-edit-row">
+      <span class="my-edit-label">성별</span>
+      <select class="my-edit-select my-track" id="uvGender">
+        <option value="남자" selected>남자</option>
+        <option value="여자">여자</option>
+      </select>
+    </div>
+    <div class="my-edit-row">
+      <span class="my-edit-label">생년월일</span>
+      <input type="text" class="my-edit-input my-track" value="19760826" maxlength="8" placeholder="YYYYMMDD" id="uvBirth">
+    </div>
+    <div class="my-edit-row">
+      <span class="my-edit-label">휴대폰</span>
+      <input type="tel" class="my-edit-input my-track" value="010-4226-7947" placeholder="010-0000-0000" id="uvPhone">
+    </div>
+  </div>
+
+  <!-- 타입 전환 토글 (프로토타입용) -->
+  <div style="text-align:right;padding:0 0 8px;">
+    <button style="background:none;border:1px dashed var(--line);border-radius:6px;padding:4px 10px;font-size:11px;color:var(--text2);cursor:pointer;font-family:inherit;" onclick="toggleVerifyType()">프로토타입: 인증타입 전환</button>
   </div>
 
   <!-- 닉네임 -->
   <div class="my-section-card">
+    <div class="my-sec-header">닉네임</div>
     <div class="my-edit-row">
-      <span class="my-edit-val">박팀장</span>
       <span class="my-edit-label">닉네임</span>
+      <input type="text" class="my-edit-input my-track" value="박팀장" id="myNickname">
     </div>
   </div>
 
   <!-- 지역 설정 -->
   <div class="my-section-card">
+    <div class="my-sec-header">지역설정</div>
     <div class="my-edit-row">
-      <span class="my-edit-val">경기 하남시 학암동</span>
       <span class="my-edit-label">거주지역</span>
+      <input type="text" class="my-edit-input my-track" value="경기 하남시 학암동" id="myRegion" readonly onclick="openAddrSearchModal()" style="cursor:pointer;">
     </div>
     <div class="my-edit-row">
-      <span class="my-edit-val">(공릉동) 공릉볼링센터</span>
-      <span class="my-edit-label">활동지역</span>
+      <span class="my-edit-label">활동지역 1</span>
+      <input type="text" class="my-edit-input my-track" value="(공릉동) 공릉볼링센터" id="myArea1" readonly onclick="openBowlSearchModal('myArea1')" style="cursor:pointer;">
     </div>
     <div class="my-edit-row">
-      <span class="my-edit-val">(거여동) 정석볼링장(거여점)</span>
-      <span class="my-edit-label">활동지역</span>
+      <span class="my-edit-label">활동지역 2</span>
+      <input type="text" class="my-edit-input my-track" value="(거여동) 정석볼링장(거여점)" id="myArea2" readonly onclick="openBowlSearchModal('myArea2')" style="cursor:pointer;">
     </div>
     <div class="my-edit-row">
-      <span class="my-edit-val">(영덕동) 엑스핀 볼링라운지</span>
-      <span class="my-edit-label">활동지역</span>
+      <span class="my-edit-label">활동지역 3</span>
+      <input type="text" class="my-edit-input my-track" value="(영덕동) 엑스핀 볼링라운지" id="myArea3" readonly onclick="openBowlSearchModal('myArea3')" style="cursor:pointer;">
     </div>
     <div class="my-edit-info">지역설정을 하시면 <strong style="color:var(--blue);">나의 지역 맞춤 콘텐츠</strong>가 노출됩니다.</div>
   </div>
 
   <!-- 핸디설정 -->
   <div class="my-section-card">
-    <div style="display:flex;flex-direction:column;gap:12px;">
-      <div class="auth-toggle" id="editDisability" data-value="비장애" style="max-width:240px;">
-        <button type="button" class="auth-toggle-btn active" onclick="setAuthToggle(this,'editDisability','비장애')">비장애</button>
-        <button type="button" class="auth-toggle-btn" onclick="setAuthToggle(this,'editDisability','장애')">장애</button>
+    <div class="my-sec-header">핸디설정</div>
+    <div style="display:flex;flex-direction:column;gap:12px;padding-top:4px;">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <span class="my-edit-label" style="min-width:60px;">장애여부</span>
+        <div class="auth-toggle" id="editDisability" data-value="비장애" style="min-width:160px;">
+          <button type="button" class="auth-toggle-btn active" onclick="setAuthToggle(this,'editDisability','비장애');markMyDirty()">비장애</button>
+          <button type="button" class="auth-toggle-btn" onclick="setAuthToggle(this,'editDisability','장애');markMyDirty()">장애</button>
+        </div>
       </div>
-      <div class="auth-toggle" id="editLevel" data-value="아마추어" style="max-width:240px;">
-        <button type="button" class="auth-toggle-btn active" onclick="setAuthToggle(this,'editLevel','아마추어')">아마추어</button>
-        <button type="button" class="auth-toggle-btn" onclick="setAuthToggle(this,'editLevel','프로')">프로</button>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <span class="my-edit-label" style="min-width:60px;">볼링구분</span>
+        <div class="auth-toggle" id="editLevel" data-value="아마추어" style="min-width:160px;">
+          <button type="button" class="auth-toggle-btn active" onclick="setAuthToggle(this,'editLevel','아마추어');markMyDirty()">아마추어</button>
+          <button type="button" class="auth-toggle-btn" onclick="setAuthToggle(this,'editLevel','프로');markMyDirty()">프로</button>
+        </div>
       </div>
     </div>
-    <span class="my-edit-label" style="display:block;text-align:right;margin-top:8px;">핸디설정</span>
   </div>
 
-  <!-- 하단 -->
+  <!-- 하단 저장 버튼 -->
+  <div class="my-save-bar">
+    <div class="my-save-msg" id="mySaveMsgBottom">변경된 내용이 있습니다. 꼭 저장해주세요!</div>
+    <button class="my-cancel-btn" id="myCancelBottom" onclick="doMypageCancel()">취소</button>
+    <button class="my-save-btn disabled" id="mySaveBottom" disabled onclick="doMypageSave()">저장</button>
+  </div>
+
+  <!-- 설정 메뉴 -->
+  <div class="my-section-card">
+    <div class="my-menu-item" onclick="openTermsModal('이용약관')">이용약관 <span class="my-sec-arrow">></span></div>
+    <div class="my-menu-item" onclick="openTermsModal('개인정보 처리방침')">개인정보 처리방침 <span class="my-sec-arrow">></span></div>
+    <div class="my-menu-item" onclick="openTermsModal('위치정보 이용약관')">위치정보 이용약관 <span class="my-sec-arrow">></span></div>
+  </div>
+
+  <!-- 하단 액션 -->
   <div class="my-bottom-actions">
-    <button class="my-action-btn danger" onclick="alert('회원탈퇴')">회원탈퇴</button>
-    <button class="my-action-btn" onclick="alert('로그아웃')">로그아웃</button>
+    <button class="my-action-btn danger" onclick="openConfirmModal('회원탈퇴','정말 탈퇴하시겠습니까?<br>탈퇴 시 모든 데이터가 삭제되며 복구할 수 없습니다.','탈퇴하기')">회원탈퇴</button>
+    <button class="my-action-btn" onclick="openConfirmModal('로그아웃','로그아웃 하시겠습니까?','로그아웃')">로그아웃</button>
   </div>
 
 </div><!-- /comm-main -->
@@ -3397,6 +3507,87 @@ select.mw-input{cursor:pointer;-webkit-appearance:none;appearance:none;backgroun
 </div>
 
 </main>
+
+<!-- ===== 약관 모달 ===== -->
+<div class="terms-modal-overlay" id="termsModalOverlay" onclick="if(event.target===this)closeTermsModal()">
+  <div class="terms-modal-box">
+    <div class="terms-modal-header">
+      <strong id="termsModalTitle">이용약관</strong>
+      <button class="terms-modal-close" onclick="closeTermsModal()">✕</button>
+    </div>
+    <div class="terms-modal-body" id="termsModalBody"></div>
+  </div>
+</div>
+
+<!-- ===== 확인 모달 ===== -->
+<div class="confirm-modal-overlay" id="confirmModalOverlay" onclick="if(event.target===this)closeConfirmModal()">
+  <div class="confirm-modal-box">
+    <div class="confirm-modal-title" id="confirmModalTitle">확인</div>
+    <div class="confirm-modal-msg" id="confirmModalMsg">정말 진행하시겠습니까?</div>
+    <div class="confirm-modal-btns">
+      <button class="confirm-modal-cancel" onclick="closeConfirmModal()">취소</button>
+      <button class="confirm-modal-ok" id="confirmModalOk">확인</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 주소 검색 모달 ===== -->
+<div class="search-modal-overlay" id="addrSearchOverlay" onclick="if(event.target===this)closeAddrSearchModal()">
+  <div class="search-modal-box">
+    <div class="search-modal-header">
+      <strong>주소 검색</strong>
+      <button class="search-modal-close" onclick="closeAddrSearchModal()">✕</button>
+    </div>
+    <div class="search-modal-search">
+      <input type="text" id="addrSearchInput" placeholder="동/읍/면 또는 도로명을 입력하세요" onkeyup="if(event.key==='Enter')doAddrSearch()">
+      <button onclick="doAddrSearch()">검색</button>
+    </div>
+    <div class="search-modal-results" id="addrSearchResults">
+      <div class="search-modal-empty">검색어를 입력해주세요</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 볼링장 검색 모달 ===== -->
+<div class="search-modal-overlay" id="bowlSearchOverlay" onclick="if(event.target===this)closeBowlSearchModal()">
+  <div class="search-modal-box">
+    <div class="search-modal-header">
+      <strong>볼링장 검색</strong>
+      <button class="search-modal-close" onclick="closeBowlSearchModal()">✕</button>
+    </div>
+    <div class="search-modal-search">
+      <input type="text" id="bowlSearchInput" placeholder="볼링장 이름 또는 지역명을 입력하세요" onkeyup="if(event.key==='Enter')doBowlSearch()">
+      <button onclick="doBowlSearch()">검색</button>
+    </div>
+    <div class="search-modal-results" id="bowlSearchResults">
+      <div class="search-modal-empty">검색어를 입력해주세요</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 활동내역 모달 ===== -->
+<div class="act-modal-overlay" id="actModalOverlay" onclick="if(event.target===this)closeActModal()">
+  <div class="act-modal-box">
+    <div class="act-modal-header">
+      <strong>나의 활동내역</strong>
+      <button class="act-modal-close" onclick="closeActModal()">✕</button>
+    </div>
+    <div class="act-tabs">
+      <button class="act-tab active" onclick="switchActTab(this,'posts')">게시물 <span id="actCountPosts">2</span></button>
+      <button class="act-tab" onclick="switchActTab(this,'comments')">댓글 <span id="actCountComments">24</span></button>
+      <button class="act-tab" onclick="switchActTab(this,'likes')">관심글 <span id="actCountLikes">36</span></button>
+    </div>
+    <div class="act-filters">
+      <button class="act-filter active" onclick="switchActFilter(this,'all')">전체</button>
+      <button class="act-filter" onclick="switchActFilter(this,'market')">중고장터</button>
+      <button class="act-filter" onclick="switchActFilter(this,'free')">자유</button>
+      <button class="act-filter" onclick="switchActFilter(this,'event')">이벤트</button>
+      <button class="act-filter" onclick="switchActFilter(this,'club')">클럽홍보</button>
+      <button class="act-filter" onclick="switchActFilter(this,'tour')">대회</button>
+    </div>
+    <div class="act-list" id="actList"></div>
+  </div>
+</div>
 
 <!-- ===== CHAT MODAL ===== -->
 <div class="chat-modal-overlay" id="chatModalOverlay">
@@ -3891,11 +4082,6 @@ function go(id) {
     document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
     var niEv = document.getElementById('ni-events');
     if (niEv) niEv.classList.add('active');
-  }
-  if (id === 'mypage-edit') {
-    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-    var niMy = document.getElementById('ni-mypage');
-    if (niMy) niMy.classList.add('active');
   }
   if (id === 'datalab') { renderDataLab(); }
   if (id === 'chat-list') { renderChatList(); }
@@ -4928,7 +5114,7 @@ function setBottomNav(screenId) {
   var bnId = 'bn-comm';
   if (screenId === 'home') bnId = 'bn-home';
   else if (screenId === 'datalab') bnId = 'bn-datalab';
-  else if (screenId === 'mypage' || screenId === 'mypage-edit') bnId = 'bn-mypage';
+  else if (screenId === 'mypage') bnId = 'bn-mypage';
   else if (screenId === 'free' || screenId === 'market' || screenId === 'events' || screenId === 'clubs' || screenId === 'tour') bnId = 'bn-community';
   else bnId = 'bn-comm';
   var el = document.getElementById(bnId);
@@ -7151,6 +7337,327 @@ function closeAppGateToday() {
   setTimeout(showAppGate, 800);
 })();
 
+/* ===== 약관 모달 ===== */
+var termsTexts = {
+  '이용약관': '제 1 조 (목적)\n본 약관은 칠텐(이하 "회사")이 제공하는 볼링 커뮤니티 서비스(이하 "서비스")의 이용과 관련하여 회사와 회원 간의 권리, 의무 및 책임사항 등을 규정함을 목적으로 합니다.\n\n제 2 조 (정의)\n① "서비스"란 회사가 제공하는 모든 서비스를 의미합니다.\n② "회원"이란 회사와 서비스 이용계약을 체결하고 회원 아이디를 부여받은 자를 말합니다.\n③ "아이디(ID)"란 회원의 식별과 서비스 이용을 위하여 회원이 설정하고 회사가 승인한 이메일 주소를 의미합니다.\n\n제 3 조 (약관의 효력 및 변경)\n① 본 약관은 서비스 화면에 게시하거나 기타의 방법으로 공지함으로써 효력이 발생합니다.\n② 회사는 필요한 경우 관련 법령을 위배하지 않는 범위에서 본 약관을 변경할 수 있으며, 변경된 약관은 공지사항을 통해 공지합니다.\n\n제 4 조 (서비스의 제공)\n① 회사는 다음과 같은 서비스를 제공합니다.\n- 볼링장 정보 제공 서비스\n- 커뮤니티 서비스 (게시판, 댓글 등)\n- 중고장터 서비스\n- 볼링 관련 데이터 분석 서비스\n- 기타 회사가 정하는 서비스\n\n제 5 조 (회원가입)\n① 서비스 이용을 희망하는 자는 회사가 정한 양식에 따라 회원정보를 기입한 후 본 약관에 동의한다는 의사표시를 함으로써 회원가입을 신청합니다.\n② 회사는 전항에 따라 회원가입을 신청한 자 중 다음 각 호에 해당하지 않는 한 회원으로 등록합니다.',
+  '개인정보 처리방침': '1. 개인정보의 처리 목적\n칠텐은 다음의 목적을 위하여 개인정보를 처리합니다. 처리하고 있는 개인정보는 다음의 목적 이외의 용도로는 이용되지 않으며, 이용 목적이 변경되는 경우에는 별도의 동의를 받는 등 필요한 조치를 이행할 예정입니다.\n\n가. 회원 가입 및 관리: 회원제 서비스 이용에 따른 본인확인, 개인 식별, 불량 회원의 부정 이용 방지, 가입 의사 확인, 분쟁 조정을 위한 기록 보존, 불만 처리 등의 목적\n나. 서비스 제공: 콘텐츠 제공, 맞춤서비스 제공, 본인인증 등의 목적\n\n2. 개인정보의 처리 및 보유 기간\n① 칠텐은 법령에 따른 개인정보 보유·이용기간 또는 정보주체로부터 개인정보를 수집 시에 동의 받은 개인정보 보유·이용기간 내에서 개인정보를 처리·보유합니다.\n② 각각의 개인정보 처리 및 보유 기간은 다음과 같습니다.\n- 회원 가입 및 관리: 회원 탈퇴 시까지\n- 서비스 제공: 서비스 공급 완료 및 요금 결제·정산 완료 시까지\n\n3. 수집하는 개인정보의 항목\n① 필수항목: 이메일, 비밀번호, 이름, 생년월일, 성별, 닉네임\n② 선택항목: 프로필 사진, 지역 정보, 볼링 관련 정보\n③ 서비스 이용 과정에서 자동 생성·수집되는 정보: 접속 IP, 쿠키, 서비스 이용 기록, 접속 로그',
+  '위치정보 이용약관': '제 1 조 (목적)\n본 약관은 칠텐(이하 "회사")이 제공하는 위치기반서비스에 대해 회사와 위치기반서비스를 이용하는 개인위치정보주체(이하 "이용자")간의 권리·의무 및 책임사항, 기타 필요한 사항을 규정함을 목적으로 합니다.\n\n제 2 조 (이용약관의 효력 및 변경)\n① 본 약관은 이용자가 본 약관에 동의하고 회사가 정한 절차에 따라 위치기반서비스의 이용자로 등록됨으로써 효력이 발생합니다.\n② 회사는 위치기반서비스의 변경사항을 반영하기 위해 본 약관을 수정할 수 있으며, 변경된 약관은 서비스 내 공지를 통해 이용자에게 공지합니다.\n\n제 3 조 (서비스의 내용)\n회사는 위치정보사업자로부터 수집한 이용자의 위치정보를 이용하여 다음과 같은 위치기반서비스를 제공합니다.\n① 주변 볼링장 검색: 이용자의 현재 위치를 기반으로 인근 볼링장 정보를 제공합니다.\n② 지역 맞춤 콘텐츠: 이용자의 위치를 기반으로 해당 지역의 볼링 관련 콘텐츠를 제공합니다.\n③ 위치 기반 알림: 이용자가 설정한 관심 볼링장 주변에 있을 때 관련 정보를 알림으로 제공합니다.\n\n제 4 조 (개인위치정보의 이용 또는 제공)\n① 회사는 개인위치정보를 이용하여 위치기반서비스를 제공하는 경우 본 약관에 고지하고 동의를 받습니다.\n② 회사는 이용자의 동의 없이 개인위치정보를 제3자에게 제공하지 않습니다.'
+};
+
+function openTermsModal(title) {
+  document.getElementById('termsModalTitle').textContent = title;
+  var body = document.getElementById('termsModalBody');
+  body.textContent = '';
+  var text = termsTexts[title] || '약관 내용이 준비 중입니다.';
+  text.split('\n').forEach(function(line) {
+    var p = document.createElement('p');
+    p.style.margin = line.trim() === '' ? '8px 0' : '0';
+    p.textContent = line;
+    body.appendChild(p);
+  });
+  body.scrollTop = 0;
+  document.getElementById('termsModalOverlay').classList.add('active');
+}
+function closeTermsModal() {
+  document.getElementById('termsModalOverlay').classList.remove('active');
+}
+
+/* ===== 확인 모달 ===== */
+function openConfirmModal(title, msg, okText) {
+  document.getElementById('confirmModalTitle').textContent = title;
+  document.getElementById('confirmModalMsg').innerHTML = msg;
+  var okBtn = document.getElementById('confirmModalOk');
+  okBtn.textContent = okText || '확인';
+  if (title === '회원탈퇴') {
+    okBtn.classList.add('danger');
+  } else {
+    okBtn.classList.remove('danger');
+  }
+  okBtn.onclick = function() {
+    closeConfirmModal();
+    alert(title + ' 처리가 완료되었습니다.');
+  };
+  document.getElementById('confirmModalOverlay').classList.add('active');
+}
+function closeConfirmModal() {
+  document.getElementById('confirmModalOverlay').classList.remove('active');
+}
+
+/* 프로토타입: 인증타입 전환 */
+function toggleVerifyType() {
+  var v = document.getElementById('myInfoVerified');
+  var u = document.getElementById('myInfoUnverified');
+  if (v.style.display === 'none') {
+    v.style.display = '';
+    u.style.display = 'none';
+  } else {
+    v.style.display = 'none';
+    u.style.display = '';
+  }
+}
+
+/* 마이페이지 저장 버튼 활성/비활성 */
+var _myDirty = false;
+function markMyDirty() {
+  _myDirty = true;
+  ['mySaveTop','mySaveBottom'].forEach(function(id) {
+    var b = document.getElementById(id);
+    if (b) { b.classList.remove('disabled'); b.disabled = false; }
+  });
+  ['mySaveMsgTop','mySaveMsgBottom'].forEach(function(id) {
+    var m = document.getElementById(id);
+    if (m) m.classList.add('show');
+  });
+  ['myCancelTop','myCancelBottom'].forEach(function(id) {
+    var c = document.getElementById(id);
+    if (c) c.classList.add('show');
+  });
+}
+function resetMySave() {
+  _myDirty = false;
+  ['mySaveTop','mySaveBottom'].forEach(function(id) {
+    var b = document.getElementById(id);
+    if (b) { b.classList.add('disabled'); b.disabled = true; }
+  });
+  ['mySaveMsgTop','mySaveMsgBottom'].forEach(function(id) {
+    var m = document.getElementById(id);
+    if (m) m.classList.remove('show');
+  });
+  ['myCancelTop','myCancelBottom'].forEach(function(id) {
+    var c = document.getElementById(id);
+    if (c) c.classList.remove('show');
+  });
+}
+function doMypageSave() {
+  alert('변경사항이 저장되었습니다.');
+  resetMySave();
+}
+function doMypageCancel() {
+  if (!confirm('변경사항을 취소하시겠습니까?')) return;
+  resetMySave();
+  alert('변경사항이 취소되었습니다.');
+}
+
+/* ===== 주소 검색 모달 ===== */
+var _dummyAddr = [
+  {name:'학암동', addr:'경기도 하남시 학암동'},
+  {name:'미사동', addr:'경기도 하남시 미사동'},
+  {name:'덕풍동', addr:'경기도 하남시 덕풍동'},
+  {name:'풍산동', addr:'경기도 하남시 풍산동'},
+  {name:'신장동', addr:'경기도 하남시 신장동'},
+  {name:'강일동', addr:'서울특별시 강동구 강일동'},
+  {name:'천호동', addr:'서울특별시 강동구 천호동'},
+  {name:'잠실동', addr:'서울특별시 송파구 잠실동'},
+  {name:'거여동', addr:'서울특별시 송파구 거여동'},
+  {name:'공릉동', addr:'서울특별시 노원구 공릉동'}
+];
+function openAddrSearchModal() {
+  document.getElementById('addrSearchInput').value = '';
+  document.getElementById('addrSearchResults').innerHTML = '<div class="search-modal-empty">동/읍/면 또는 도로명을 입력해주세요</div>';
+  document.getElementById('addrSearchOverlay').classList.add('active');
+  setTimeout(function(){ document.getElementById('addrSearchInput').focus(); }, 100);
+}
+function closeAddrSearchModal() {
+  document.getElementById('addrSearchOverlay').classList.remove('active');
+}
+function doAddrSearch() {
+  var q = document.getElementById('addrSearchInput').value.trim();
+  var box = document.getElementById('addrSearchResults');
+  if (!q) { box.innerHTML = '<div class="search-modal-empty">검색어를 입력해주세요</div>'; return; }
+  var results = _dummyAddr.filter(function(a){ return a.name.indexOf(q) > -1 || a.addr.indexOf(q) > -1; });
+  if (!results.length) { box.innerHTML = '<div class="search-modal-empty">검색 결과가 없습니다</div>'; return; }
+  box.innerHTML = results.map(function(a){
+    return '<div class="search-result-item" onclick="selectAddr(\''+a.addr+'\')">' +
+      '<div class="search-result-name">'+a.name+'</div>' +
+      '<div class="search-result-addr">'+a.addr+'</div></div>';
+  }).join('');
+}
+function selectAddr(addr) {
+  document.getElementById('myRegion').value = addr;
+  closeAddrSearchModal();
+  markMyDirty();
+}
+
+/* ===== 볼링장 검색 모달 ===== */
+var _bowlTarget = '';
+var _dummyBowl = [
+  {name:'공릉볼링센터', addr:'서울 노원구 공릉동 123-4'},
+  {name:'정석볼링장(거여점)', addr:'서울 송파구 거여동 55-2'},
+  {name:'엑스핀 볼링라운지', addr:'경기 하남시 영덕동 88'},
+  {name:'미사볼링센터', addr:'경기 하남시 미사동 201'},
+  {name:'강남볼링센터', addr:'서울 강남구 역삼동 777'},
+  {name:'라운드원 잠실점', addr:'서울 송파구 잠실동 300'},
+  {name:'천호볼링센터', addr:'서울 강동구 천호동 456'},
+  {name:'킹핀볼링클럽', addr:'서울 마포구 합정동 112'},
+  {name:'스타볼링장', addr:'경기 성남시 분당구 서현동 90'},
+  {name:'드림볼링센터', addr:'경기 하남시 덕풍동 33'}
+];
+function openBowlSearchModal(targetId) {
+  _bowlTarget = targetId;
+  document.getElementById('bowlSearchInput').value = '';
+  document.getElementById('bowlSearchResults').innerHTML = '<div class="search-modal-empty">볼링장 이름 또는 지역명을 입력해주세요</div>';
+  document.getElementById('bowlSearchOverlay').classList.add('active');
+  setTimeout(function(){ document.getElementById('bowlSearchInput').focus(); }, 100);
+}
+function closeBowlSearchModal() {
+  document.getElementById('bowlSearchOverlay').classList.remove('active');
+}
+function doBowlSearch() {
+  var q = document.getElementById('bowlSearchInput').value.trim();
+  var box = document.getElementById('bowlSearchResults');
+  if (!q) { box.innerHTML = '<div class="search-modal-empty">검색어를 입력해주세요</div>'; return; }
+  var results = _dummyBowl.filter(function(b){ return b.name.indexOf(q) > -1 || b.addr.indexOf(q) > -1; });
+  if (!results.length) { box.innerHTML = '<div class="search-modal-empty">검색 결과가 없습니다</div>'; return; }
+  box.innerHTML = results.map(function(b){
+    return '<div class="search-result-item" onclick="selectBowl(\''+b.name+'\',\''+b.addr+'\')">' +
+      '<div class="search-result-name">'+b.name+'</div>' +
+      '<div class="search-result-addr">'+b.addr+'</div></div>';
+  }).join('');
+}
+function selectBowl(name, addr) {
+  if (_bowlTarget) {
+    var shortAddr = addr.split(' ');
+    var dong = shortAddr.length >= 3 ? shortAddr[shortAddr.length-1].replace(/[0-9\-]/g,'') : '';
+    document.getElementById(_bowlTarget).value = '(' + dong + ') ' + name;
+  }
+  closeBowlSearchModal();
+  markMyDirty();
+}
+
+/* ===== 활동내역 모달 ===== */
+var _actTab = 'posts';
+var _actFilter = 'all';
+var _actData = {
+  posts: [
+    {cat:'free', title:'주말 볼링 같이 칠 분!', desc:'이번 주 토요일 오후에 하남 미사볼링센터에서...', date:'2026.03.28', thumb:'https://picsum.photos/seed/bowl1/112/112'},
+    {cat:'market', title:'스톰 피직스 15파운드 판매', desc:'사용감 적고 상태 좋습니다. 직거래 선호.', date:'2026.03.15', thumb:'https://picsum.photos/seed/bowl2/112/112'}
+  ],
+  comments: [
+    {cat:'free', title:'초보인데 볼링공 추천해주세요', desc:'저도 처음에 하이로드 썼는데 괜찮았어요!', date:'2026.04.01', thumb:'https://picsum.photos/seed/c1/112/112'},
+    {cat:'event', title:'강남볼링센터 3월 이벤트', desc:'오 이거 좋네요 꼭 가봐야겠어요', date:'2026.03.30'},
+    {cat:'club', title:'하남 미사 볼링동호회 모집', desc:'저도 참여하고 싶습니다!', date:'2026.03.28'},
+    {cat:'tour', title:'2026 하남시장배 볼링대회 안내', desc:'접수 언제까지인가요?', date:'2026.03.25', thumb:'https://picsum.photos/seed/c4/112/112'},
+    {cat:'free', title:'볼링 에티켓 정리', desc:'좋은 글이네요 감사합니다', date:'2026.03.22'},
+    {cat:'market', title:'모티브 트릭스 14파운드 팝니다', desc:'가격 네고 가능한가요?', date:'2026.03.20', thumb:'https://picsum.photos/seed/c6/112/112'},
+    {cat:'free', title:'스페어 처리 팁 공유', desc:'3-6-9 시스템 저도 연습해봐야겠네요', date:'2026.03.18'},
+    {cat:'event', title:'공릉볼링센터 오픈 기념 할인', desc:'오 여기 새로 생겼군요!', date:'2026.03.15', thumb:'https://picsum.photos/seed/c8/112/112'},
+    {cat:'club', title:'송파 볼링사랑 동호회', desc:'일요일 정모 때 한번 방문해도 될까요?', date:'2026.03.12'},
+    {cat:'free', title:'볼링 점수 200 돌파 후기', desc:'축하드려요!! 저도 목표입니다', date:'2026.03.10'},
+    {cat:'tour', title:'제5회 송파구청장배 볼링대회', desc:'작년에 참가했는데 분위기 좋았어요', date:'2026.03.08'},
+    {cat:'free', title:'볼링화 추천 부탁드립니다', desc:'데스터 THE9 추천합니다', date:'2026.03.05', thumb:'https://picsum.photos/seed/c12/112/112'},
+    {cat:'market', title:'브런즈윅 킹핀 15파운드', desc:'직거래 가능 지역이 어디인가요?', date:'2026.03.03', thumb:'https://picsum.photos/seed/c13/112/112'},
+    {cat:'free', title:'레인 컨디션 읽는 법', desc:'정리 잘 해주셨네요 북마크!', date:'2026.03.01'},
+    {cat:'event', title:'미사볼링센터 봄맞이 이벤트', desc:'가족 할인도 되나요?', date:'2026.02.28'},
+    {cat:'club', title:'노원 볼링 번개 모임', desc:'다음 번개 때 연락주세요~', date:'2026.02.25'},
+    {cat:'free', title:'핑거 그립 교체 후기', desc:'확실히 릴리즈가 달라지긴 하더라고요', date:'2026.02.22', thumb:'https://picsum.photos/seed/c17/112/112'},
+    {cat:'tour', title:'2026 경기도 볼링 리그전', desc:'신청 방법 공유해주셔서 감사합니다', date:'2026.02.20'},
+    {cat:'free', title:'볼링 애니메이션 자세 교정', desc:'영상 보고 많이 배웠습니다', date:'2026.02.18'},
+    {cat:'market', title:'로또그립 트라이던트 퀘스트', desc:'상태 사진 좀 더 올려주실 수 있나요?', date:'2026.02.15', thumb:'https://picsum.photos/seed/c20/112/112'},
+    {cat:'free', title:'겨울철 볼링 컨디션 관리', desc:'손 관리 팁 감사합니다!', date:'2026.02.12'},
+    {cat:'event', title:'정석볼링장 설 연휴 이벤트', desc:'연휴에 가봐야겠네요!', date:'2026.02.08'},
+    {cat:'club', title:'강동구 볼링 정모 안내', desc:'장소가 어디인가요?', date:'2026.02.05'},
+    {cat:'free', title:'스트라이크 확률 높이는 법', desc:'포켓 공략법 잘 정리해주셨네요', date:'2026.02.01'}
+  ],
+  likes: [
+    {cat:'free', title:'볼링 스코어 계산법 총정리', desc:'초보부터 고수까지 알아두면 좋은 점수 계산...', date:'2026.04.02'},
+    {cat:'tour', title:'2026 전국 볼링대회 일정 총정리', desc:'올해 주요 대회 일정을 한눈에 정리...', date:'2026.04.01', thumb:'https://picsum.photos/seed/l2/112/112'},
+    {cat:'market', title:'로또그립 RST X-1 15파운드', desc:'거의 새것 상태, 3라운드만 사용...', date:'2026.03.30', thumb:'https://picsum.photos/seed/l3/112/112'},
+    {cat:'event', title:'미사볼링센터 오픈 1주년 이벤트', desc:'게임당 1,000원 할인 + 음료 무료 제공...', date:'2026.03.28'},
+    {cat:'club', title:'하남시 볼링 동호회 회원모집', desc:'매주 수요일 저녁 8시 정모, 초보 환영...', date:'2026.03.26', thumb:'https://picsum.photos/seed/l5/112/112'},
+    {cat:'free', title:'볼링공 관리 방법 (드릴, 세척, 보관)', desc:'오일 제거부터 표면 처리까지...', date:'2026.03.24'},
+    {cat:'tour', title:'제3회 하남시장배 볼링대회 결과', desc:'개인전/단체전 입상 결과...', date:'2026.03.22'},
+    {cat:'free', title:'레인 오일 패턴 이해하기', desc:'하우스샷과 스포츠샷의 차이...', date:'2026.03.20', thumb:'https://picsum.photos/seed/l8/112/112'},
+    {cat:'market', title:'데스터 SST8 볼링화 270mm', desc:'3회 착용, 상태 A급...', date:'2026.03.18', thumb:'https://picsum.photos/seed/l9/112/112'},
+    {cat:'event', title:'강남볼링센터 봄맞이 할인 이벤트', desc:'3월 한 달간 야간 50% 할인...', date:'2026.03.16'},
+    {cat:'club', title:'송파 볼링사랑 3월 정기모임', desc:'정모 장소: 정석볼링장 거여점...', date:'2026.03.14'},
+    {cat:'free', title:'볼링 스트레칭 루틴', desc:'경기 전후 필수 스트레칭...', date:'2026.03.12'},
+    {cat:'tour', title:'2026 SBS배 전국 볼링대회 접수', desc:'접수 기간: 3/1~3/20...', date:'2026.03.10', thumb:'https://picsum.photos/seed/l13/112/112'},
+    {cat:'free', title:'핀 배치별 스페어 처리법', desc:'7번핀, 10번핀 등 난이도별...', date:'2026.03.08'},
+    {cat:'market', title:'스톰 피직스 투어 에디션', desc:'한정판 15파운드, 미개봉...', date:'2026.03.06', thumb:'https://picsum.photos/seed/l15/112/112'},
+    {cat:'event', title:'공릉볼링센터 신규 회원 이벤트', desc:'가입 시 3게임 무료...', date:'2026.03.04'},
+    {cat:'free', title:'볼링 용어 사전 (초보용)', desc:'스트라이크, 스페어, 거터 등...', date:'2026.03.02'},
+    {cat:'club', title:'노원 번개볼링 모임', desc:'매주 금요일 저녁 번개 진행...', date:'2026.02.28', thumb:'https://picsum.photos/seed/l18/112/112'},
+    {cat:'free', title:'릴리즈 기술 향상 5가지 팁', desc:'손목 각도부터 팔로스루까지...', date:'2026.02.26'},
+    {cat:'tour', title:'경기도 볼링협회 리그전 안내', desc:'4월 개막, 참가팀 모집 중...', date:'2026.02.24'},
+    {cat:'free', title:'볼링장 에티켓 10가지', desc:'양 옆 레인 배려하기...', date:'2026.02.22', thumb:'https://picsum.photos/seed/l21/112/112'},
+    {cat:'market', title:'해머 블랙 위도우 14파운드', desc:'여성/주니어용, 상태 양호...', date:'2026.02.20', thumb:'https://picsum.photos/seed/l22/112/112'},
+    {cat:'event', title:'정석볼링장 3주년 감사 이벤트', desc:'전 회원 1게임 무료 쿠폰 증정...', date:'2026.02.18'},
+    {cat:'free', title:'나에게 맞는 볼링공 무게 고르기', desc:'체중 대비 추천 무게 가이드...', date:'2026.02.16'},
+    {cat:'club', title:'강동 볼링 동호회 창립 안내', desc:'매주 토요일 오전 활동...', date:'2026.02.14'},
+    {cat:'free', title:'볼링 평균 200 넘기 프로젝트', desc:'3개월간의 연습 과정 기록...', date:'2026.02.12', thumb:'https://picsum.photos/seed/l26/112/112'},
+    {cat:'tour', title:'제7회 노원구청장배 볼링대회', desc:'접수 마감 2/28...', date:'2026.02.10'},
+    {cat:'free', title:'커브볼 던지는 방법 (영상)', desc:'초보자를 위한 단계별 가이드...', date:'2026.02.08', thumb:'https://picsum.photos/seed/l28/112/112'},
+    {cat:'market', title:'모티브 바이탈 사인 15파운드', desc:'2개월 사용, 스크래치 없음...', date:'2026.02.06', thumb:'https://picsum.photos/seed/l29/112/112'},
+    {cat:'free', title:'볼링장 추천 베스트 10 (수도권)', desc:'시설/가격/접근성 기준 정리...', date:'2026.02.04'},
+    {cat:'event', title:'드림볼링센터 오픈 이벤트', desc:'오픈 기념 3일간 50% 할인...', date:'2026.02.02'},
+    {cat:'free', title:'볼링 보험 가입 안내', desc:'볼링 중 부상 대비 보험 정리...', date:'2026.01.30'},
+    {cat:'club', title:'분당 볼링클럽 회원 모집', desc:'실력 무관, 즐볼 지향...', date:'2026.01.28', thumb:'https://picsum.photos/seed/l33/112/112'},
+    {cat:'free', title:'PBA 2026 시즌 전망', desc:'올해 주목할 선수와 대회...', date:'2026.01.26'},
+    {cat:'tour', title:'2026 서울시 볼링 챔피언십', desc:'예선 3/15, 본선 4/5...', date:'2026.01.24', thumb:'https://picsum.photos/seed/l35/112/112'},
+    {cat:'free', title:'볼링 손가락 테이핑 방법', desc:'엄지/중지/약지 테이핑 가이드...', date:'2026.01.22'}
+  ]
+};
+var _catLabel = {free:'자유',market:'중고장터',event:'이벤트',club:'클럽홍보',tour:'대회'};
+
+function openActModal() {
+  _actTab = 'posts'; _actFilter = 'all';
+  document.querySelectorAll('.act-tab').forEach(function(t,i){ t.classList.toggle('active', i===0); });
+  document.querySelectorAll('.act-filter').forEach(function(f,i){ f.classList.toggle('active', i===0); });
+  renderActList();
+  document.getElementById('actModalOverlay').classList.add('active');
+}
+function closeActModal() {
+  document.getElementById('actModalOverlay').classList.remove('active');
+}
+function switchActTab(btn, tab) {
+  _actTab = tab; _actFilter = 'all';
+  document.querySelectorAll('.act-tab').forEach(function(t){ t.classList.remove('active'); });
+  btn.classList.add('active');
+  document.querySelectorAll('.act-filter').forEach(function(f,i){ f.classList.toggle('active', i===0); });
+  renderActList();
+}
+function switchActFilter(btn, cat) {
+  _actFilter = cat;
+  document.querySelectorAll('.act-filter').forEach(function(f){ f.classList.remove('active'); });
+  btn.classList.add('active');
+  renderActList();
+}
+function renderActList() {
+  var data = _actData[_actTab] || [];
+  if (_actFilter !== 'all') data = data.filter(function(d){ return d.cat === _actFilter; });
+  var box = document.getElementById('actList');
+  if (!data.length) { box.innerHTML = '<div class="act-empty">내역이 없습니다</div>'; return; }
+  var thumbIcons = {free:'📝',market:'🛒',event:'🎉',club:'🎳',tour:'🏆'};
+  box.innerHTML = data.map(function(d){
+    var thumb = d.thumb ? '<img src="'+d.thumb+'" alt="">' : (thumbIcons[d.cat]||'📄');
+    return '<div class="act-item">' +
+      '<div class="act-item-thumb">'+thumb+'</div>' +
+      '<div class="act-item-body">' +
+      '<div class="act-item-top"><span class="act-item-badge '+d.cat+'">'+(_catLabel[d.cat]||d.cat)+'</span><span class="act-item-date">'+d.date+'</span></div>' +
+      '<div class="act-item-title">'+d.title+'</div>' +
+      '<div class="act-item-desc">'+d.desc+'</div></div></div>';
+  }).join('');
+  box.scrollTop = 0;
+}
+
+/* 입력 필드 변경 감지 */
+document.addEventListener('input', function(e) {
+  if (e.target.classList.contains('my-track')) markMyDirty();
+});
+document.addEventListener('change', function(e) {
+  if (e.target.classList.contains('my-track')) markMyDirty();
+});
+
+/* 마이페이지에서 저장 안 하고 이동 시 경고 */
+var _origGo = go;
+go = function(id) {
+  if (_myDirty && (document.getElementById('s-mypage') && document.getElementById('s-mypage').classList.contains('active'))) {
+    if (!confirm('저장하지 않은 변경사항이 있습니다.\n페이지를 이동하시겠습니까?')) return;
+    resetMySave();
+  }
+  _origGo(id);
+};
+
 </script>
 
 <!-- 삭제 확인 모달 -->
@@ -7348,20 +7855,20 @@ function closeAppGateToday() {
         <label class="terms-check">
           <input type="checkbox" class="term-item required" onchange="checkTerms()">
           <span class="tc-box"></span>
-          <span class="tc-label">[필수] 이용약관 동의</span>
-          <button class="tc-view" onclick="event.preventDefault();">보기</button>
+          <span class="tc-label">[필수] 이용약관</span>
+          <button class="tc-view" onclick="event.preventDefault();openTermsModal('이용약관');">보기</button>
         </label>
         <label class="terms-check">
           <input type="checkbox" class="term-item required" onchange="checkTerms()">
           <span class="tc-box"></span>
-          <span class="tc-label">[필수] 개인정보 수집 및 이용 동의</span>
-          <button class="tc-view" onclick="event.preventDefault();">보기</button>
+          <span class="tc-label">[필수] 개인정보 수집 및 이용동의</span>
+          <button class="tc-view" onclick="event.preventDefault();openTermsModal('개인정보 처리방침');">보기</button>
         </label>
         <label class="terms-check">
           <input type="checkbox" class="term-item required" onchange="checkTerms()">
           <span class="tc-box"></span>
-          <span class="tc-label">[필수] 만 14세 이상입니다</span>
-          <span></span>
+          <span class="tc-label">[필수] 위치정보 이용동의</span>
+          <button class="tc-view" onclick="event.preventDefault();openTermsModal('위치정보 이용약관');">보기</button>
         </label>
         <label class="terms-check">
           <input type="checkbox" class="term-item" onchange="checkTerms()">
