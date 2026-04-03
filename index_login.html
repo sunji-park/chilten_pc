@@ -257,6 +257,12 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
 .auth-toggle-btn{flex:1;border:none;background:#fff;color:var(--text2);font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .15s;padding:0 8px;white-space:nowrap;}
 .auth-toggle-btn.active{background:var(--blue);color:#fff;}
 
+/* 핸디설정 */
+.my-handy-group{display:flex;flex-direction:column;gap:12px;padding-top:4px;}
+.my-handy-row{display:flex;align-items:center;gap:12px;}
+.my-handy-label{font-size:13px;font-weight:600;color:var(--text2);min-width:60px;flex-shrink:0;}
+.my-handy-row .auth-toggle{min-width:160px;}
+
 /* 소셜가입 안내 */
 .signup-social-notice{display:flex;align-items:center;gap:8px;padding:10px 14px;background:var(--sub-blue);border:1px solid rgba(0,71,187,.15);border-radius:10px;margin-bottom:20px;}
 .ssn-icon{font-size:16px;flex-shrink:0;}
@@ -322,15 +328,13 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
 .my-verified-badge{color:var(--blue);background:rgba(33,101,207,.08);}
 .my-unverified-badge{color:#e67e22;background:rgba(230,126,34,.08);}
 .my-edit-info{text-align:center;font-size:12px;color:var(--text2);padding:8px 0 0;line-height:1.5;}
-.my-save-bar{padding:6px 0;display:flex;align-items:center;justify-content:flex-end;gap:8px;}
-.my-save-msg{font-size:12px;color:#e74c3c;display:none;font-weight:600;margin-right:auto;}
-.my-save-msg.show{display:block;}
-.my-cancel-btn{padding:8px 20px;border:1px solid var(--line);border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;background:#fff;color:var(--text2);transition:all .15s;display:none;}
-.my-cancel-btn.show{display:inline-block;}
-.my-cancel-btn:hover{border-color:var(--text2);color:var(--text1);}
-.my-save-btn{padding:8px 24px;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .15s;color:#fff;background:var(--blue);}
+.my-save-bar{position:sticky;top:80px;z-index:150;padding:6px 14px;display:none;align-items:center;justify-content:flex-end;gap:8px;background:rgba(215,234,250,.85);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1.5px solid rgba(0,71,187,.25);border-radius:8px;box-shadow:0 2px 8px rgba(0,71,187,.08);margin-bottom:10px;}
+.my-save-bar.show{display:flex;}
+.my-save-msg{font-size:11px;color:#e74c3c;font-weight:600;margin-right:auto;}
+.my-cancel-btn{padding:5px 16px;border:1px solid rgba(0,71,187,.2);border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;background:rgba(255,255,255,.7);color:var(--text2);transition:all .15s;}
+.my-cancel-btn:hover{background:#fff;border-color:var(--blue);color:var(--text1);}
+.my-save-btn{padding:5px 20px;border:none;border-radius:6px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .15s;color:#fff;background:var(--blue);}
 .my-save-btn:hover{opacity:.85;}
-.my-save-btn.disabled{background:var(--line);color:var(--text2);cursor:default;pointer-events:none;}
 /* 약관 모달 */
 .terms-modal-overlay,.confirm-modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:9999;align-items:center;justify-content:center;}
 .terms-modal-overlay.active,.confirm-modal-overlay.active{display:flex;}
@@ -1375,6 +1379,26 @@ select.mw-input{cursor:pointer;-webkit-appearance:none;appearance:none;backgroun
   .tr-detail-alley-name .tio-badge{font-size:9px;padding:2px 7px 2px 5px;}
   .tr-detail-alley-name .tio-badge img{width:14px;height:14px;}
   .tr-detail-alley-name .lane-badge{font-size:10px;padding:2px 6px;}
+  /* ── 마이페이지 모바일 ── */
+  .my-profile-card{flex-wrap:wrap;gap:12px;padding:16px;}
+  .my-profile-avatar{width:70px;height:70px;}
+  .my-profile-avatar img{width:70px;height:70px;}
+  .my-profile-info{flex:1;min-width:120px;}
+  .my-profile-name{font-size:16px;}
+  .my-profile-email-row{flex-wrap:wrap;gap:4px;}
+  .my-profile-ref{margin-left:auto;margin-top:0;justify-content:flex-end;}
+  .my-login-method{white-space:nowrap;}
+  .my-section-card{padding:14px 16px;}
+  .my-edit-row{flex-wrap:wrap;gap:4px;padding:8px 0;}
+  .my-edit-label{min-width:auto;width:100%;font-size:11px;}
+  .my-edit-input,.my-edit-select{width:100%;font-size:13px;}
+  .my-save-bar{position:fixed!important;top:var(--header-h);left:0;right:0;padding:6px 12px;border-radius:0;margin:0;border-left:none;border-right:none;border-top:none;box-shadow:0 2px 8px rgba(0,71,187,.12);}
+  .my-activity-num{font-size:18px;}
+  .act-modal-box{width:98%;max-height:85vh;}
+  .my-handy-row{flex-wrap:wrap;}
+  .my-handy-label{min-width:auto;width:100%;font-size:11px;margin-bottom:-4px;}
+  .my-handy-row .auth-toggle{min-width:0;width:100%;max-width:100%;}
+  .my-handy-row .auth-toggle-btn{font-size:12px;padding:0 6px;}
 }
 
 /* ═══════════════════════════════
@@ -3329,6 +3353,13 @@ select.mw-input{cursor:pointer;-webkit-appearance:none;appearance:none;backgroun
 <div class="comm-layout">
 <div class="comm-main">
 
+  <!-- 저장/취소 (최상단) -->
+  <div class="my-save-bar" id="mySaveBar">
+    <div class="my-save-msg" id="mySaveMsgTop">변경된 내용이 있습니다. 꼭 저장해주세요!</div>
+    <button class="my-cancel-btn" id="myCancelTop" onclick="doMypageCancel()">취소</button>
+    <button class="my-save-btn" id="mySaveTop" onclick="doMypageSave()">저장</button>
+  </div>
+
   <!-- 프로필 상단 -->
   <div class="my-profile-card">
     <div class="my-profile-avatar" onclick="alert('프로필 사진을 변경할 수 있습니다.')" title="프로필 사진 변경">
@@ -3365,13 +3396,6 @@ select.mw-input{cursor:pointer;-webkit-appearance:none;appearance:none;backgroun
         <div class="my-activity-label">관심글</div>
       </div>
     </div>
-  </div>
-
-  <!-- 상단 저장/취소 -->
-  <div class="my-save-bar">
-    <div class="my-save-msg" id="mySaveMsgTop">변경된 내용이 있습니다. 꼭 저장해주세요!</div>
-    <button class="my-cancel-btn" id="myCancelTop" onclick="doMypageCancel()">취소</button>
-    <button class="my-save-btn disabled" id="mySaveTop" disabled onclick="doMypageSave()">저장</button>
   </div>
 
   <!-- 기본정보 : 본인인증 완료 유저 (디폴트) -->
@@ -3461,17 +3485,17 @@ select.mw-input{cursor:pointer;-webkit-appearance:none;appearance:none;backgroun
   <!-- 핸디설정 -->
   <div class="my-section-card">
     <div class="my-sec-header">핸디설정</div>
-    <div style="display:flex;flex-direction:column;gap:12px;padding-top:4px;">
-      <div style="display:flex;align-items:center;gap:12px;">
-        <span class="my-edit-label" style="min-width:60px;">장애여부</span>
-        <div class="auth-toggle" id="editDisability" data-value="비장애" style="min-width:160px;">
+    <div class="my-handy-group">
+      <div class="my-handy-row">
+        <span class="my-handy-label">장애여부</span>
+        <div class="auth-toggle" id="editDisability" data-value="비장애">
           <button type="button" class="auth-toggle-btn active" onclick="setAuthToggle(this,'editDisability','비장애');markMyDirty()">비장애</button>
           <button type="button" class="auth-toggle-btn" onclick="setAuthToggle(this,'editDisability','장애');markMyDirty()">장애</button>
         </div>
       </div>
-      <div style="display:flex;align-items:center;gap:12px;">
-        <span class="my-edit-label" style="min-width:60px;">볼링구분</span>
-        <div class="auth-toggle" id="editLevel" data-value="아마추어" style="min-width:160px;">
+      <div class="my-handy-row">
+        <span class="my-handy-label">볼링구분</span>
+        <div class="auth-toggle" id="editLevel" data-value="아마추어">
           <button type="button" class="auth-toggle-btn active" onclick="setAuthToggle(this,'editLevel','아마추어');markMyDirty()">아마추어</button>
           <button type="button" class="auth-toggle-btn" onclick="setAuthToggle(this,'editLevel','프로');markMyDirty()">프로</button>
         </div>
@@ -3479,12 +3503,6 @@ select.mw-input{cursor:pointer;-webkit-appearance:none;appearance:none;backgroun
     </div>
   </div>
 
-  <!-- 하단 저장 버튼 -->
-  <div class="my-save-bar">
-    <div class="my-save-msg" id="mySaveMsgBottom">변경된 내용이 있습니다. 꼭 저장해주세요!</div>
-    <button class="my-cancel-btn" id="myCancelBottom" onclick="doMypageCancel()">취소</button>
-    <button class="my-save-btn disabled" id="mySaveBottom" disabled onclick="doMypageSave()">저장</button>
-  </div>
 
   <!-- 설정 메뉴 -->
   <div class="my-section-card">
@@ -7400,33 +7418,13 @@ function toggleVerifyType() {
 var _myDirty = false;
 function markMyDirty() {
   _myDirty = true;
-  ['mySaveTop','mySaveBottom'].forEach(function(id) {
-    var b = document.getElementById(id);
-    if (b) { b.classList.remove('disabled'); b.disabled = false; }
-  });
-  ['mySaveMsgTop','mySaveMsgBottom'].forEach(function(id) {
-    var m = document.getElementById(id);
-    if (m) m.classList.add('show');
-  });
-  ['myCancelTop','myCancelBottom'].forEach(function(id) {
-    var c = document.getElementById(id);
-    if (c) c.classList.add('show');
-  });
+  var bar = document.getElementById('mySaveBar');
+  if (bar) bar.classList.add('show');
 }
 function resetMySave() {
   _myDirty = false;
-  ['mySaveTop','mySaveBottom'].forEach(function(id) {
-    var b = document.getElementById(id);
-    if (b) { b.classList.add('disabled'); b.disabled = true; }
-  });
-  ['mySaveMsgTop','mySaveMsgBottom'].forEach(function(id) {
-    var m = document.getElementById(id);
-    if (m) m.classList.remove('show');
-  });
-  ['myCancelTop','myCancelBottom'].forEach(function(id) {
-    var c = document.getElementById(id);
-    if (c) c.classList.remove('show');
-  });
+  var bar = document.getElementById('mySaveBar');
+  if (bar) bar.classList.remove('show');
 }
 function doMypageSave() {
   alert('변경사항이 저장되었습니다.');
