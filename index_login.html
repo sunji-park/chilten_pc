@@ -177,18 +177,17 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
 .signup-step-line{width:24px;height:2px;background:var(--line);margin-bottom:16px;}
 
 /* 이용약관 체크 */
-.terms-check{display:flex;align-items:center;gap:10px;padding:11px 0;cursor:pointer;user-select:none;}
-.terms-check.all{background:var(--sub-blue);border:2px solid var(--blue);border-radius:12px;padding:16px 18px;margin-bottom:12px;}
-.terms-check input[type=checkbox]{display:none;}
-.tc-box{width:22px;height:22px;border:2px solid var(--line);border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .15s;}
-.tc-box::after{content:'✓';font-size:13px;color:transparent;font-weight:700;transition:color .15s;}
-.terms-check input:checked + .tc-box{background:var(--blue);border-color:var(--blue);}
-.terms-check input:checked + .tc-box::after{color:#fff;}
-.tc-label{font-size:14px;color:var(--text1);flex:1;font-weight:500;}
-.terms-check.all .tc-label{font-weight:800;font-size:16px;color:var(--blue);}
+.terms-check{display:flex;align-items:center;gap:10px;padding:9px 0;cursor:pointer;user-select:none;}
+.terms-check.all{background:var(--sub-blue);border:1px solid var(--blue);border-radius:10px;padding:12px 14px;margin-bottom:10px;}
+.terms-check input[type=checkbox]{width:16px;height:16px;accent-color:var(--blue);cursor:pointer;flex-shrink:0;}
+.tc-box{display:none;}
+.tc-label{font-size:13px;color:var(--text1);flex:1;font-weight:500;}
+.terms-check.all .tc-label{font-weight:700;font-size:14px;color:var(--blue);}
 .tc-view{background:none;border:none;color:var(--text2);font-size:12px;cursor:pointer;text-decoration:underline;padding:0;}
 .tc-view:hover{color:var(--blue);}
 .terms-divider{display:none;}
+.signup-auto-login-spinner{width:36px;height:36px;border:3px solid var(--line);border-top-color:var(--blue);border-radius:50%;margin:0 auto;animation:spin .8s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
 
 /* 가입방식 선택 카드 */
 .signup-method-cards{margin-top:8px;}
@@ -251,6 +250,17 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
 .auth-field-msg.error{color:var(--red);}
 .auth-field-msg.info{color:var(--blue);}
 .field-req{color:var(--red);font-weight:700;}
+
+/* compact 모드 (정보입력 폼 높이 줄임) */
+.auth-field.compact{margin-bottom:12px;}
+.auth-field.compact label{font-size:11px;margin-bottom:3px;}
+.auth-field.compact input,.auth-field.compact select{height:38px;font-size:13px;}
+.auth-field.compact .auth-inline-btn{height:38px;padding:0 12px;font-size:11px;}
+.auth-field.compact .auth-toggle{height:38px;}
+.auth-field.compact .auth-toggle-btn{font-size:12px;}
+.auth-row.compact{gap:8px;}
+.auth-row.compact .auth-field{margin-bottom:12px;}
+.auth-verify-timer{font-size:12px;font-weight:700;color:var(--red);white-space:nowrap;flex-shrink:0;}
 
 /* 토글 버튼 (장애여부 / 볼링구분) */
 .auth-toggle{display:flex;border:1.5px solid var(--line);border-radius:8px;overflow:hidden;height:44px;}
@@ -6965,6 +6975,9 @@ openAuthModal = function(type) {
 var _signupMethod = 'direct'; // 'direct' | 'google' | 'naver' | 'kakao'
 var _emailVerified = false;
 
+var _phoneVerified = false;
+var _phoneTimerInterval = null;
+
 function goSignupStep(step) {
   // 패널 표시
   for (var i = 1; i <= 4; i++) {
@@ -6978,14 +6991,13 @@ function goSignupStep(step) {
     else if (s === step) el.classList.add('active');
   });
 
-  // Step3: 소셜가입 시 자동입력 처리
-  if (step === 3) {
+  // Step2(정보입력): 소셜가입 시 자동입력 처리
+  if (step === 2) {
     var isSocial = (_signupMethod !== 'direct');
     document.getElementById('signupSocialNotice').style.display = isSocial ? 'flex' : 'none';
     if (isSocial) {
       var providerName = { google: 'Google', naver: 'Naver', kakao: 'Kakao', apple: 'Apple' }[_signupMethod] || '';
       document.getElementById('signupSocialLabel').textContent = providerName + ' 계정으로부터 전달된 정보는 수정할 수 없습니다.';
-      // 데모용 소셜 자동입력 데이터
       var demoSocial = {
         google: { email: 'user@gmail.com', name: '홍길동' },
         naver:  { email: 'user@naver.com', name: '홍길동' },
@@ -7003,10 +7015,8 @@ function goSignupStep(step) {
       nameEl.readOnly = true;
       nameEl.style.color = 'var(--text2)';
       nameEl.style.background = 'var(--bg)';
-      // 소셜은 이메일 인증 불필요 — 인증 버튼 숨김
       document.getElementById('signupSendCode').style.display = 'none';
       _emailVerified = true;
-      // 소셜은 비밀번호 입력 불필요 — 숨김
       document.getElementById('signupPw').closest('.auth-field').style.display = 'none';
       document.getElementById('signupPwConfirm').closest('.auth-field').style.display = 'none';
     } else {
@@ -7024,24 +7034,69 @@ function goSignupStep(step) {
       _emailVerified = false;
       document.getElementById('signupVerifyWrap').style.display = 'none';
       document.getElementById('signupVerifyMsg').textContent = '';
-      // 직접입력은 비밀번호 입력 표시
       document.getElementById('signupPw').closest('.auth-field').style.display = '';
       document.getElementById('signupPwConfirm').closest('.auth-field').style.display = '';
     }
   }
 
-  // Step4: 완료 정보 표시
+  // Step4: 가입완료 → 자동 로그인
   if (step === 4) {
-    var email = document.getElementById('signupEmail').value || '—';
-    var nick = document.getElementById('signupNickname').value || '—';
-    document.getElementById('signupCompleteEmail').textContent = email;
-    document.getElementById('signupCompleteNickname').textContent = '닉네임: ' + nick;
+    setTimeout(function() {
+      closeAuthModal('signup');
+      alert('회원가입이 완료되어 자동 로그인되었습니다.');
+    }, 1500);
   }
 }
 
 function selectSignupMethod(method) {
   _signupMethod = method;
-  goSignupStep(3);
+  goSignupStep(2);
+}
+
+// 핸드폰 인증
+function sendPhoneVerify() {
+  var phone = document.getElementById('signupPhone').value.trim();
+  if (!phone) { alert('핸드폰 번호를 입력해 주세요.'); return; }
+  document.getElementById('signupPhoneVerifyWrap').style.display = '';
+  var msg = document.getElementById('signupPhoneVerifyMsg');
+  msg.textContent = '인증번호가 발송되었습니다.';
+  msg.className = 'auth-field-msg info';
+  _phoneVerified = false;
+  document.getElementById('signupPhoneSendBtn').textContent = '재발송';
+  // 타이머 시작 (3분)
+  var remaining = 180;
+  var timerEl = document.getElementById('phoneTimer');
+  if (_phoneTimerInterval) clearInterval(_phoneTimerInterval);
+  timerEl.style.display = '';
+  _phoneTimerInterval = setInterval(function() {
+    remaining--;
+    var m = Math.floor(remaining / 60);
+    var s = remaining % 60;
+    timerEl.textContent = (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s;
+    if (remaining <= 0) {
+      clearInterval(_phoneTimerInterval);
+      timerEl.textContent = '시간만료';
+      msg.textContent = '인증시간이 만료되었습니다. 재발송해 주세요.';
+      msg.className = 'auth-field-msg error';
+    }
+  }, 1000);
+}
+function verifyPhone() {
+  var code = document.getElementById('signupPhoneCode').value.trim();
+  var msg = document.getElementById('signupPhoneVerifyMsg');
+  if (code.length === 6) {
+    _phoneVerified = true;
+    msg.textContent = '핸드폰 인증이 완료되었습니다.';
+    msg.className = 'auth-field-msg success';
+    document.getElementById('signupPhoneVerifyBtn').disabled = true;
+    document.getElementById('signupPhoneVerifyBtn').textContent = '인증완료';
+    document.getElementById('signupPhoneSendBtn').disabled = true;
+    document.getElementById('phoneTimer').style.display = 'none';
+    if (_phoneTimerInterval) clearInterval(_phoneTimerInterval);
+  } else {
+    msg.textContent = '인증번호 6자리를 정확히 입력해 주세요.';
+    msg.className = 'auth-field-msg error';
+  }
 }
 
 // 약관 전체동의
@@ -7105,6 +7160,16 @@ openAuthModal = function(type) {
     document.getElementById('signupSendCode').textContent = '인증번호 발송';
     document.getElementById('signupSendCode').style.display = '';
     document.getElementById('signupVerifyBtn').textContent = '확인';
+    // 핸드폰 인증 초기화
+    _phoneVerified = false;
+    if (_phoneTimerInterval) clearInterval(_phoneTimerInterval);
+    document.getElementById('signupPhoneVerifyWrap').style.display = 'none';
+    document.getElementById('signupPhoneVerifyMsg').textContent = '';
+    document.getElementById('signupPhoneSendBtn').textContent = '인증번호 발송';
+    document.getElementById('signupPhoneSendBtn').disabled = false;
+    document.getElementById('signupPhoneVerifyBtn').textContent = '확인';
+    document.getElementById('signupPhoneVerifyBtn').disabled = false;
+    document.getElementById('phoneTimer').textContent = '03:00';
     document.getElementById('termsNextBtn').disabled = true;
     goSignupStep(1);
   }
@@ -7830,19 +7895,146 @@ go = function(id) {
 
       <!-- ── 스텝 인디케이터 ── -->
       <div class="signup-steps" id="signupSteps">
-        <div class="signup-step active" data-step="1"><span class="step-num">1</span><span class="step-label">이용약관</span></div>
+        <div class="signup-step active" data-step="1"><span class="step-num">1</span><span class="step-label">가입방식</span></div>
         <div class="signup-step-line"></div>
-        <div class="signup-step" data-step="2"><span class="step-num">2</span><span class="step-label">가입방식</span></div>
+        <div class="signup-step" data-step="2"><span class="step-num">2</span><span class="step-label">정보입력</span></div>
         <div class="signup-step-line"></div>
-        <div class="signup-step" data-step="3"><span class="step-num">3</span><span class="step-label">정보입력</span></div>
+        <div class="signup-step" data-step="3"><span class="step-num">3</span><span class="step-label">약관동의</span></div>
         <div class="signup-step-line"></div>
         <div class="signup-step" data-step="4"><span class="step-num">4</span><span class="step-label">완료</span></div>
       </div>
 
-      <!-- ── STEP 1: 이용약관 동의 ── -->
+      <!-- ── STEP 1: 가입방식 선택 ── -->
       <div id="signupStep1" class="signup-panel">
-        <div class="auth-modal-title" style="font-size:18px;margin-bottom:4px;">이용약관 동의</div>
-        <div class="auth-modal-desc">서비스 이용을 위해 약관에 동의해 주세요.</div>
+        <div class="auth-modal-title" style="font-size:18px;margin-bottom:4px;">간편하게 시작하세요</div>
+        <div class="auth-modal-desc">소셜 계정으로 3초 만에 가입할 수 있습니다.</div>
+
+        <div class="signup-method-cards">
+          <div class="signup-social-main">
+            <button class="signup-social-big kakao" onclick="selectSignupMethod('kakao')">
+              <span class="ssb-icon" style="font-size:13px;font-weight:800;">TALK</span>
+              <span class="ssb-text">카카오로 시작하기</span>
+            </button>
+            <button class="signup-social-big naver" onclick="selectSignupMethod('naver')">
+              <span class="ssb-icon"><b>N</b></span>
+              <span class="ssb-text">네이버로 시작하기</span>
+            </button>
+            <button class="signup-social-big google" onclick="selectSignupMethod('google')">
+              <span class="ssb-icon"><b>G</b></span>
+              <span class="ssb-text">Google로 시작하기</span>
+            </button>
+            <button class="signup-social-big apple" onclick="selectSignupMethod('apple')">
+              <span class="ssb-icon" style="font-size:17px;"></span>
+              <span class="ssb-text">Apple로 시작하기</span>
+            </button>
+          </div>
+          <div class="signup-direct-link">
+            <span>소셜 계정 없이 가입하시겠어요?</span>
+            <button onclick="selectSignupMethod('direct')">이메일로 직접 가입 →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── STEP 2: 정보입력 ── -->
+      <div id="signupStep2" class="signup-panel" style="display:none;">
+        <div class="auth-modal-title" style="font-size:16px;margin-bottom:2px;">정보 입력</div>
+        <div class="auth-modal-desc" id="signupStep2Desc" style="font-size:12px;margin-bottom:12px;">회원 정보를 입력해 주세요.</div>
+
+        <!-- 소셜 가입 시 자동입력 안내 -->
+        <div class="signup-social-notice" id="signupSocialNotice" style="display:none;">
+          <span class="ssn-icon">🔗</span>
+          <span class="ssn-text" id="signupSocialLabel">소셜 계정으로부터 전달된 정보는 수정할 수 없습니다.</span>
+        </div>
+
+        <div class="auth-field compact">
+          <label>이메일 <span class="field-req">*</span></label>
+          <div class="auth-field-inline">
+            <input type="email" id="signupEmail" placeholder="이메일을 입력하세요." style="flex:1;">
+            <button class="auth-inline-btn" id="signupSendCode" onclick="sendVerifyCode()">인증번호 발송</button>
+          </div>
+        </div>
+        <div class="auth-field compact" id="signupVerifyWrap" style="display:none;">
+          <label>인증번호 <span class="field-req">*</span></label>
+          <div class="auth-field-inline">
+            <input type="text" id="signupVerifyCode" placeholder="인증번호 6자리 입력" maxlength="6" style="flex:1;">
+            <button class="auth-inline-btn verify" id="signupVerifyBtn" onclick="verifyCode()">확인</button>
+          </div>
+          <div class="auth-field-msg" id="signupVerifyMsg"></div>
+        </div>
+
+        <div class="auth-field compact">
+          <label>비밀번호 <span class="field-req">*</span></label>
+          <input type="password" id="signupPw" placeholder="비밀번호 (8자 이상, 영문+숫자+특수문자)">
+        </div>
+        <div class="auth-field compact">
+          <label>비밀번호 확인 <span class="field-req">*</span></label>
+          <input type="password" id="signupPwConfirm" placeholder="비밀번호를 다시 입력하세요.">
+        </div>
+        <div class="auth-field compact">
+          <label>이름 <span class="field-req">*</span></label>
+          <input type="text" id="signupName" placeholder="이름을 입력하세요.">
+        </div>
+        <div class="auth-field compact">
+          <label>핸드폰 번호 <span class="field-req">*</span></label>
+          <div class="auth-field-inline">
+            <input type="tel" id="signupPhone" placeholder="010-0000-0000" style="flex:1;">
+            <button class="auth-inline-btn" id="signupPhoneSendBtn" onclick="sendPhoneVerify()">인증번호 발송</button>
+          </div>
+        </div>
+        <div class="auth-field compact" id="signupPhoneVerifyWrap" style="display:none;">
+          <label>인증번호 <span class="field-req">*</span></label>
+          <div class="auth-field-inline">
+            <input type="text" id="signupPhoneCode" placeholder="인증번호 6자리 입력" maxlength="6" style="flex:1;">
+            <span class="auth-verify-timer" id="phoneTimer">03:00</span>
+            <button class="auth-inline-btn verify" id="signupPhoneVerifyBtn" onclick="verifyPhone()">확인</button>
+          </div>
+          <div class="auth-field-msg" id="signupPhoneVerifyMsg"></div>
+        </div>
+        <div class="auth-row compact">
+          <div class="auth-field compact" style="flex:1;">
+            <label>생년월일 <span class="field-req">*</span></label>
+            <input type="date" id="signupBirth">
+          </div>
+          <div class="auth-field compact" style="flex:0 0 120px;">
+            <label>성별 <span class="field-req">*</span></label>
+            <select id="signupGender">
+              <option value="">선택</option>
+              <option>남성</option>
+              <option>여성</option>
+            </select>
+          </div>
+        </div>
+        <div class="auth-field compact">
+          <label>닉네임 <span class="field-req">*</span></label>
+          <input type="text" id="signupNickname" placeholder="활동에 사용할 닉네임">
+        </div>
+        <div class="auth-row compact">
+          <div class="auth-field compact" style="flex:1;">
+            <label>장애 여부 <span class="field-req">*</span></label>
+            <div class="auth-toggle" id="signupDisability" data-value="비장애">
+              <button type="button" class="auth-toggle-btn active" onclick="setAuthToggle(this,'signupDisability','비장애')">비장애</button>
+              <button type="button" class="auth-toggle-btn" onclick="setAuthToggle(this,'signupDisability','장애')">장애</button>
+            </div>
+          </div>
+          <div class="auth-field compact" style="flex:1;">
+            <label>볼링 구분 <span class="field-req">*</span></label>
+            <div class="auth-toggle" id="signupLevel" data-value="아마추어">
+              <button type="button" class="auth-toggle-btn active" onclick="setAuthToggle(this,'signupLevel','아마추어')">아마추어</button>
+              <button type="button" class="auth-toggle-btn" onclick="setAuthToggle(this,'signupLevel','프로')">프로</button>
+            </div>
+          </div>
+        </div>
+
+        <div style="display:flex;gap:10px;margin-top:16px;">
+          <button class="auth-btn-back" style="margin-top:0;" onclick="goSignupStep(1)">← 이전</button>
+          <button class="auth-btn-primary" style="flex:1;margin-top:0;" onclick="goSignupStep(3)">다음</button>
+        </div>
+      </div>
+
+      <!-- ── STEP 3: 약관동의 ── -->
+      <div id="signupStep3" class="signup-panel" style="display:none;">
+        <div class="auth-modal-title" style="font-size:16px;margin-bottom:2px;">이용약관 동의</div>
+        <div class="auth-modal-desc" style="font-size:12px;margin-bottom:12px;">서비스 이용을 위해 약관에 동의해 주세요.</div>
 
         <label class="terms-check all">
           <input type="checkbox" id="termsAll" onchange="toggleAllTerms(this.checked)">
@@ -7875,122 +8067,9 @@ go = function(id) {
           <button class="tc-view" onclick="event.preventDefault();">보기</button>
         </label>
 
-        <button class="auth-btn-primary" id="termsNextBtn" disabled style="margin-top:24px;" onclick="goSignupStep(2)">다음</button>
-      </div>
-
-      <!-- ── STEP 2: 가입방식 선택 ── -->
-      <div id="signupStep2" class="signup-panel" style="display:none;">
-        <div class="auth-modal-title" style="font-size:18px;margin-bottom:4px;">간편하게 시작하세요</div>
-        <div class="auth-modal-desc">소셜 계정으로 3초 만에 가입할 수 있습니다.</div>
-
-        <div class="signup-method-cards">
-          <!-- 소셜가입 (메인) -->
-          <div class="signup-social-main">
-            <button class="signup-social-big kakao" onclick="selectSignupMethod('kakao')">
-              <span class="ssb-icon" style="font-size:13px;font-weight:800;">TALK</span>
-              <span class="ssb-text">카카오로 시작하기</span>
-            </button>
-            <button class="signup-social-big naver" onclick="selectSignupMethod('naver')">
-              <span class="ssb-icon"><b>N</b></span>
-              <span class="ssb-text">네이버로 시작하기</span>
-            </button>
-            <button class="signup-social-big google" onclick="selectSignupMethod('google')">
-              <span class="ssb-icon"><b>G</b></span>
-              <span class="ssb-text">Google로 시작하기</span>
-            </button>
-            <button class="signup-social-big apple" onclick="selectSignupMethod('apple')">
-              <span class="ssb-icon" style="font-size:17px;"></span>
-              <span class="ssb-text">Apple로 시작하기</span>
-            </button>
-          </div>
-
-          <!-- 직접입력 (축소) -->
-          <div class="signup-direct-link">
-            <span>소셜 계정 없이 가입하시겠어요?</span>
-            <button onclick="selectSignupMethod('direct')">이메일로 직접 가입 →</button>
-          </div>
-        </div>
-
-        <button class="auth-btn-back" onclick="goSignupStep(1)">← 이전</button>
-      </div>
-
-      <!-- ── STEP 3: 정보입력 ── -->
-      <div id="signupStep3" class="signup-panel" style="display:none;">
-        <div class="auth-modal-title" style="font-size:18px;margin-bottom:4px;">정보 입력</div>
-        <div class="auth-modal-desc" id="signupStep3Desc">회원 정보를 입력해 주세요.</div>
-
-        <!-- 소셜 가입 시 자동입력 안내 -->
-        <div class="signup-social-notice" id="signupSocialNotice" style="display:none;">
-          <span class="ssn-icon">🔗</span>
-          <span class="ssn-text" id="signupSocialLabel">소셜 계정으로부터 전달된 정보는 수정할 수 없습니다.</span>
-        </div>
-
-        <div class="auth-field">
-          <label>이메일 <span class="field-req">*</span></label>
-          <div class="auth-field-inline">
-            <input type="email" id="signupEmail" placeholder="이메일을 입력하세요." style="flex:1;">
-            <button class="auth-inline-btn" id="signupSendCode" onclick="sendVerifyCode()">인증번호 발송</button>
-          </div>
-        </div>
-        <div class="auth-field" id="signupVerifyWrap" style="display:none;">
-          <label>인증번호 <span class="field-req">*</span></label>
-          <div class="auth-field-inline">
-            <input type="text" id="signupVerifyCode" placeholder="인증번호 6자리 입력" maxlength="6" style="flex:1;">
-            <button class="auth-inline-btn verify" id="signupVerifyBtn" onclick="verifyCode()">확인</button>
-          </div>
-          <div class="auth-field-msg" id="signupVerifyMsg"></div>
-        </div>
-
-        <div class="auth-field">
-          <label>비밀번호 <span class="field-req">*</span></label>
-          <input type="password" id="signupPw" placeholder="비밀번호 (8자 이상, 영문+숫자+특수문자)">
-        </div>
-        <div class="auth-field">
-          <label>비밀번호 확인 <span class="field-req">*</span></label>
-          <input type="password" id="signupPwConfirm" placeholder="비밀번호를 다시 입력하세요.">
-        </div>
-        <div class="auth-field">
-          <label>이름 <span class="field-req">*</span></label>
-          <input type="text" id="signupName" placeholder="이름을 입력하세요.">
-        </div>
-        <div class="auth-row">
-          <div class="auth-field" style="flex:1;">
-            <label>생년월일 <span class="field-req">*</span></label>
-            <input type="date" id="signupBirth">
-          </div>
-          <div class="auth-field" style="flex:0 0 120px;">
-            <label>성별 <span class="field-req">*</span></label>
-            <select id="signupGender">
-              <option value="">선택</option>
-              <option>남성</option>
-              <option>여성</option>
-            </select>
-          </div>
-        </div>
-        <div class="auth-field">
-          <label>닉네임 <span class="field-req">*</span></label>
-          <input type="text" id="signupNickname" placeholder="활동에 사용할 닉네임">
-        </div>
-        <div class="auth-row">
-          <div class="auth-field" style="flex:1;">
-            <label>장애 여부 <span class="field-req">*</span></label>
-            <div class="auth-toggle" id="signupDisability" data-value="비장애">
-              <button type="button" class="auth-toggle-btn active" onclick="setAuthToggle(this,'signupDisability','비장애')">비장애</button>
-              <button type="button" class="auth-toggle-btn" onclick="setAuthToggle(this,'signupDisability','장애')">장애</button>
-            </div>
-          </div>
-          <div class="auth-field" style="flex:1;">
-            <label>볼링 구분 <span class="field-req">*</span></label>
-            <div class="auth-toggle" id="signupLevel" data-value="아마추어">
-              <button type="button" class="auth-toggle-btn active" onclick="setAuthToggle(this,'signupLevel','아마추어')">아마추어</button>
-              <button type="button" class="auth-toggle-btn" onclick="setAuthToggle(this,'signupLevel','프로')">프로</button>
-            </div>
-          </div>
-        </div>
-
-        <div style="display:flex;gap:10px;margin-top:24px;">
+        <div style="display:flex;gap:10px;margin-top:16px;">
           <button class="auth-btn-back" style="margin-top:0;" onclick="goSignupStep(2)">← 이전</button>
-          <button class="auth-btn-primary" style="flex:1;margin-top:0;" onclick="goSignupStep(4)">가입하기</button>
+          <button class="auth-btn-primary" style="flex:1;margin-top:0;" id="termsNextBtn" disabled onclick="goSignupStep(4)">가입하기</button>
         </div>
       </div>
 
@@ -7999,16 +8078,11 @@ go = function(id) {
         <div style="text-align:center;padding:40px 0 20px;">
           <img src="chilten_logo_blue.svg" alt="칠텐" style="height:48px;margin-bottom:16px;">
           <div class="auth-modal-title" style="font-size:20px;margin-bottom:8px;">회원가입 완료!</div>
-          <div class="auth-modal-desc" style="margin-bottom:0;">칠텐에 오신 것을 환영합니다.<br>지금 바로 볼링의 모든 것을 경험해 보세요!</div>
+          <div class="auth-modal-desc" style="margin-bottom:0;">칠텐에 오신 것을 환영합니다.<br>자동으로 로그인됩니다.</div>
         </div>
-        <div style="background:var(--bg);border-radius:12px;padding:16px 20px;margin:24px 0;">
-          <div style="font-size:13px;color:var(--text2);margin-bottom:6px;">가입 정보</div>
-          <div style="font-size:14px;font-weight:600;color:var(--text1);" id="signupCompleteEmail">—</div>
-          <div style="font-size:13px;color:var(--text2);margin-top:4px;" id="signupCompleteNickname">—</div>
-        </div>
-        <button class="auth-btn-primary" onclick="closeAuthModal('signup')">시작하기</button>
-        <div style="text-align:center;margin-top:16px;font-size:13px;color:var(--text2);">
-          <span style="color:var(--blue);font-weight:600;cursor:pointer;" onclick="closeAuthModal('signup');openAuthModal('login')">로그인하러 가기 →</span>
+        <div style="text-align:center;padding:16px 0;">
+          <div class="signup-auto-login-spinner"></div>
+          <div style="font-size:13px;color:var(--text2);margin-top:12px;">로그인 중...</div>
         </div>
       </div>
 
